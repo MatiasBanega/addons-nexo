@@ -1,5 +1,5 @@
 ====================================
-   Basic HR-LinkedIn Connector  v12
+   Basic HR-LinkedIn Connector  v16
 ====================================
 
 The module integrates LinkedIn with Odoo HR Recruitment.
@@ -14,7 +14,8 @@ Developers
 ----------
 * `Nilmar Shereef <odoo@cybrosys.com>`__
 * `Jesni Banu 
-* `v11 & v12 Milind Mohan 
+* `v11 & v12 Milind Mohan
+*  v16 Gayathri V
 
 Contact
 -------

@@ -20,6 +20,11 @@
 #
 #############################################################################
 
-from . import models
-from . import controller
+from odoo import fields, models
 
+
+class LinkedinComments(models.Model):
+    """class for retrieving comments of shared post"""
+    _name = 'linkedin.comments'
+
+    linkedin_comments = fields.Char(string="Comments")

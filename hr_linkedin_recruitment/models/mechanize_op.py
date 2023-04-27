@@ -1,25 +1,25 @@
 # -*- coding: utf-8 -*-
-###################################################################################
+#############################################################################
 #
 #    Cybrosys Technologies Pvt. Ltd.
 #
-#    Author: Nilmar Shereef (<shereef@cybrosys.in>)
-#    Copyright (C) 2018-TODAY Cybrosys Technologies (<https://www.cybrosys.com>).
+#    Copyright (C) 2021-TODAY Cybrosys Technologies(<https://www.cybrosys.com>)
+#    Author: Cybrosys Techno Solutions(<https://www.cybrosys.com>)
 #
-#    This program is free software: you can modify
-#    it under the terms of the GNU Affero General Public License (AGPL) as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
+#    You can modify it under the terms of the GNU LESSER
+#    GENERAL PUBLIC LICENSE (LGPL v3), Version 3.
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
+#    GNU LESSER GENERAL PUBLIC LICENSE (LGPL v3) for more details.
 #
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#    You should have received a copy of the GNU LESSER GENERAL PUBLIC LICENSE
+#    (LGPL v3) along with this program.
+#    If not, see <http://www.gnu.org/licenses/>.
 #
-###################################################################################
+#############################################################################
+
 import logging
 import urllib
 _logger = logging.getLogger(__name__)
@@ -32,7 +32,6 @@ try:
 
     class MechanizeRedirectHandler(mechanize.HTTPRedirectHandler):
         def http_error_302(self, req, fp, code, msg, headers):
-            # Code from mechanize._urllib2_fork.HTTPRedirectHandler:
             if 'location' in headers:
                 newurl = headers.getheaders('location')[0]
             elif 'uri' in headers:
@@ -72,5 +71,3 @@ try:
 except ImportError:
     _logger.warning('Odoo module hr_linkedin_recruitment depends on the several external python package'
                   'Please read the doc/requirement.txt file inside the module.')
-
-

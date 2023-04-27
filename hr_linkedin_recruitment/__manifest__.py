@@ -1,47 +1,50 @@
 # -*- coding: utf-8 -*-
-###################################################################################
+#############################################################################
 #
 #    Cybrosys Technologies Pvt. Ltd.
 #
-#    Author: Nilmar Shereef (<shereef@cybrosys.in>)
-#    Copyright (C) 2019-TODAY Cybrosys Technologies (<https://www.cybrosys.com>).
+#    Copyright (C) 2021-TODAY Cybrosys Technologies(<https://www.cybrosys.com>)
+#    Author: Cybrosys Techno Solutions(<https://www.cybrosys.com>)
 #
-#    This program is free software: you can modify
-#    it under the terms of the GNU Affero General Public License (AGPL) as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
+#    You can modify it under the terms of the GNU LESSER
+#    GENERAL PUBLIC LICENSE (LGPL v3), Version 3.
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
+#    GNU LESSER GENERAL PUBLIC LICENSE (LGPL v3) for more details.
 #
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#    You should have received a copy of the GNU LESSER GENERAL PUBLIC LICENSE
+#    (LGPL v3) along with this program.
+#    If not, see <http://www.gnu.org/licenses/>.
 #
-###################################################################################
+#############################################################################
 {
-    'name': 'HR-LinkedIn Integration',
-    'summary': "Integrates LinkedIn with HR Recruitment",
+    'name': 'Advanced HR-LinkedIn Integration',
+    'summary': "Basic module for LnkedIn-HR Recruitment connector",
     'description': "Basic module for LnkedIn-HR Recruitment connector",
     'category': 'Generic Modules/Human Resources',
-    'version': "12.0.1.0.0",
+    'version': "16.0.1.0.0",
     'depends': ['hr_recruitment', 'auth_oauth'],
     'author': 'Cybrosys Techno Solutions',
     'company': 'Cybrosys Techno Solutions',
+    'maintainer': 'Cybrosys Techno Solutions',
     'website': "https://www.cybrosys.com",
     'data': [
         'data/auth_linkedin_data.xml',
+        'security/ir.model.access.csv',
         'views/recruitment_config_settings.xml',
         'views/hr_job_linkedin.xml',
+        'views/likes_commends.xml',
+        'views/linkedin_comments.xml',
         'views/oauth_view.xml',
     ],
     'external_dependencies':
         {
         'python': ['mechanize', 'linkedin'],
         },
-    'images': ['static/description/banner.jpg'],
-    'license': 'AGPL-3',
+    'images': ['static/description/banner.png'],
+    'license': 'LGPL-3',
     'installable': True,
     'auto_install': False,
     'application': False,
