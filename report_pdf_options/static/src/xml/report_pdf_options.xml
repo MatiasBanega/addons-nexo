@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="report_pdf_options.ButtonOptions" owl="1">
+        <div style="text-align:center;">
+            <div class="btn-group" role="group">
+                <button class="btn btn-info" t-on-click="executePdfAction('print')">
+                    <i class="fa fa-print mr-2"/>
+                    <span>Print</span>
+                </button>
+                <button class="btn btn-info" t-on-click="executePdfAction('download')">
+                    <i class="fa fa-download mr-2"/>
+                    <span>Download</span>
+                </button>
+                <button class="btn btn-info" t-on-click="executePdfAction('open')">
+                    <i class="fa fa-file-text mr-2"/>
+                    <span>Open</span>
+                </button>
+            </div>
+        </div>
+    </t>
+</templates>
