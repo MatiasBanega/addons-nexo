@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+    <record id="hr_employee_resume_tree_view" model="ir.ui.view">
+        <field name="name">hr.employee.resume.tree.view</field>
+        <field name="model">hr.resume.line</field>
+        <field name="arch" type="xml">
+            <tree string="Employee Resume" default_order='employee_id,date_start'>
+                <field name="employee_id"/>
+                <field name="name"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_employee_resume_from_view" model="ir.ui.view">
+        <field name="name">hr.employee.resume.form.view</field>
+        <field name="model">hr.resume.line</field>
+        <field name="arch" type="xml">
+            <form string="Employee Resume">
+                <group>
+                    <field name="employee_id"/>
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="description"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_employee_skill_tree_view" model="ir.ui.view">
+        <field name="name">hr.employee.skill.tree.view</field>
+        <field name="model">hr.employee.skill</field>
+        <field name="arch" type="xml">
+            <tree string="Employee Skills" default_order='employee_id,skill_type_id,skill_id'>
+                <field name="employee_id"/>
+                <field name="skill_id"/>
+                <field name="skill_level_id"/>
+                <field name="skill_type_id"/>
+                <field name="level_progress"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_employee_skill_from_view" model="ir.ui.view">
+        <field name="name">hr.employee.skill.form.view</field>
+        <field name="model">hr.employee.skill</field>
+        <field name="arch" type="xml">
+            <form string="Employee Skills">
+                <group>
+                    <field name="employee_id"/>
+                    <field name="skill_id"/>
+                    <field name="skill_level_id"/>
+                    <field name="skill_type_id"/>
+                    <field name="level_progress"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_employee_education" model="ir.actions.act_window">
+        <field name="name">Education</field>
+        <field name="res_model">hr.resume.line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('line_type_id', '=', 2)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data yet!
+            </p>
+        </field>
+    </record>
+
+    <record id="action_hr_employee_experience" model="ir.actions.act_window">
+        <field name="name">Experience</field>
+        <field name="res_model">hr.resume.line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('line_type_id', '=', 1)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data yet!
+            </p>
+        </field>
+    </record>
+
+    <record id="action_hr_employee_skill" model="ir.actions.act_window">
+        <field name="name">Skills</field>
+        <field name="res_model">hr.employee.skill</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data yet!
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_hr_employee_education"
+            action="op_hr_employee_competences_views.action_hr_employee_education"
+            name="Education"
+            parent="hr.menu_hr_employee_payroll"
+            sequence="4"/>
+
+    <menuitem
+            id="menu_hr_employee_experience"
+            action="op_hr_employee_competences_views.action_hr_employee_experience"
+            name="Experience"
+            parent="hr.menu_hr_employee_payroll"
+            sequence="5"/>
+
+    <menuitem
+            id="menu_hr_employee_skill"
+            action="op_hr_employee_competences_views.action_hr_employee_skill"
+            name="Skills"
+            parent="hr.menu_hr_employee_payroll"
+            sequence="6"/>
+
+</odoo>
