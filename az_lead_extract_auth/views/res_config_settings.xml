@@ -1,0 +1,24 @@
+<odoo>
+    <record id="instagram_feed_res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">monday_credential_res_config_settings_view_form
+            </field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="6"/>
+            <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='invite_users']" position="after">
+                   <h2>Browser Extention API token expiry</h2>
+	                <div class="row mt16 o_settings_container" >
+	                    <div class="col-12 col-lg-6 o_setting_box">
+	                       <div class="o_setting_right_pane"  >
+	                            <span class="o_light_label"><label class="font-weight-bold" for="api_token_expiration"/>
+		                         <field name="api_token_expiration" class="col-lg-2 text-center"/> Minutes</span>
+	                       </div>
+	                    </div>
+	                    
+					</div>
+                </xpath>
+               
+             </field>
+     </record>
+</odoo>

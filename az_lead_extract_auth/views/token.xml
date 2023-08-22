@@ -1,0 +1,24 @@
+<odoo>
+ 		
+	<record model="ir.ui.view" id="az_chrome_api_token_tree">
+            <field name="name">az_chrome_api_token_tree</field>
+            <field name="model">az.api.access.token</field>
+            <field name="arch" type="xml">
+                <tree string="Access Tokens" create="0">
+                	<field name="user_id"/>
+                	<field name="api_token"/>
+                	<field name="expiry_date" />
+                	<field name="last_accessed"/>
+                </tree>
+            </field>
+        </record>
+ 
+ 	 <record model="ir.actions.act_window" id="az_chrome_token_action">
+            <field name="name">Chrome Api Access Tokens</field>
+            <field name="res_model">az.api.access.token</field>
+            <field name="view_mode">tree</field>
+        </record>  
+        
+  <menuitem id="az_chrome_api_token" name="Chrome Api Access Tokens" parent="base.menu_security" action="az_chrome_token_action"/>
+
+</odoo>
