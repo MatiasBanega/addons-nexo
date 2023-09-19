@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		<record id="ir_cron_notification" model="ir.cron">
+			<field name="name">Enviar Notificaciones de Asistencia</field>
+			<field name="model_id" ref="model_asistencia_notificacion"/>
+			<field name="state">code</field>
+			<field name="code">action=model.popupNotification()</field>
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+<!--			<field name="hour">9</field>-->
+<!--			<field name="day_of_week">1-5</field>-->
+			<field eval="True" name="doall"/>
+		</record>
+	</data>
+</odoo>
