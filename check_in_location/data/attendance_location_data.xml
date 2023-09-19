@@ -1,0 +1,27 @@
+<odoo>
+    <data noupdate="1">
+        <record id="attendance_location_company" model="hr.attendance.location">
+            <field name="sequence">2</field>
+            <field name="code">COMP</field>
+            <field name="name">Company</field>
+            <field name="loc_class_name">location_vp1</field>
+        </record>
+
+        <record id="attendance_location_home" model="hr.attendance.location">
+            <field name="sequence">1</field>
+            <field name="code">HOME</field>
+            <field name="name">Home</field>
+            <field name="loc_class_name">location_home</field>
+        </record>
+
+        <record id="attendance_location_other" model="hr.attendance.location">
+            <field name="sequence">3</field>
+            <field name="code">OTHER</field>
+            <field name="name">Other</field>
+            <field name="loc_class_name">location_other</field>
+        </record>
+    </data>
+
+</odoo>
+
+

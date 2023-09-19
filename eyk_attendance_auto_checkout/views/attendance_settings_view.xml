@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.hr.attendance</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="80"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('app_settings_block')]/div[@name=('overtime_settings')]" position="after">
+                <h2>Automatic Checkout Time</h2>
+                <div class="row mt16 o_settings_container" name="attendance_setting_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Default automatic checkout time</span>
+                            <div class="mt8">
+                                <field name="auto_checkout_time"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>Email Settings</h2>
+                <div class="row mt16 o_settings_container" name="email_setting_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="auto_send_email"/>
+                            <field name="auto_send_email"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt16 o_settings_container" name="email_recipient_setting_container" attrs="{'invisible': [('auto_send_email', '=', False)]}">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Email Recipient</span>
+                            <div class="mt8">
+                                <field name="email_recipient" attrs="{'required': [('auto_send_email', '=', True)]}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

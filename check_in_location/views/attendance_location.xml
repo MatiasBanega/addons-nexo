@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+<!--        update tag action client-->
+        <record id="hr_attendance.hr_attendance_action_my_attendances" model="ir.actions.client">
+            <field name="tag">bh_hr_attendance_my_attendances</field>
+        </record>
+
+        <record id="bh_hr_attendance_tree_inherit" model="ir.ui.view">
+			<field name="name">hr.attendance.tree.inherit</field>
+			<field name="model">hr.attendance</field>
+			<field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='worked_hours']" position="before">
+					<field name="attendance_location" required="1"/>
+				</xpath>
+			</field>
+		</record>
+
+        <record id="hr_attendance_location_tree_view" model="ir.ui.view">
+            <field name="name">hr.attendance.location.view.tree</field>
+            <field name="model">hr.attendance.location</field>
+            <field name="arch" type="xml">
+                <tree string="Attendance Location" default_order="sequence" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="code"/>
+                    <field name="name" />
+                    <field name="loc_class_name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_attendance_location_action" model="ir.actions.act_window">
+            <field name="name">Attendance Locations</field>
+            <field name="res_model">hr.attendance.location</field>
+            <field name="view_mode">tree</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem id="menu_hr_attendance_config" name="Configuration" parent="hr_attendance.menu_hr_attendance_settings" sequence="1" action="hr_attendance.action_hr_attendance_settings" groups="hr_attendance.group_hr_attendance_manager"/>
+        <menuitem id="menu_hr_attendance_location_config" name="Attendance Location Config" parent="hr_attendance.menu_hr_attendance_settings" sequence="2" action="check_in_location.hr_attendance_location_action" groups="hr_attendance.group_hr_attendance_manager"/>
+    </data>
+
+</odoo>
