@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  
+  	 <record id="az_brief_view_order_form_inherited" model="ir.ui.view">
+		<field name="name">az_brief_view_order_form_inherited</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//header" position="inside">
+				<field name="active_brief" invisible="1" />
+				<field name="brief_shared" invisible="1" />
+				<field name="brief_ask_to_adjust" invisible="1" />
+				<button name="action_brief" type="object" 
+                        string="Brief" class="oe_highlight"/>
+                <button name="action_share_brief" type="object" 
+                        string="Share Brief" class="oe_highlight" attrs="{'invisible': ['|', ('active_brief', '=', False), ('brief_shared', '=', True)]}"/>
+                <button name="action_brief_revision" type="object" 
+                        string="Brief Revision" class="oe_highlight" attrs="{'invisible': ['|', ('active_brief', '=', False), ('brief_shared', '=', False)]}"/>
+                <button name="action_brief_reassign" type="object" 
+                        string="Re-Assign Brief" class="oe_highlight" attrs="{'invisible': [ ('brief_ask_to_adjust', '=', False)]}"/>
+                       
+			</xpath>
+			<xpath expr="//page[@name='other_information']" position="after">
+				<page string="Briefs" name="brief_info">
+					<group>
+						 <label for="active_brief" />
+					 	<div groups="product.group_product_pricelist" class="o_row">
+							<field name="active_brief" readonly="1"/>
+							<button name="remove_active_brief" type="object"
+	                                    string=" Remove"
+	                                    class="btn-link mb-1 px-0" icon="fa-trash"
+	                                    confirm="This will remove the active brief."
+	                                    attrs="{'invisible': [ ('active_brief', '=', False)]}"/>
+                          </div>
+					</group>
+					<group>
+						<field name="brief_ids" mode='tree' >
+							<tree create="0" edit="0" delete="0">
+								<field name="name" />
+								<field name="send_date" />
+								<field name="is_active" />
+								<field name="confirmed" />
+							</tree>
+							
+						</field>
+					</group>
+                 </page>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="brief_question_definition_tree" model="ir.ui.view">
+        <field name="name">brief_question_definition_tree</field>
+        <field name="model">az.brief.question.definition</field>
+        <field name="arch" type="xml">
+            <tree string="Brief Question Definition">
+                <field name="name"/>
+                 <field name="product_category_id"/>
+                <field name="default_answer"/>
+                 <field name="portal_bg_color" widget="color"/>
+            </tree>
+        </field>
+    </record>
+    
+     <record id="brief_question_definition_form" model="ir.ui.view">
+        <field name="name">brief_question_definition_form</field>
+        <field name="model">az.brief.question.definition</field>
+        <field name="arch" type="xml">
+            <form string="Brief Question Definition">
+                <sheet>
+                	<group>
+                		<field name="name"/>
+            		</group>
+            		<group >
+                			<field name="product_category_id"/>
+               			</group>
+            		<group>
+            			<field name="default_answer" widget="html"/>
+            		</group>
+            		<group>
+            		 	<field name="portal_bg_color" widget="color"/>
+           		 	</group>
+                </sheet>
+               </form>
+         </field>
+      </record>
+      
+      <record id="brief_tree" model="ir.ui.view">
+        <field name="name">brief_tree</field>
+        <field name="model">az.brief</field>
+        <field name="arch" type="xml">
+            <tree string="Brief">
+                <field name="name"/>
+                <field name="partner_id"/>
+                 <field name="create_uid"/>
+                <field name="shared" readonly="1"/>
+                <field name="send_date" readonly="1"/>
+                <field name="sale_id"/>
+                <field name="project_name"/>
+                <field name="brand"/>
+                <field name="cs_contact"/>
+                <field name="job_number"/>
+                 <field name="first_deadline"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="brief_form" model="ir.ui.view">
+        <field name="name">brief_form</field>
+        <field name="model">az.brief</field>
+        <field name="arch" type="xml">
+            <form string="Brief" >
+            	 <sheet>
+                 	<div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                    	<group>
+		                    <field name="create_uid"/>
+		                    <field name="partner_id"/>
+		                	<field name="shared" readonly="1"/>
+		                	<field name="confirmed" />
+		                	<field name="send_date" readonly="1"/>
+	                	</group>
+	                	<group>
+	                		<field name="project_name"/>
+			                <field name="brand"/>
+			                <field name="cs_contact"/>
+			                <field name="job_number"/>
+			                 <field name="first_deadline"/>
+	                	</group>
+                    </group>
+                   <notebook>
+                   		 <page string="Brief Questions" name="brief_lines">
+	                    	<field name="brief_line_ids" mode="tree">
+	                    		<tree editable="top">
+	                    			<field name="sale_id" invisible="1" />
+	                			     <field name="sequence" widget="handle"/>
+	                			     <field name="sale_line_id" domain="[('order_id', '=', sale_id)]" required="1"/>	
+	                    			<field name="question" required="1"/>
+	                    			<field name="answer" required="1"/>
+	                    			<field name="attachments" widget="many2many_binary" options="{'no_create': True}"/>
+	               			        <field name="reply_count"/>
+	               			        <field name="portal_bg_color" widget="color" />
+	               			       
+	                    			 <button name="action_view_replies"  type="object" string="View Replies"  icon="fa-globe icon"/>
+	                    		</tree>
+	                    	</field>
+                    	</page>
+                 </notebook>
+                   </sheet>
+ 					<div class="oe_chatter" >
+	                    <field name="message_follower_ids"/>
+	                    <field name="activity_ids"/>
+	                    <field name="message_ids"/>
+                	</div>
+               </form>
+         </field>
+      </record>
+      
+      <record id="brief_question_tree" model="ir.ui.view">
+        <field name="name">brief_question_tree</field>
+        <field name="model">az.brief.line</field>
+        <field name="arch" type="xml">
+            <tree string="Brief Questions List">
+            	 <field name="sequence" widget="handle"/>
+                <field name="brief_id"/>
+                 <field name="sale_line_id"/>
+                <field name="question"/>
+                <field name="answer"/>
+                <field name="attachments" widget="many2many_binary" options="{'no_create': True}"/>
+                <field name="reply_count"/>
+                <field name="portal_bg_color" widget="color"/>
+                 <button name="action_view_replies"  type="object" string="View Replies"  icon="fa-globe icon"/>
+            </tree>
+        </field>
+    </record>
+      
+      <record id="brief_answer_form" model="ir.ui.view">
+        <field name="name">brief_answer_form</field>
+        <field name="model">az.brief.line</field>
+        <field name="arch" type="xml">
+          	<form string="Brief Question">
+                <sheet>
+                	<group>
+                		<group>
+                			<field name="brief_id"/>
+                		</group>
+                		<group>
+                			<field name="sale_line_id"/>
+                		</group>
+            		</group>
+            		<group >
+                		<group>
+                			<field name="question"/>
+                		</group>
+                		<group>
+                			<field name="answer"/>
+                		</group>
+                		<group>
+                			 <field name="portal_bg_color" widget="color"/>
+                		 </group>
+             		</group>
+            		<group>
+            			<field name="attachments" widget="many2many_binary" options="{'no_create': True}"/>
+            		</group>
+            		<group>
+            			<field name="reply_ids" mode="tree">
+            				<tree editable="bottom">
+            					<field name="sequence" widget="handle" />
+            					<field name="reply" />
+            				</tree>
+            			</field>
+            		</group>
+                </sheet>
+                 <div class="oe_chatter" >
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+               </form>
+        </field>
+    </record>
+      
+      <record id="brief_question_definition_action" model="ir.actions.act_window">
+        <field name="name">Brief Question Definition</field>
+        <field name="res_model">az.brief.question.definition</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+     <record id="brief_action" model="ir.actions.act_window">
+        <field name="name">Brief</field>
+        <field name="res_model">az.brief</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+     <menuitem id="brief_question_definition_menu" parent="sale.menu_sale_config"  name="Brief Question Defintion" action="brief_question_definition_action" sequence="3"/>
+     <menuitem id="brief_menu" parent="sale.menu_sale_config"  name="Brief" action="brief_action" sequence="3"/>
+</odoo>

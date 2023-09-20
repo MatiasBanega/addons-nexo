@@ -1,0 +1,14 @@
+<odoo>
+    <record id="az_documents_folder_form_add_crm_fields" model="ir.ui.view">
+        <field name="name">documents.folder</field>
+        <field name="model">documents.folder</field>
+        <field name="inherit_id" ref="documents.folder_view_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_folder_id']" position="after">
+                <field name="is_crm_folder"></field>
+                <field name="crm_customer_id"></field>
+                <field name="crm_lead_id"></field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

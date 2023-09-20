@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="jsTreeWidget">
+        <div id="jsTreeContainer">
+        </div>
+        <div class="ml32 mt8" t-if="mode === 'edit'">
+            <button id="createJsTreeNode" class="btn btn-sm btn-secondary">
+                CREATE ROOT SUBFOLDER
+            </button>
+            <button id="createJsTreeFile" class="btn btn-sm btn-secondary">
+                UPLOAD ROOT FILE
+            </button>
+        </div>
+    </t>
+
+</templates>

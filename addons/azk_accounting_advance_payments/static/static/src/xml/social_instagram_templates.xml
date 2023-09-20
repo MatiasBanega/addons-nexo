@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- Enable "Bubble Design" in comments' modal -->
+    <t t-name="social.StreamPostComment" t-extend="social.StreamPostComment">
+        <t t-jquery="t[t-set='bubble_design']" t-operation="replace">
+             <t t-set="bubble_design" t-value="true" t-if="widget.options.originalPost.mediaType === 'instagram'"/>
+        </t>
+        <t t-jquery='div.o_social_comment_commands' t-operation="replace">
+             <div class="o_social_comment_commands">
+                   <!-- had to replace this div to remove the Like button for instagram account
+                      since Likes are not supported in the instagram API -->
+                     <a t-if="comment.media_type != 'instagram'" t-attf-class="o_social_comment_like btn btn-sm btn-link px-0 #{comment.user_likes ? 'o_social_comment_user_likes' : ''}"
+                              href="#"
+                           t-att-data-user-likes="comment.user_likes"
+                           t-att-data-comment-id="comment.id">
+                           Like
+                      </a>
+                      <span t-if="comment.media_type != 'instagram'" >&#183;</span>
+                      <a class="o_social_comment_reply btn btn-sm btn-link px-0" href="#"> Reply </a>
+                      <span t-if="comment.comments" class="o_social_comment_load_replies" t-att-data-inner-comments="JSON.stringify(comment.comments.data)">
+                          <span t-if="comment.comments">&#183;</span>
+                          <a class="btn btn-sm btn-link px-0" href="#">
+                              <i class="fa fa-comments mr-1"/>View <t t-esc="comment.comments.data.length"/> replies...
+                          </a>
+                     </span>
+             </div>
+        </t>
+    </t>
+    <t t-name="social.StreamPostComments" t-extend="social.StreamPostComments">
+        <t t-jquery="t[t-set='bubble_design']" t-operation="replace">
+             <t t-set="bubble_design" t-value="true" t-if="widget.options.originalPost.mediaType === 'instagram'"/>
+        </t>
+    </t>
+
+    <t t-name="social.StreamPostCommentsOriginalPost" t-extend="social.StreamPostCommentsOriginalPost">
+        <t t-jquery="span.o_social_original_post_author_image" t-operation="append">
+            <img t-if="originalPost.mediaType == 'instagram'" t-att-src="originalPost.linkDescription" alt="Author Image"/>
+        </t>
+        <t t-jquery="div.o_social_comments_modal_original_post_content" t-operation="append">
+            <div class="o_social_original_post_facebook_stats d-flex justify-content-around pt-2"
+                t-if="originalPost.mediaType === 'instagram'">
+                <div t-attf-class="o_social_facebook_likes pl-2 pr-3 #{originalPost.instagramUserLikes ? 'o_social_facebook_user_likes' : ''}"
+                    t-att-data-user-likes="originalPost.facebookUserLikes"
+                    t-att-data-post-id="originalPost.postId">
+                    <i class="fa fa-thumbs-up" title="Likes"/>
+                    <b class="o_social_likes_count" t-esc="originalPost.facebookLikesCount !== 0 ? originalPost.facebookLikesCount : ''"/>
+                </div>
+                <div class="flex-grow-1 d-flex text-muted justify-content-end">
+                    <div class="ml-3">
+                        <t t-esc="originalPost.facebookReach"/>
+                        Views
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+</templates>

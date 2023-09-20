@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vendor_rating_element,Vendor Rating Element,model_vendor_rating_element,base.group_system,1,1,1,1
+access_vendor_rating,Vendor Rating ,model_vendor_rating,base.group_user,1,1,1,1
+access_purchase_order_rating,Purchase Rating ,model_purchase_order_rating,base.group_user,1,1,1,1

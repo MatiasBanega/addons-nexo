@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<odoo>
+	<record id="sale_payment_history_form" model="ir.ui.view">
+      <field name="name">sale.payment.history.form</field>
+      <field name="model">sale.payment.history</field>
+      <field name="arch" type="xml">
+        <form>
+          <group string="Payment Details">
+            <group>
+            <field name="payment_id" string="Name" />
+            <field name="advance_amount"/>
+            <field name="order_id"/>
+          </group>
+          <group>
+            <field name="payment_method_id"/>
+            <field name="journal_id"/>
+            <field name="payment_date"/>
+          </group>
+         </group>
+          <group string="Currency">
+            <field name="currency_id"/>
+            <field name="currency_rate"/>
+          </group>
+        </form>
+      </field>
+    </record>
+</odoo> 

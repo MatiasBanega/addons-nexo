@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+az_request_for_delivery_access,so_request_for_delivery,model_request_for_delivery,,1,1,1,1
+az_request_for_delivery_files_access,so_request_for_delivery_file,model_request_for_delivery_file,,1,1,1,1
+az_request_for_delivery_file_upload_access,so_request_for_delivery_file_upload,model_upload_rfd_file_wizard,,1,1,1,1

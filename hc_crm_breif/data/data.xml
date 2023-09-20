@@ -1,0 +1,11 @@
+<odoo>
+<data noupdate="1">
+	<record id="group_breif_approval" model="res.groups">
+        <field name="name">Brief Approver</field>
+    </record>
+
+    <record id="group_breif_approval_for_customer" model="res.groups">
+        <field name="name">Brief Customer Approver</field>
+    </record>
+</data>
+</odoo>

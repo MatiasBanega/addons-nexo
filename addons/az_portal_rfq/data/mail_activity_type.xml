@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+        <record id="mail_activity_data_quoted" model="mail.activity.type">
+            <field name="name">RFQ Quoted</field>
+            <field name="icon">fa-envelope</field>
+            <field name="sequence">6</field>
+        </record>
+      </data>
+</odoo>

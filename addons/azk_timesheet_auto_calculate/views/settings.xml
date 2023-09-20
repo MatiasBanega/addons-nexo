@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_payroll.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+              <xpath expr="//div[@id='hr_payroll_accountant']" position="inside">
+                 <div class="col-lg-6 col-12 o_setting_box">
+                    <div class="o_setting_left_pane"/>
+                    <div class="o_setting_right_pane">
+                        <label for="hourly_rate_factor" string="Employees Hourly Rate Factor"/>
+                        <field name="hourly_rate_factor"/>
+                        <div class="text-muted">
+                            Hourly Rate Factor Used to calculate the Timesheet Cost of the Employees.
+                        </div>
+                    </div>
+                 </div>
+              </xpath>
+        </field>
+    </record>
+</odoo>

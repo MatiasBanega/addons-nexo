@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="view_customer_target_form" model="ir.ui.view">
+            <field name="name">res.partner.target</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='industry_id']" position="after">
+
+                    <field name="partner_target"/>
+                </xpath>
+
+                <xpath expr="//span[@name='address_name']" position="before">
+                    <field name="cust_type_ids" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+        <record id="view_team_target_form" model="ir.ui.view">
+            <field name="name">crm.team.target</field>
+            <field name="model">crm.team</field>
+            <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="after">
+
+                    <field name="team_target"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_salesperson_target_form" model="ir.ui.view">
+            <field name="name">res.users.target</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tz_offset']" position="after">
+
+                    <field name="salesperson_target"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_categ_target_form" model="ir.ui.view">
+            <field name="name">product.category.target</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+
+                    <field name="service_target"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+
+
+
+
+        <record id="custo_type" model="ir.ui.view">
+            <field name="name">customer.type.target_tree</field>
+            <field name="model">customer.type.target</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="customer_type_target"/>
+                     <field name="type"/>
+
+                </tree>
+            </field>
+        </record>
+
+    <record id="bcust_ype_form" model="ir.ui.view">
+        <field name="name">customer.type.target_form</field>
+        <field name="model">customer.type.target</field>
+        <field name="arch" type="xml">
+            <form>
+            	 <sheet>
+                 	<div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                    	<group>
+		                    <field name="customer_type_target"/>
+
+	                	</group>
+	                	<group>
+	                		<field name="type"/>
+	                	</group>
+                    </group>
+
+                   </sheet>
+<!-- 					<div class="oe_chatter" >-->
+<!--	                    <field name="message_follower_ids"/>-->
+<!--	                    <field name="activity_ids"/>-->
+<!--	                    <field name="message_ids"/>-->
+<!--                	</div>-->
+               </form>
+         </field>
+      </record>
+
+
+    <record id="cust_type_target_action" model="ir.actions.act_window">
+        <field name="name">Customer Type Target</field>
+        <field name="res_model">customer.type.target</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="cust_type_target_menu" parent="contacts.res_partner_menu_config"  name="Customer Type Target" action="cust_type_target_action"/>
+
+
+
+
+    </data>
+</odoo>

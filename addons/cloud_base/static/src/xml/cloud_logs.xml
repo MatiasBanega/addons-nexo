@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="cloud.base.log">
+        <div class="o_widget_cloud_logs">
+            <div class="cloud_logs_view">
+                <div class="clouds_logs_navigation">
+                    <div id="cloud_logs_clients_state"/>
+                    <div id="cloud_logs_queue"/>
+                    <div id="control_panel">
+                        <hr class="mt8"/>
+                        <div class="cloud_logs_control_panel pull-right">
+                            <span id="cloud_logs_export" class="cloud_logs_functional_btn">
+                                <i class="fa fa-download"></i> Export all logs
+                            </span>
+                        </div>      
+                    </div>              
+                </div>
+                <div class="cloud_logs_screen">
+                    <div id="cloud_logs_last_string"> </div>
+                    <div id="cloud_logs_html"/>
+                    <div id="clouds_logs_more_div" class="clouds_logs_screen_btn cloud_base_hidden">
+                        <a id="clouds_logs_more_btn" href="#">... load more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="cloud.base.clients.state">
+        <t t-foreach="cloud_clients" t-as="cloud_client">
+            <div t-attf-id="#{cloud_client.id}" 
+                 t-attf-class="cloud_logs_client_select #{cloud_client.chosen and 'cloud_logs_client_checked' or ''}"
+                 t-attf-title="#{cloud_client.title}"
+            >
+                <i t-attf-class="fa fa-circle text-#{cloud_client.state}"> </i>
+                <span t-out="cloud_client.name"></span>
+                <small t-if="cloud_client.id != 'CORE'">
+                    <i id="cloud_logs_open_client" 
+                       class="fa fa-external-link cloud_logs_functional_btn"
+                       t-attf-data-id="#{cloud_client.id}"
+                    ></i>
+                </small>
+            </div>
+        </t>
+
+    </t>
+
+    <t t-name="cloud.base.clients.queue">
+        <t t-if="client_queue">
+            <hr class="mt32"/>
+            <div class="cloud_queue_panel">
+                <a id="cloud_logs_active_tasks" href="#">
+                    Planned tasks: <span t-out="client_queue.active_tasks"/>
+                </a>
+            </div>
+            <div class="cloud_queue_panel">
+                <a t-if="client_queue.failed_tasks" id="cloud_logs_failed_tasks" href="#" class="text-danger">
+                    Failed tasks: <span t-out="client_queue.failed_tasks"/>
+                </a>
+            </div>
+        </t>
+    </t>
+
+</templates>

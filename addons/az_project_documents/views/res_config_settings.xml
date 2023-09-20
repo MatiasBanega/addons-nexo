@@ -1,0 +1,15 @@
+<odoo>
+    <record id="az_documents_add_project_options" model="ir.ui.view">
+        <field name="name">add.config.for.project.documents</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="documents_project.res_config_settings_view_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='project_folder']//.." position="after">
+                <div class="row">
+                    <label class="o_form_label col-lg-3" for="project_documents_structure"/>
+                    <field name="project_documents_structure"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

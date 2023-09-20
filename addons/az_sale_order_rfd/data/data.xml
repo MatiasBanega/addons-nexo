@@ -1,0 +1,58 @@
+<odoo noupdate="1">
+    
+    <record id="request_for_delivery_sequence" model="ir.sequence">
+        <field name="name">Request For Delivery Sequence</field>
+        <field name="code">request.for.delivery.sequence</field>
+        <field name="prefix">RFD/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    
+     <record id="sale_order_request_to_upload_delivery_files" model="mail.template">
+        <field name="name">RFD</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="subject">RFD / {{object.name}} / {{object.project_id.name}}</field>
+        <field name="body_html" type="html">
+            <div>
+                Hello<br/>
+                Please upload the low resolution designed materials for the Sale Order <t t-out="object.name"/> and add the URL link for the high-resolution design.
+                <br/>
+                <p style="padding-top: 24px; padding-bottom: 16px;">
+                    <a target="_blank" t-attf-href="{{ object.get_base_url() }}/web#id={{ object.id }}&amp;model=sale.order&amp;view_type=form" style="background-color:#875A7B; padding: 10px; text-decoration: none; color: #fff; border-radius: 5px;">
+                         View Sale Order <t t-out="object.name"/>
+                    </a>
+                </p>
+                <br/>
+                Thank you,
+                <t t-if="user.signature">
+                    <br />
+                    <t t-out="user.signature or ''"></t>
+                </t>
+            </div>
+        </field>
+        <field name="lang">{{object.partner_id.lang}}</field>
+    </record>
+    
+    <record id="sale_order_rfd_approval_request" model="mail.template">
+        <field name="name">Notify Client / RFD</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+        <field name="partner_to">{{ object.partner_id.id }}</field>
+        <field name="subject">RFD / {{object.name}} / {{object.project_id.name}}</field>
+        <field name="body_html" type="html">
+            <div>
+                Dear <t t-out="object.partner_id.name or object.partner_name or ''"></t><br/>
+                The files for the Sale Order <t t-out="object.name"/> have been uploaded to your portal. Kindly check and approve to get the high-resolution downloading link.
+                <br/>
+                Waiting your feedback!
+                <br/>
+                Thank you,
+                <t t-if="user.signature">
+                    <br/>
+                    <t t-out="user.signature or ''"></t>
+                </t>
+            </div>
+        </field>
+        <field name="lang">{{object.partner_id.lang}}</field>
+    </record>
+</odoo>

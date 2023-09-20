@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="installment_analytic_line_view_tree" model="ir.ui.view">
+        <field name="name">installment.analytic.line.view.tree</field>
+        <field name="model">installment.analytic.line.view</field>
+        <field name="arch" type="xml">
+            <tree string="Loan Analysis" create="false" edit="false">
+                <field name="name"/>
+                <field name="employee_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_loan_report">
+        <field name="name">Loan Analysis</field>
+        <field name="res_model">installment.analytic.line.view</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="view_id" ref="installment_analytic_line_view_tree"/>
+        <field name="help" type="html">
+            <p>
+                No activity yet.
+            </p>
+        </field>
+    </record>
+
+
+    <record id="view_installment_analytic_line_form" model="ir.ui.view">
+        <field name="name">view.installment.analytic.line.form</field>
+        <field name="model">installment.analytic.line.view</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <form string="Installment Analytic Entry" create="false" edit="false">
+                <sheet string="Loan Analysis">
+                    <group>
+                        <field name="name"/>
+                        <field name="employee_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_installment_analytic_line_filter" model="ir.ui.view">
+        <field name="name">view.installment.analytic.line.filter</field>
+        <field name="model">installment.analytic.line.view</field>
+        <field name="arch" type="xml">
+            <search string="Loan Analysis">
+                <field name="employee_id"/>
+                <group string="Group By..." expand="0" name="groupby">
+                    <filter string="Employee" context="{'group_by':'employee_id'}" name="group_employee_id"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="view_installment_analytic_line_pivot" model="ir.ui.view">
+        <field name="name">view.installment.analytic.line.pivot</field>
+        <field name="model">installment.analytic.line.view</field>
+        <field name="arch" type="xml">
+            <pivot string="Loan Analysis">
+                <field name="employee_id" type="row"/>
+                <field name="name" type="col"/>
+                <field name="loan_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+
+    <menuitem name="Loan Analysis Report"
+              id="menu_loan_report"
+              parent="dev_hr_loan.menu_main_employee_loan"
+              action="action_loan_report"/>
+
+
+</odoo>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    
+    
+    <record id="hr_loan_type_kanban" model="ir.ui.view">
+            <field name="name">employee.loan.type.kanban</field>
+            <field name="model">employee.loan.type</field>
+            <field name="arch" type="xml">
+                
+                <kanban class="oe_background_grey o_kanban_dashboard o_emphasize_colors o_stock_kanban" create="0">
+                    <field name="color"/>
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.color.raw_value)}" name="stock_picking">
+                                <div>
+                                    <div t-attf-class="o_kanban_card_header">
+                                        <div class="o_kanban_card_header_title">
+                                            <div class="o_primary">
+                                                <a type="object" name="action_get_hr_loan_type">
+                                                        <h3><field name="priority" widget="priority"/> <field name="name"/></h3>
+                                                    </a>
+                                            </div>
+                                            <div class="o_secondary"></div>
+                                        </div>
+                                        <div class="o_kanban_manage_button_section">
+                                            <a class="o_kanban_manage_toggle_button" href="#"><i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/></a>
+                                        </div>
+                                    </div>
+                                    <div class="container o_kanban_card_content">
+                                        <div class="row">
+                                            <div class="col-6 o_kanban_primary_left">
+                                               <button class="btn btn-primary" name="get_action_hr_approval" type="object">
+                                                        <span >Check Approve Loan</span>
+                                                </button>
+                                            </div>
+                                            <div class="col-6 o_kanban_primary_right">
+
+                                                <div t-if="record.count_loan_draft.raw_value &gt; 0" class="row">
+                                                        <div class="col-9">
+                                                            <a name="get_action_loan_tree_draft" type="object">
+                                                                Draft
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-3">
+                                                           <field name="count_loan_draft"/>
+                                                        </div>
+                                                </div>
+                                                
+                                                <div t-if="record.count_loan_paid.raw_value &gt; 0" class="row">
+                                                        <div class="col-9">
+                                                                <a name="get_action_loan_paid" type="object">
+                                                                    Paid
+                                                                </a>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <field name="count_loan_paid"/>
+                                                        </div>
+                                                    </div>
+                                                    <div t-if="record.count_loan_done.raw_value &gt; 0" class="row">
+                                                        <div class="col-9">
+                                                            <a name="get_action_loan_tree_done" type="object">
+                                                                Done
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <field name="count_loan_done"/>
+                                                        </div>
+                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
+                                        <div class="row">
+                                            <div class="col-6 o_kanban_card_manage_section o_kanban_manage_view">
+                                                <div role="menuitem" class="o_kanban_card_manage_title">
+                                                    <span>View</span>
+                                                </div>
+                                                <div role="menuitem">
+                                                    <a name="get_all_loan" type="object">View All Loan</a>
+                                                </div>
+                                                <div role="menuitem">
+                                                    <a name="get_loan_create" type="object">Loan Create</a>
+                                                </div>
+                                                <div t-if="widget.editable" class="o_kanban_card_manage_settings row">
+                                            <div class="col-8" role="menuitem" aria-haspopup="true">
+                                                <ul class="oe_kanban_colorpicker" data-field="color" role="menu"/>
+                                            </div>
+                                            <div role="menuitem" class="col-4 text-center">
+                                                <a name="get_setting" type="object">Settings</a>
+                                            </div>
+                                        </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </t>
+
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+ 
+    
+    <record id="hr_loan_dashboard_action" model="ir.actions.act_window">
+            <field name="name">Loan</field>
+            <field name="res_model">employee.loan.type</field>
+            <field name="type">ir.actions.act_window</field>
+            <!--<field name="view_type">form</field>-->
+            <field name="view_mode">kanban</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Loan type.
+              </p>
+            </field>
+        </record>
+    
+     <menuitem
+            action="hr_loan_dashboard_action"
+            id="employee_loan_dashboard_id"
+            parent="dev_hr_loan.menu_main_employee_loan" sequence="0"
+            name="Loan Dashboard"/>
+
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="clouds_client_view_form" model="ir.ui.view">
+        <field name="name">clouds.client.form.dropbox</field>
+        <field name="model">clouds.client</field>
+        <field name="inherit_id" ref="cloud_base.clouds_client_view_form"/>
+        <field name="arch" type="xml">
+            <group name="main_setting" position="after">
+                <group name="dropbox_settings" attrs="{'invisible': [('cloud_client', 'not in', ['dropbox'])]}">
+                    <field name="dropbox_app_key"
+                           attrs="{'required': [('cloud_client', 'in', ['dropbox'])]}" 
+                           string="App key"
+                    />
+                    <field name="dropbox_app_secret" 
+                           password="True"
+                           attrs="{'required': [('cloud_client', 'in', ['dropbox'])]}" 
+                           string="App secret" 
+                    />
+                    <field name="dropbox_redirect_url"
+                           attrs="{'required': [('cloud_client', 'in', ['dropbox'])]}" 
+                           placeholder="https://yourodoodomain/dropbox_token" 
+                           string="Redirect URL" 
+                    />
+                    <field name="dropbox_team" string="Dropbox teams"/>
+                    <field name="dropbox_admin" 
+                           string="Admin email"
+                           attrs="{'invisible': [('dropbox_team', '=', False)], 'required': [('dropbox_team', '=', True)]}"
+                    />
+                    <field name="dropbox_no_links"/>           
+                </group>
+                <group name="dropbox_tech"
+                       groups="base.group_no_one" 
+                       invisible="1"
+                       attrs="{'invisible': [('cloud_client', 'not in', ['dropbox'])]}"
+                >
+                    <field name="dropbox_refresh_token"/> 
+                </group>
+            </group>
+        </field>
+    </record>
+
+</odoo>

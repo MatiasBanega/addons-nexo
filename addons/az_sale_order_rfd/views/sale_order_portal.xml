@@ -1,0 +1,130 @@
+<odoo>
+    
+    <template id="sale_order_portal_content_add_request_for_delivery" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//div[@id='total']" position="after">
+            <t t-if="sale_order.active_rfd_id and sale_order.active_rfd_id.state != 'draft'">
+                <t t-call="az_sale_order_rfd.az_rfd_reject_dialog" />
+                <t t-call="az_sale_order_rfd.rfd_attachmet_preview_dialog"/>
+                <h4 id="active_request_for_delivery">Uploaded Files and designs</h4>
+                <p style="font-size: 14px;">Please check the following samples, Use the action <q>Approve</q> to confirm the job. 
+                Upon Approval, you will find the link to download the high resolution files below, and you will be redirected to participate in Job rating.</p>
+                
+                <p style="font-size: 14px; color: red;" t-if="sale_order.active_rfd_id and sale_order.active_rfd_id.state == 'rejected'">
+                    The job has been rejected.
+                </p>
+                
+                <p id="approve_message" style="font-size: 14px; color: #64b85b;" t-if="sale_order.active_rfd_id and sale_order.active_rfd_id.state == 'approved'">
+                    The job has been approved.
+                </p>
+                
+                <br/>
+                <t t-foreach="sale_order.active_rfd_id.delivery_file_ids" t-as="delivery_file">
+                    <div class="col-sm-12 col-md-12" style="font-size: 14px;">
+                        <div class="table">
+                            <t t-if="delivery_file.file_id">
+                                <div class="row" >
+                                    <div class="col-6 list-group">
+                                        <li class="list-group-item text-center">
+                                        <button class="btn PreviewRFDFile" t-att-data-rfd_file_id="delivery_file.file_id.id" t-att-data-rfd_file_access_token="delivery_file.file_id.access_token">
+                                            <div class="oe_attachment_embedded o_image" t-att-title="delivery_file.file_id.name" t-att-data-mimetype="delivery_file.file_id.mimetype" t-attf-data-src="/web/image/#{delivery_file.file_id.id}/100x80?access_token=#{delivery_file.file_id.access_token}"/>
+                                            <div class="oe_attachment_name"><t t-out="delivery_file.file_id.name"/></div>
+                                        </button>
+                                        </li>
+                                        
+                                    </div>
+                                    <div class="col-4" t-if="delivery_file.comment">
+                                        <span t-esc="delivery_file.comment"></span>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+                <br/>
+                <div id="hight_resolution_link" t-if="sale_order.active_rfd_id.state == 'approved'">
+                    <strong>Hight Resolution Link</strong>
+                    <br/>
+                    <a target="_blank" t-attf-href="https://{{sale_order.get_rfd_high_resolution_link()}}">
+                        <span t-esc="sale_order.active_rfd_id.high_resolution_link"/>
+                    </a>
+                </div>
+                <div class="row" id="rfdBtns" style="margin-top:5px; margin-bottom:5px; padding: 10px" t-if="sale_order.active_rfd_id and sale_order.active_rfd_id.state == 'sent'">
+                    <button type="button" class="btn btn-success" id="btnApproveRFD" t-att-data-sale_order_id="sale_order.id" t-att-data-rfd_id="sale_order.active_rfd_id.id" t-att-data-survey_token="sale_order.company_id.x_agency_survey.access_token" style="margin-right: 3px; margin-left:3px">Approve</button>
+                    <button type="button" class="btn btn-danger" id="btnRejectRFD" t-att-data-sale_order_id="sale_order.id" t-att-data-rfd_id="sale_order.active_rfd_id.id" >Reject</button>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    
+    <template id="az_rfd_reject_dialog" name="Reject RFD">
+        <div class="modal" id="azRFDReject" role="dialog">
+            <div class="modal-dialog ">
+                <div class="modal-content ">
+                    <div class="modal-header ">
+                        <h6 class="modal-title col-md-11" style="padding:0px;">Reject</h6>
+                        <span class="close modal-cross" data-dismiss="modal" title="close">
+                            &#160;&#160;&#160;</span>
+                    </div>
+                    <div class="modal-body">
+                        <form  id="formRejectRFD" role="form" method="post">
+                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                             <input type="hidden" name="rfd_id" id="rfd_id" />
+                            
+                             <div class="row">
+                                <div class="clo-sm-12 col-lg-12 cl-md-12">
+                                    <t t-foreach="sale_order.active_rfd_id.delivery_file_ids" t-as="delivery_file">
+                                        <div class="col-sm-12 col-md-12" style="font-size: 12px;">
+                                            <t t-if="delivery_file.file_id">
+                                                <div class="row">
+                                                    <div class="col-4 list-group">
+                                                        <li class="list-group-item">
+                                                            <p>
+                                                                <div class='oe_attachment_embedded o_image' t-att-title="delivery_file.file_id.name" t-att-data-mimetype="delivery_file.file_id.mimetype" t-attf-data-src="/web/image/#{delivery_file.file_id.id}/100x80?access_token=#{delivery_file.file_id.access_token}"/>
+                                                                <div class='oe_attachment_name'><t t-out='delivery_file.file_id.name' /></div>
+                                                            </p>
+                                                        </li>
+                                                        
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="hidden" name="delivery_file_id" id="delivery_file_id" />
+                                                        <input type="text" t-att-data-rfd_file_id="delivery_file.id" class="rfd-comment form-control" name="delivery_file_comment" id="delivery_file_comment" placeholder="New Comment..."/>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </t>
+                                </div>
+                             </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                         <button id="azSubmitRejectRFD" type="button" class="btn btn-primary">Reject</button>
+                         <button type="button" class="btn" data-dismiss="modal" aria-label="Cancel">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <template id="rfd_attachmet_preview_dialog" name="Preview File">
+        <div class="modal" id="azRFDPreviewFile" role="dialog" style="height: 100% !important;">
+            <div class="modal-dialog modal-lg">
+                <form role="form">
+                    <input type="hidden" name="rfd_file_id" id="rfd_file_id"/>
+                    <input type="hidden" name="rfd_file_access_token" id="rfd_file_access_token"/>
+                    <div class="modal-content" style="height: 16cm">
+                        <div class="modal-header">
+                            <h4 class="modal-title col-md-11" style="padding:0px;">Preview File</h4>
+                            <span  id="closeRFDFilePreview" class="close modal-cross" data-dismiss="modal" title="close"
+                              style="font-size: 20px;">
+                            Close</span>
+                        </div>
+                        <div class="modal-body">
+                            <iframe id="preview_rfd_file_html" class="" width="100%" height="100%" t-attf-src=""/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </template>
+</odoo>

@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_clouds_client,access_clouds_client,model_clouds_client,cloud_base.group_cloud_base_admin,1,1,1,0
+access_sync_model_admin,access_sync_model_admin,model_sync_model,cloud_base.group_cloud_base_admin,1,1,1,0
+access_clouds_queue,access_clouds_queue,model_clouds_queue,cloud_base.group_cloud_base_admin,1,1,1,0
+access_clouds_folder,access_clouds_folder,model_clouds_folder,base.group_user,1,1,1,0
+access_clouds_snapshot,access_clouds_snapshot,model_clouds_snapshot,base.group_user,1,1,1,0
+access_clouds_log,access_clouds_log,model_clouds_log,base.group_user,1,1,1,0
+access_cloud_domain_period,access_cloud_domain_period,model_cloud_domain_period,cloud_base.group_cloud_base_admin,1,1,1,1
+access_mass_attachment_update,access_mass_attachment_update,model_mass_attachment_update,cloud_base.group_cloud_base_user,1,1,1,1

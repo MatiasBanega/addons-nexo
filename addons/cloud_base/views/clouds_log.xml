@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="clouds_log_view_search" model="ir.ui.view">
+        <field name="name">clouds.log.search</field>
+        <field name="model">clouds.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="logs"/>
+                <field name="client_name" filter_domain="['|', ('client_name', 'ilike', self), ('client_id', '=', self)]"/>
+                <filter string="CRITICAL" name="errors" domain="[('log_type', '=', 'CRITICAL')]"/>
+                <filter string="ERROR" name="errors" domain="[('log_type', '=', 'ERROR')]"/>
+                <filter string="WARNING" name="errors" domain="[('log_type', '=', 'WARNING')]"/>
+                <filter string="INFO" name="errors" domain="[('log_type', '=', 'INFO')]"/>
+                <filter string="DEBUG" name="errors" domain="[('log_type', '=', 'DEBUG')]"/>
+            </search>
+        </field>
+    </record>
+    <!-- See cloud_log.js -->
+    <record id="clouds_log_action" model="ir.actions.client">
+        <field name="name">Sync Logs</field>
+        <field name="tag">cloud.base.log</field>
+        <field name="res_model">clouds.log</field>
+    </record>
+
+</odoo>

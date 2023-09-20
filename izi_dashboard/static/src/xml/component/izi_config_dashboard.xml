@@ -1,0 +1,97 @@
+<template>
+    <div t-name="IZIConfigDashboard" class="izi_config_dashboard row no-gutters">
+        <div class="col-lg-4 izi_select_dashboard izi_p20_p30" title="Click to select existing dashboard or create a new one">
+            <div>
+                <span class="material-icons izi_float_icon">open_in_new</span>
+                <div class="izi_title izi_block_left izi_title_dashboard">Select Dashboard</div>
+                <div style="display:none;" class="izi_title izi_block_left izi_edit_dashboard">
+                    <input class="izi_input izi_edit_dashboard_input" placeholder="Dashboard Name"/>
+                </div>
+                <span style="display:none;" class="material-icons izi_block_left izi_edit_dashboard_button izi_hover_highlight">edit</span>
+                <span style="display:none;" class="material-icons izi_block_left izi_save_dashboard_button izi_hover_highlight">done</span>
+                <div style="clear:both;"/>
+            </div>
+            <div class="izi_subtitle">
+                Click to select existing dashboard or create a new one
+            </div>
+        </div>
+        <div class="col-lg-8 izi_config_dashboard_button_container izi_p20_p30"
+         style="display: flex;align-items: center;justify-content: flex-end;" >
+         <div class="flex-row">
+            
+            <div class="izi_dashboard_filter" style="display: none;" title="Filter Date Range" id="izi_dashboard_filter_date_range" data-type="date_range">
+                <div class="izi_dashboard_filter_title dropdown izi_dropdown">
+                    <span class="material-icons-outlined">date_range</span>
+                </div>
+                <div class="izi_dashboard_filter_content">
+                </div>
+                <div style="clear:both;"/>
+            </div>
+            <div class="izi_dashboard_filter" title="Filter Date Format" id="izi_dashboard_filter_date_format" data-type="date_format">
+                <div class="izi_dashboard_filter_title dropdown izi_dropdown">
+                    <span class="material-icons-outlined">today</span>
+                </div>
+                <div class="izi_dashboard_filter_content">
+                    <div class="izi_dropdown izi_block_left izi_inline dropdown">
+                        <button class="izi_m0 izi_py0 izi_no_border dropdown-toggle" data-toggle="dropdown" type="button">
+                            Select Date
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item izi_select_date_format" data-date_format="">All (No Filters)</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="today">Today</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="this_week">This Week</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="this_month">This Month</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="this_year">This Year</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="mtd">Month to Date</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="ytd">Year to Date</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="last_week">Last Week</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="last_month">Last Month</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="last_two_months">Last 2 Months</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="last_three_months">Last 3 Months</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="last_year">Last Year</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="last_10">Last 10 Days</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="last_30">Last 30 Days</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="last_60">Last 60 Days</a>
+                            <a class="dropdown-item izi_select_date_format" data-date_format="custom">Custom Range</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear:both;"/>
+            </div>
+
+            <div style="display:none;" class="izi_auto_layout izi_btn izi_btn_purple" title="Auto Arrange">
+                <span class="material-icons izi_btn_icon_left">flip_to_front</span> Auto Arrange
+            </div>
+            <div class="izi_edit_layout izi_btn izi_btn_purple" title="Edit Layout">
+                <span class="material-icons izi_btn_icon_left">edit</span> Edit Layout
+            </div>
+            <div style="display:none;" class="izi_save_layout izi_btn izi_btn_green" title="Save Layout">
+                <span class="material-icons izi_btn_icon_left">done</span> Save Layout
+            </div>
+            <div class="izi_add_analysis izi_btn izi_btn_purple" title="Add Analysis">
+                <span class="material-icons-outlined izi_btn_icon_left">add</span> Add Analysis
+            </div>
+
+            <div class="izi_dropdown dropdown izi_inline">
+                <div class="izi_btn izi_btn_wlp dropdown-toggle mr-3" data-toggle="dropdown" title="Select Themes">
+                    <span class="material-icons-outlined izi_btn_icon_left">palette</span>
+                </div>
+                <div class="dropdown-menu izi_select_theme_container" aria-labelledby="dropdownMenuButton"></div>
+            </div>
+
+            <div id="izi_export_capture" class="izi_btn izi_btn_wlp px-1" title="Capture Dashboard">
+                <span class="material-icons izi_btn_icon">photo_camera</span>
+            </div>
+            <div id="izi_export_capture_loading" style="display:none; cursor:progress" class="izi_btn izi_btn_wlp active px-1" title="Capturing..">
+                <span class="material-icons izi_btn_icon izi_rotate">rotate_right</span>
+            </div>
+            <div class="izi_delete_dashboard izi_btn izi_btn_wlp px-1" title="Delete Dashboard">
+                <span class="material-icons izi_btn_icon">delete</span>
+            </div>
+
+         </div>
+            
+        </div>
+        <div style="clear:both;"/>
+    </div>
+</template>

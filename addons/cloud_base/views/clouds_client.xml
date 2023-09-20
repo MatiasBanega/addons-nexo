@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="clouds_client_view_search" model="ir.ui.view">
+        <field name="name">clouds.client.search</field>
+        <field name="model">clouds.client</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <filter string="Reversed (Archived)" name="inactive" domain="[('active', '=', False)]"/>
+                <group  expand='0' string='Group by...'>
+                    <filter name="type_state"
+                            string="State"
+                            context="{'group_by' : 'state'}"
+                    />
+                    <filter name="time_cloud_client"
+                            string="Cloud Storage Client"
+                            context="{'group_by' : 'cloud_client'}"
+                    />
+               </group>
+            </search>
+        </field>
+    </record>
+    <record id="clouds_client_view_form" model="ir.ui.view">
+        <field name="name">clouds.client.form</field>
+        <field name="model">clouds.client</field>
+        <field name="arch" type="xml">
+            <form delete="0">
+                <header>
+                    <button name="action_establish_sync"
+                            type="object"
+                            string="Confirm"
+                            states="draft,reconnect"  
+                            class="btn-primary"  
+                    /> 
+                    <button name="action_reconnnect"
+                            type="object"
+                            string="Reconnect/Pause"
+                            states="confirmed"  
+                            confirm="Are you sure that you would like to reconnect? It would stop the sync!"  
+                    />                       
+                    <button name="action_reset"
+                            type="object"
+                            string="Reset"
+                            states="confirmed,draft" 
+                            confirm="Are you sure you would like to reset? It would clear all links and then delete the connector!"
+                    />
+                    <field name="state" 
+                           widget="statusbar" 
+                           readonly="1" 
+                           clickable="0" 
+                           statusbar_visible="confirmed"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(cloud_base.sync_model_action)d"
+                                type="action"
+                                class="oe_stat_button"
+                                icon="fa-folder-o"
+                                context="{'default_own_client_id': active_id, 'search_default_client_id': active_id}"
+                        >
+                            Rules
+                        </button>
+                        <button name="%(cloud_base.clouds_log_action)d"
+                                type="action"
+                                class="oe_stat_button"
+                                icon="fa-list-alt"
+                        >
+                            Logs
+                        </button>
+                    </div>
+                    <div class="alert alert-warning text-center o_form_header"
+                         attrs="{'invisible': [('stopped', '!=', True)]}"
+                         role="alert"
+                    >
+                       The cloud client is finishing reverse sync before deletion. Do not change or delete that. It 
+                       would be removed automatically
+                    </div>
+                    <div class="alert alert-danger text-center o_form_header"
+                         attrs="{'invisible': ['|', ('error_state', '=', False), ('stopped', '=', True)]}"
+                         role="alert"
+                    >
+                       <field name="error_state" readonly="1"/>
+                    </div>
+                    <div class="alert alert-success text-center o_form_header"
+                         attrs="{'invisible': ['|', '|', ('stopped', '=', True), ('error_state', '!=', False), ('state', '!=', 'confirmed')]}"
+                         role="alert"
+                    >
+                       The cloud client is confirmed and might be used for synchronization
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="reference" class="oe_inline" required="1"/>
+                        </h1>
+                    </div>
+                    <group name="main_setting">
+                        <field name="cloud_client"/>
+                        <field name="root_folder_name"/>
+                        <field name="root_folder_key" invisible="1"/>
+                        <field name="stopped" invisible="1"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="clouds_client_view_tree" model="ir.ui.view">
+        <field name="name">clouds.client.tree</field>
+        <field name="model">clouds.client</field>
+        <field name="arch" type="xml">
+            <tree delete="0" 
+                  decoration-danger="not stopped and (state != 'confirmed' or error_state)" 
+                  decoration-warning="stopped"
+                  js_class="no_archive_tree" 
+            >
+                <field name="name"/>
+                <field name="cloud_client"/>
+                <field name="state"/>
+                <field name="error_state"/>
+                <field name="stopped" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="clouds_client_action" model="ir.actions.act_window">
+        <field name="name">Cloud Clients</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clouds.client</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" eval="clouds_client_view_search"/>
+    </record>
+    <record id="clouds_client_action_form_only" model="ir.actions.act_window">
+        <field name="name">Cloud Clients</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clouds.client</field>
+        <field name="view_mode">form</field>
+    </record>
+
+</odoo>

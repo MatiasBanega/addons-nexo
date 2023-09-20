@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_az_brief_question_definition,az_brief_question_definition,model_az_brief_question_definition,base.group_user,1,1,1,1
+access_az_brief,az_brief,model_az_brief,base.group_user,1,1,1,1
+access_az_brief_line,az_brief_line,model_az_brief_line,base.group_user,1,1,1,1
+access_az_brief_reply,az_brief_reply,model_az_brief_reply,base.group_user,1,1,1,1
+,,,,,,,
+access_portal_az_brief_question_definition,az_brief_question_definition,model_az_brief_question_definition,base.group_portal,1,0,0,0
+access_portal_az_brief,az_brief,model_az_brief,base.group_portal,1,1,0,0
+access_portal_az_brief_line,az_brief_line,model_az_brief_line,base.group_portal,1,1,1,1
+access_portal_az_brief_reply,az_brief_reply,model_az_brief_reply,base.group_portal,1,1,1,1

@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<odoo>
+        <!--Email template -->
+        <record id="dev_dep_manager_request" model="mail.template">
+            <field name="name">Request to Department Manager</field>
+            <field name="email_from">{{(object.user_id.email)}}</field>
+            <field name="subject">Loan {{object.name}} Request form {{object.employee_id.name}}</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="dev_hr_loan.model_employee_loan"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+            
+            	<p>Dear <i> <span t-esc="object.manager_id.name"/></i></p>
+            	<p></p>
+            	<p> Loan request from <b><i> <span t-esc="object.employee_id.name"/> </i></b></p>
+            	<p>
+            		<b>Loan Detail:</b><br/>
+            		<b>Loan Type: </b>  <span t-esc="object.loan_type_id.name"/> <br/>
+            		<b>Loan Amount: </b> <span t-esc="object.loan_amount"/> <br/>
+            		<b>Loan Term: </b> <span t-esc="object.term"/><br/>
+            		<b>Payment Start Date: </b> <span t-esc="object.start_date"/> <br/>
+            		<b>Payment End Date: </b> <span t-esc="object.end_date"/><br/>
+            	</p>
+            	
+            	<p>You can access Loan From Bellow URL</p>
+            	<p> <span t-esc="object.loan_url"/></p>
+            	
+            	<b>Regards,</b><br/>
+		<span t-esc="object.employee_id.name"/>
+                ]]></field>
+         </record>
+
+        <!--Email template -->
+        <record id="dev_hr_manager_request" model="mail.template">
+            <field name="name">Loan Request to HR Manager</field>
+            <field name="email_from">{{object.manager_id.work_email or ''}}</field>
+            <field name="subject">Loan {{object.name}} Request form {{object.employee_id.name}}</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="dev_hr_loan.model_employee_loan"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+
+            	<p>To <b><i>HR Manager</i></b></p>
+            	<p> Loan request from <b><i> <span t-esc="object.employee_id.name"/> </i></b></p>
+            	<p> Loan Request Approve by <b><i> <span t-esc="object.manager_id.name"/></i></b> Department Manager</p>
+            	<p>
+            		<b>Loan Detail:</b><br/>
+            		<b>Loan Type: </b> <span t-esc="object.loan_type_id.name"/><br/>
+            		<b>Loan Amount: </b>    <span t-esc="object.loan_amount"/><br/>
+            		<b>Loan Term: </b> <span t-esc="object.term"/> <br/>
+            		<b>Payment Start Date: </b> <span t-esc="object.start_date"/> <br/>
+            		<b>Payment End Date: </b> <span t-esc="object.end_date"/> <br/>
+            	</p>
+
+            	<p>You can access Loan From Bellow URL</p>
+            	<p> <span t-esc="object.loan_url"/> </p>
+
+            	<b>Regards,</b><br/>
+            	 <span t-esc="object.manager_id.name"/> 
+                ]]></field>
+         </record>
+
+        <record id="hr_manager_confirm_loan" model="mail.template">
+            <field name="name">Loan Request Confirm</field>
+            <field name="email_from">{{object.hr_manager_id.work_email }}</field>
+            <field name="subject">Your Loan {{object.name}} Request has been Confirmed</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="dev_hr_loan.model_employee_loan"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+
+            	<p>Dear <i> <span t-esc="object.employee_id.name"/></i></p>
+            	<p></p>
+            	<p> Your Loan <b><i><span t-esc="object.name"/> </i></b> Request Confirm By <b><i> <span t-esc="object.hr_manager_id.name"/> </i></b></p>
+
+            	<p>You can access Loan From Bellow URL</p>
+            	<p> <span t-esc="object.loan_url"/> </p>
+
+            	<b>Regards,</b><br/>
+		<span t-esc="object.hr_manager_id.name"/>
+                ]]></field>
+         </record>
+
+        <record id="dep_manager_reject_loan" model="mail.template">
+            <field name="name">Dep Manager Loan Request Reject</field>
+            <field name="email_from">{{object.manager_id.work_email }}</field>
+            <field name="subject">Your Loan {{object.name}} Request has been Rejected</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="dev_hr_loan.model_employee_loan"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+
+            	<p>Dear <i> <span t-esc="object.employee_id.name"/> </i></p>
+            	<p></p>
+            	<p> Your Loan <b><i> <span t-esc="object.name"/> </i></b> Request Rejected By <b><i><span t-esc="object.manager_id.name"/> </i></b></p>
+
+            	<p>You can access Loan From Bellow URL</p>
+            	<p> <span t-esc="object.loan_url"/> </p>
+
+            	<b>Regards,</b><br/>
+		<span t-esc="object.manager_id.name"/>
+                ]]></field>
+         </record>
+
+        <record id="hr_manager_reject_loan" model="mail.template">
+            <field name="name">Loan Request Reject</field>
+            <field name="email_from">{{ object.hr_manager_id.work_email }}</field>
+            <field name="subject">Your Loan {{object.name}} Request has been Rejected</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="dev_hr_loan.model_employee_loan"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+
+            	<p>Dear <i> <span t-esc="object.employee_id.name"/></i></p>
+            	<p></p>
+            	<p> Your Loan <b><i> <span t-esc="object.name"/></i></b> Request Rejected By <b><i>span t-esc="object.hr_manager_id.name"/> ${}</i></b></p>
+
+            	<p>You can access Loan From Bellow URL</p>
+            	<p> <span t-esc="object.loan_url"/> </p>
+
+            	<b>Regards,</b><br/>
+		<span t-esc="object.hr_manager_id.name"/>
+                ]]></field>
+         </record>
+
+
+        <record id="hr_manager_closed_loan" model="mail.template">
+            <field name="name">Closed Loan</field>
+            <field name="email_from">{{object.hr_manager_id.work_email }}</field>
+            <field name="subject">Your Loan {{object.name}} has been closed</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="dev_hr_loan.model_employee_loan"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+
+            	<p>Dear <i><span t-esc="object.employee_id.name"/></i></p>
+            	<p></p>
+            	<p> Your Loan <b><i><span t-esc="object.name"/> </i></b>  has been closed By <b><i><span t-esc="object.hr_manager_id.name"/> </i></b></p>
+
+            	<p>You can access Loan From Bellow URL</p>
+            	<p> <span t-esc="object.loan_url"/></p>
+
+            	<b>Regards,</b><br/>
+		<span t-esc="object.hr_manager_id.name"/>
+                ]]></field>
+         </record>
+
+    <record id="dev_employee_loan_detail_send_mail" model="mail.template">
+        <field name="name">Employee Loan Send Mail</field>
+        <field name="email_from">{{object.company_id.email }}</field>
+        <field name="subject">{{object.name}} Loan Details</field>
+        <field name="email_to">{{ object.employee_id.work_email }}</field>
+        <field name="model_id" ref="model_employee_loan"/>
+        <field name="auto_delete" eval="True"/>
+        <field name="report_name">{{object.name or''}}</field>
+        <field name="report_template" ref="action_employee_loan_report"/>
+        <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 14px; color: rgb(34, 34, 34); background-color: #FFF;">
+            <p>Dear <b> <span t-esc="object.employee_id.name"/></b>,</p>
+            <p>Here in this mail attached  <b> <span t-esc="object.name"/></b> Loan Details.</p>
+           </div>
+            ]]></field>
+    </record>
+</odoo>
+        
+        
+        
+      
+        
+        
+    

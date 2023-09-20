@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="azk_portal_view_attachment_form_inherited" model="ir.ui.view">
+        <field name="name">azk_portal_view_attachment_form_inherited</field>
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="base.view_attachment_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='public']" position="after">
+        		<field name="portal" />
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="azk_portal_view_attachment_tree_inherited" model="ir.ui.view">
+        <field name="name">azk_portal_view_attachment_tree_inherited</field>
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="base.view_attachment_tree"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='file_size']" position="after">
+        		<field name="description" />
+            </xpath>
+        </field>
+    </record>
+    
+    	<record model="ir.ui.view" id="az_contact_attachment_partner_view_buttons">
+            <field name="name">az_contact_attachment_partner_view_buttons</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="priority" eval="11"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button type="object" class="oe_stat_button" icon="fa-file-text-o" name="action_view_portal_document"
+                        context="{'default_partner_id': active_id}">
+                        <div class="o_form_field o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="total_portal_document" />
+                            </span>
+                            <span class="o_stat_text">Portal Documents</span>
+                        </div>
+                    </button>
+                </div>
+               </field>
+        </record>
+</odoo>

@@ -1,0 +1,57 @@
+<odoo>
+    
+    <record id="request_for_delivery_action" model="ir.actions.act_window">
+        <field name="name">RFDs</field>
+        <field name="res_model">request.for.delivery</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain"></field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                There is no Request For Deliveries yet.
+            </p>
+        </field>
+    </record>
+
+    <record id="az_request_for_delivery_tree" model="ir.ui.view">
+        <field name="name">request.for.delivery.tree.view</field>
+        <field name="model">request.for.delivery</field>
+        <field name="arch" type="xml">
+            <tree name="rfq_tree" create="0" delete="0">
+                <field name="name"/>
+                <field name="sale_order_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    
+    
+    <record id="az_request_for_delivery_form" model="ir.ui.view">
+        <field name="name">request.for.delivery.form.view</field>
+        <field name="model">request.for.delivery</field>
+        <field name="arch" type="xml">
+            <form name="rfd_form" create="0" delete="0">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <h1><field name="name"/></h1>
+                    <group>
+                        <field name="sale_order_id" readonly="1"/>
+                        <field name="high_resolution_link" widget="url"/>
+                    </group>
+                    <notebook>
+                        <page name="delivery_files" string="Delivery Files">
+                            <button name="upload_file" class="btn btn-primary" type="object" string="Upload File"/>
+                            <field name="delivery_file_ids" widget="many2many_list">
+                                <tree edit="0" create="0">
+                                    <field name="file_id"/>
+                                    <field name="comment"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

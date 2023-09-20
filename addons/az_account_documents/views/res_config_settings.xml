@@ -1,0 +1,27 @@
+<odoo>
+    <record id="az_documents_add_accouting_options" model="ir.ui.view">
+        <field name="name">add.config.for.accounting.documents</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="documents_account.res_config_settings_view_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='account_folder']//.." position="after">
+                <div class="row mt16">
+                    <label class="o_form_label col-lg-5" for="use_specific_structure"/>
+                    <field name="use_specific_structure"/>
+                </div>
+                <div class="row mt16" attrs="{'invisible': [('use_specific_structure','=',False)]}">
+                    <label class="o_form_label col-lg-5" for="account_documents_structure"/>
+                    <field name="account_documents_structure"/>
+                    <div class="text-muted col-md-12">
+                        Choose a specific structure for saving files attached for Journal Entries/Journals
+                        If nothing selected it will save them all in the Accounting workspace selected.
+                    </div>
+                </div>
+            </xpath>
+            
+            <xpath expr="//button[@name='%(documents_account.action_folder_settings_installer)d']" position="attributes">
+                <attribute name="attrs">{'invisible' : [('use_specific_structure', '=', True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

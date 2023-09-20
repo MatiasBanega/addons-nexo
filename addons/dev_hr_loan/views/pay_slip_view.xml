@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+For Module Support : devintelle@gmail.com  or Skype : devintelle 
+ -->
+<odoo>
+    <record id="dev_hr_payslip_adv_payment_inherit_form" model="ir.ui.view">
+         <field name="name">dev.hr.payslip.adv.pay.inheri.form</field>
+         <field name="model">hr.payslip</field>
+         <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+         <field name="arch" type="xml">
+            <xpath expr="//field[@name='credit_note']" position="after">
+                <field name="installment_ids" widget="many2many_tags" attrs="{'readonly':[('state','!=','draft')]}"/>
+                <field name="installment_amount" invisible="1"/>
+                <field name="installment_int" invisible="1"/>
+            </xpath>
+         </field>
+    </record>
+</odoo>

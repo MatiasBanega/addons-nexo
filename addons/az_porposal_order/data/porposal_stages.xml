@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+        <record id="offer_stage_draft" model="az.proposal.stage">
+            <field name="name">Draft</field>
+            <field name="sequence">1</field>
+            <field name="is_draft">True</field>
+            <field name="is_pending">False</field>
+            <field name="is_approved">False</field>
+            <field name="is_refused">False</field>
+        </record>
+         <record id="offer_stage_pending" model="az.proposal.stage">
+            <field name="name">Pending</field>
+            <field name="sequence">1</field>
+            <field name="is_draft">False</field>
+            <field name="is_pending">True</field>
+            <field name="is_approved">False</field>
+            <field name="is_refused">False</field>
+        </record>
+         <record id="offer_stage_approved" model="az.proposal.stage">
+            <field name="name">Approved</field>
+            <field name="sequence">1</field>
+            <field name="is_draft">False</field>
+            <field name="is_pending">False</field>
+            <field name="is_approved">True</field>
+            <field name="is_refused">False</field>
+        </record>
+         <record id="offer_stage_refused" model="az.proposal.stage">
+            <field name="name">Refused</field>
+            <field name="sequence">1</field>
+            <field name="is_draft">False</field>
+            <field name="is_pending">False</field>
+            <field name="is_approved">False</field>
+            <field name="is_refused">True</field>
+        </record>
+     </data>
+      
+     <data noupdate="1">
+        <record id="Azk_proposal_order_sequence" model="ir.sequence">
+            <field name="name">Proposal Order Sequence</field>
+            <field name="code">azk.proposal.order.sequence</field>
+            <field name="prefix">PRO</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="True"/>
+        </record>
+        
+         <record id="mail_activity_proposal_approval" model="mail.activity.type">
+            <field name="name">Proposal Approver</field>
+            <field name="icon">fa-envelope</field>
+            <field name="sequence">1</field>
+        </record>
+    </data>
+</odoo>

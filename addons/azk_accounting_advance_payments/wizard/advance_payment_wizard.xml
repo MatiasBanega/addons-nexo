@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="sale_advance_payment_wizard" model="ir.ui.view">
+      <field name="name">sale_advance.payment.wizard</field>
+      <field name="model">advance.payment</field>
+      <field name="arch" type="xml">
+        <form>
+          <group name="advance_pay">
+            <group>
+                <field name="available_payment_method_line_ids" invisible="1"/>
+                <field name="name" invisible="1"/>
+                <field name="hide_payment_method_line" invisible="1"/>
+                <label for="account_amount"/>
+                <div name="account_amount" class="o_row">
+                    <field name="account_amount" required="1"/>
+                    <field name="account_currency_id" readonly="1"/>
+                </div>
+                <label for="advance_amount"/>
+            <div name="adv_amount_div" class="o_row">
+                <field name="advance_amount"/>
+                <field name="currency_id" options="{'no_create': True, 'no_open': True}"/>
+            </div>
+            <field name="check_amount_in_words" attrs="{'invisible': [('payment_method_code', '!=', 'check_printing')]}"/>
+            <field name="journal_id" options="{'no_create': True, 'no_open': True, 'no_create_edit': True}" />
+            <field name="residual_currency_id" invisible="1" />
+                <field name="payment_method_line_id" required="1" options="{'no_create': True, 'no_open': True}"
+                                       attrs="{'invisible': [('hide_payment_method_line', '=', True)]}"/>
+			<field name="paid_payment" string="Paid Amount"/>
+          </group>
+
+          <group>
+          	<field name="payment_date" required="1" />
+          	<field name="payment_method_code" invisible="1" />
+          	<field name="ref" string="Memo" />
+          	<field name="note" string="Note" />
+          	<field name="bank_link" attrs="{'invisible': [('payment_method_code','!=', 'check_printing')], 'required':[('payment_method_code','=','check_printing')]}" />
+            <field name="due_date" attrs="{'invisible': [('payment_method_code','!=', 'check_printing')], 'required':[('payment_method_code','=','check_printing')]}" />
+            <field name="collection_date"
+              attrs="{'invisible': [('payment_method_code','!=', 'check_printing')]}" />
+            <field name="check_number" attrs="{'invisible': [('payment_method_code','!=', 'check_printing')],  'readonly':[('payment_method_code', '!=', 'check_printing')]}" />
+          </group>
+         </group>
+
+          <footer>
+            <button name="generate_advance_payment" type="object" string=" Advance Payment" class="oe_highlight" icon="fa-money"/>
+            <button string="Cancel" class="btn-secondary" special="cancel" />
+          </footer>
+        </form>
+      </field>
+    </record>
+    
+    <record id="purchase_advance_payment_wizard" model="ir.ui.view">
+      <field name="name">purchase_advance.payment.wizard</field>
+      <field name="model">advance.payment</field>
+      <field name="arch" type="xml">
+        <form>
+            <group name="advance_pay">
+            <group>
+                <field name="name" invisible="1"/>
+                <field name="hide_payment_method_line" invisible="1"/>
+                <field name="available_payment_method_line_ids" invisible="1"/>
+            <label for="account_amount"/>
+            <div name="account_amount" class="o_row">
+                <field name="account_amount" required="1"/>
+                <field name="account_currency_id" readonly="1"/>
+            </div>
+            <label for="advance_amount"/>
+            <div name="adv_amount_div" class="o_row">
+                <field name="advance_amount"/>
+                <field name="currency_id" options="{'no_create': True, 'no_open': True}"/>
+            </div>
+            <field name="check_amount_in_words" attrs="{'invisible': [('payment_method_code', '!=', 'check_printing')]}"/>
+            <field name="journal_id" options="{'no_create': True, 'no_open': True, 'no_create_edit': True}" />
+            <field name="residual_currency_id" invisible="1" />
+            <field name="payment_method_line_id" required="1" options="{'no_create': True, 'no_open': True}"
+                                       attrs="{'invisible': [('hide_payment_method_line', '=', True)]}"/>
+
+            <field name="paid_payment" string="Paid Amount"/>
+          </group>
+
+          <group>
+          	<field name="payment_date" required="1" />
+          	<field name="payment_method_code" invisible="1" />
+          	<field name="ref" string="Memo" />
+          	<field name="note" string="Note" />
+          	<field name="bank_link" attrs="{'invisible': [('payment_method_code','!=', 'check_printing')], 'required':[('payment_method_code','=','check_printing')]}" />
+            <field name="due_date" attrs="{'invisible': [('payment_method_code','!=', 'check_printing')], 'required':[('payment_method_code','=','check_printing')]}" />
+            <field name="collection_date"
+              attrs="{'invisible': [('payment_method_code','!=', 'check_printing')]}" />
+            <field name="check_number" attrs="{'invisible': [('payment_method_code','!=', 'check_printing')],  'readonly':[('payment_method_code', '!=', 'check_printing')]}" />
+         </group>
+            </group>
+
+          <footer>
+            <button name="generate_advance_payment" type="object" string=" Advance Payment" class="oe_highlight" icon="fa-money"/>
+            <button string="Cancel" class="btn-secondary" special="cancel" icon="fa-times"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+  </data>
+</odoo>

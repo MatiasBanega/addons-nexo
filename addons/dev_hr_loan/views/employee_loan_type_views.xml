@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+For Module Support : devintelle@gmail.com  or Skype : devintelle 
+ -->
+<odoo>
+    
+
+	<record id="view_employee_loan_type_form" model="ir.ui.view">
+		<field name="name">view.employee.loan.type.form</field>
+		<field name="model">employee.loan.type</field>
+		<field name="arch" type="xml">
+			<form string="Employee Loan Type">
+				<sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="loan_limit"/>
+                            <field name="loan_term"/>
+                        </group>
+                        <group>
+                            <field name="is_apply_interest"/>
+                            <field name="interest_rate" attrs="{'invisible':[('is_apply_interest','!=',True)]}"/>
+                            <field name="interest_type" attrs="{'invisible':[('is_apply_interest','!=',True)]}"/>
+                        </group>
+                    </group>
+                    <group>
+                    	<group>
+                    		<field name="loan_account"/>
+                    		<field name="interest_account"/>
+                    	</group>
+                    	<group>
+                    		<field name="journal_id"/>
+                    	</group>
+                    </group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+    <record id="view_employee_loan_type_tree" model="ir.ui.view">
+        <field name="name">view.employee.loan.ty[e.tree</field>
+        <field name="model">employee.loan.type</field>
+        <field name="arch" type="xml">
+            <tree string="Employee Loan Type">
+                <field name="name"/>
+                <field name="loan_limit"/>
+                <field name="loan_term"/>
+                <field name="interest_rate"/>
+                <field name="interest_type"/>
+            </tree>
+        </field>
+    </record>
+    
+    
+    <record model="ir.actions.act_window" id="action_employee_loan_type">
+        <field name="name">Employee Loan Type</field>
+        <field name="res_model">employee.loan.type</field>
+        <!--<field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <menuitem name="Loan Type" id="menu_employee_loan_type" parent="menu_main_employee_loan"
+              action="action_employee_loan_type"
+              groups="hr.group_hr_user"/>
+
+</odoo>

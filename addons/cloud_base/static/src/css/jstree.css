@@ -1,0 +1,71 @@
+div.file_manager_navigation_section .jstree-default .jstree-hovered {
+    background: transparent;
+    border-radius: 0px;
+    box-shadow: inset 0 0 1px #cccccc;
+}
+div.file_manager_navigation_section .jstree-default .jstree-clicked {
+    background: rgba(108, 193, 237, 0.3);
+    border-radius: 0px;
+    box-shadow: none;
+}
+div.file_manager_navigation_section .jstree-default .jstree-context {
+    background: rgba(108, 193, 237, 0.5) !important;
+    border-radius: 0px !important;
+    box-shadow: none !important;
+}
+.file_manager_add_root_folder {
+    margin-right: 5%;
+    font-size: 9pt;
+    color: #dee2e6;
+    cursor: pointer;
+}
+
+div.cloud_base_search_row {
+    display: flex;
+    align-items: flex-end;
+}
+div.cloud_base_search_view {
+    align-items: flex-end;
+    flex: 1 1 100%;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 0 40px 1px 0;
+    position: relative;
+    display: block;
+    margin: 0 4px 8px 8px;
+}
+.cloud_base_search_icon {
+    flex: 1 1 100%;
+    position: absolute;
+    top: 6px;
+    left: auto;
+    bottom: auto;
+    right: 22px;
+    color: #212529;
+}
+.cloud_base_trash_icon {
+    flex: 1 1 100%;
+    position: absolute;
+    top: 6px;
+    left: auto;
+    bottom: auto;
+    right: 5px;
+    color: #212529;    
+}
+.cloud_base_js_search_icon:hover {
+    cursor: pointer;
+    color: black;
+}
+div.cloud_base_search_container {
+    flex: 1 1 100%;
+    flex-flow: row wrap;
+    position: relative;
+    display: flex;
+}
+input.cloud_base_search_input {
+    flex: 1 0 auto;
+    width: 75px;
+    border: none;
+    padding: 4px 0 0 0;
+}

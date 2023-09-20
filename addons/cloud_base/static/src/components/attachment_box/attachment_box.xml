@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="cloud.base.AttachmentBox" t-inherit="mail.AttachmentBox" t-inherit-mode="extension">
+        <xpath expr="//t[@t-if='chatter.attachmentList']" position="before">
+            <t t-if="chatter and chatter.thread and chatter.thread.cloudFolders.length > 0">
+                <div>
+                    <CloudFolderTree cloudFolders="chatter.thread.cloudFolders"
+                                     jstreeKey="'attachmentbox'+chatter.thread.cloudFolders[0].id"
+                                     rootCreateAllowed="false"
+                                     parentView="{}"
+
+                    />
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>

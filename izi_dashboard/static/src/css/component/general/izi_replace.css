@@ -1,0 +1,76 @@
+.datepicker .table-sm > tbody > tr > td.active, .datepicker .table-sm > tbody > tr > td .active {
+    background-color: #875A7B;
+    border-radius: 4px;
+}
+.bootstrap-datetimepicker-widget table td.active, .bootstrap-datetimepicker-widget table td.active:hover {
+    background-color: #875A7B;
+}
+.bootstrap-datetimepicker-widget table td span.active {
+    background-color: #875A7B;
+}
+/* Datepicker */
+.izi_view .o_datepicker .o_datepicker_button {
+    height: 30px;
+    line-height: 30px;
+} 
+
+/* Scroll */
+/* width or height */
+.gridjs-wrapper::-webkit-scrollbar,
+.ace_scrollbar-h::-webkit-scrollbar {
+    height: 5px;
+}
+.ace_scrollbar-v::-webkit-scrollbar {
+    width: 5px;
+}
+.o_content::-webkit-scrollbar,
+.select2-results::-webkit-scrollbar,
+.grid-stack-item-content::-webkit-scrollbar,
+.izi_config_analysis::-webkit-scrollbar,
+.izi_dialog_content::-webkit-scrollbar,
+.dropdown-menu::-webkit-scrollbar,
+.gridjs-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.o_content::-webkit-scrollbar-track,
+.gridjs-wrapper::-webkit-scrollbar-track,
+.select2-results::-webkit-scrollbar-track,
+.grid-stack-item-content::-webkit-scrollbar-track,
+.ace_scrollbar-h::-webkit-scrollbar-track,
+.ace_scrollbar-v::-webkit-scrollbar-track,
+.izi_config_analysis::-webkit-scrollbar-track,
+.izi_dialog_content::-webkit-scrollbar-track,
+.dropdown-menu::-webkit-scrollbar-track,
+.gridjs-container::-webkit-scrollbar-track  {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+.o_content::-webkit-scrollbar-thumb,
+.gridjs-wrapper::-webkit-scrollbar-thumb,
+.select2-results::-webkit-scrollbar-thumb,
+.grid-stack-item-content::-webkit-scrollbar-thumb,
+.ace_scrollbar-h::-webkit-scrollbar-thumb,
+.ace_scrollbar-v::-webkit-scrollbar-thumb,
+.izi_config_analysis::-webkit-scrollbar-thumb,
+.izi_dialog_content::-webkit-scrollbar-thumb,
+.dropdown-menu::-webkit-scrollbar-thumb,
+.gridjs-container::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+.o_content::-webkit-scrollbar-thumb:hover,
+.gridjs-wrapper::-webkit-scrollbar-thumb:hover,
+.select2-results::-webkit-scrollbar-thumb:hover,
+.grid-stack-item-content::-webkit-scrollbar-thumb:hover,
+.ace_scrollbar-h::-webkit-scrollbar-thumb:hover,
+.ace_scrollbar-v::-webkit-scrollbar-thumb:hover,
+.izi_config_analysis::-webkit-scrollbar-thumb:hover,
+.izi_dialog_content::-webkit-scrollbar-thumb:hover,
+.dropdown-menu::-webkit-scrollbar-thumb:hover,
+.gridjs-container::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}

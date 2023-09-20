@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<odoo>
+	<record id="azk_accounting_advance_payment_sale_order_form_inherit" model="ir.ui.view">
+		<field name="name">azk_accounting_advance_payment_sale_order_form_inherit</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='action_quotation_send']" position="after">
+				<button class="oe_highlight" type="object" name="set_advance_payment"
+						attrs="{'invisible': ['|', ('invoice_count', '>', 0), ('state', 'in', ['done', 'cancel'])]}" 
+						string=" Advance Payment" 
+              			icon="fa-money"/>
+			</xpath>
+			<xpath expr="//notebook/page[@name='other_information']" position="before">
+				<page name="payment_history" string="Payment History">
+	                 <field name="payment_history_ids" readonly="1" string="Payment History">
+		                   <tree>
+			                    <field name="payment_id" string="Name"/>
+			                    <field name="payment_date"/>
+			                    <field name="journal_id"/>
+			                    <field name="payment_method_id"/>
+			                    <field name="currency_id"/>
+			                    <field name="advance_amount"/>
+			                    <field name="company_currency_id" invisible="1"/>
+			                    <field name="payment_amount_main_currency" widget='monetary' options="{'currency_field': 'company_currency_id'}" string="Amount Main Currency"/>
+		                  </tree>
+	                 </field>
+                </page>
+            </xpath>
+		</field>
+	</record>
+</odoo>

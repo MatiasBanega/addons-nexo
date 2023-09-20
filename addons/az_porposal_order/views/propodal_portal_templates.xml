@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="az_proposal_order_menu"  inherit_id="portal.portal_my_home" priority="1">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+           <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Proposal Orders</t>
+                <t t-set="url" t-value="'/my/proposals'"/>
+                <t t-set="placeholder_count" t-value="'proposal_count'"/>
+            </t> 
+
+		</xpath>
+	</template>
+	
+	<template id="sale.portal_my_home_menu_sale"  inherit_id="portal.portal_breadcrumbs" priority="20">
+		 <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+				<li t-if="page_name == 'quote' or (sale_order and sale_order.state in ('sent', 'cancel') and not sale_order.proposal)" t-attf-class="breadcrumb-item #{'active ' if not sale_order else ''}">
+	               <a t-if="sale_order and not sale_order.proposal" t-attf-href="/my/quotes?{{ keep_query() }}">Quotations</a>
+	               <t t-else="">Quotations</t>
+	           </li>
+	            <li t-if="page_name == 'order' or (sale_order and sale_order.state not in ('sent', 'cancel') and not sale_order.proposal)" t-attf-class="breadcrumb-item #{'active ' if not sale_order else ''}">
+	                <a t-if="sale_order and not sale_order.proposal" t-attf-href="/my/orders?{{ keep_query() }}">Sales Orders</a>
+	                <t t-else="">Sales Orders</t>
+	            </li>
+	             <li t-if="sale_order and not sale_order.proposal" class="breadcrumb-item active">
+	               <span t-field="sale_order.type_name"/>
+	               <t t-esc="sale_order.name"/>
+	           </li>
+          </xpath>
+	</template>
+	
+	 <template id="az_proposal_portal_bread_crumbs" inherit_id="portal.portal_breadcrumbs" priority="20">
+       		<xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+	            <li t-if="page_name == 'proposals' or sale_order and sale_order.proposal" t-attf-class="breadcrumb-item #{'active ' if not sale_order else ''}">
+	                <a t-if="sale_order" t-attf-href="/my/proposals?{{ keep_query() }}">Proposals</a>
+	                <t t-else="">Proposals</t>
+	            </li>
+	            <li t-if="sale_order and sale_order.proposal" class="breadcrumb-item active">
+	                <t t-esc="sale_order.proposal_name"/>
+	            </li>
+            </xpath>
+    </template>
+	
+	 <template id="portal_my_proposals" name="My Proposals">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Proposals</t>
+            </t>
+            <t t-if="not proposals">
+                <p>There are currently no proposals for your account.</p>
+            </t>
+            <t t-if="proposals" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Proposal #</th>
+                        <th class="text-right">Proposal Date</th>
+                        <th class="text-center"/>
+                        <th class="text-right">Estimated Price</th>
+                    </tr>
+                </thead>
+                <t t-foreach="proposals" t-as="proposal" t-if="proposal.is_proposal_approved">
+                    <tr>
+                        <td><a t-att-href="proposal.get_portal_url()"><t t-esc="proposal.proposal_name"/></a></td>
+                        <td class="text-right"><span t-field="proposal.date_order"/></td>
+                        <td class="text-center">
+                            <span t-if="proposal.proposal_stage_id.is_refused" class="badge badge-pill badge-secondary"><i class="fa fa-fw fa-remove"/> Refused</span>
+                           
+                        </td>
+                        <td class="text-right">
+                            <span t-field="proposal.amount_untaxed"/>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+	
+	<template id="az_proposal_sale_order_portal_template_inherited" inherit_id="sale.sale_order_portal_template">
+		<xpath expr="//div[contains(@class, 'pb-4') and contains(@class, 'pt-1') and contains(@class, 'd-print-none') and contains(@class, 'text-center')]" position="attributes">
+			<attribute name="t-att-style" add="'display: none' if sale_order.proposal else 'display: block'" />
+		</xpath>
+		<xpath expr="//ul[@class='list-group list-group-flush flex-wrap flex-row flex-lg-column']" position="attributes">
+			<attribute name="t-att-style" add="'display: none' if sale_order.proposal else 'display: inline-block'" />
+		</xpath>
+		<xpath expr="//t[@t-set='title']/h2" position="attributes">
+			<attribute name="t-att-style" add="'display: none' if sale_order.proposal else 'display: inline-block'" />
+		</xpath>
+		<xpath expr="//t[@t-call='portal.portal_record_sidebar']" position="attributes">
+			<attribute name="t-if">not sale_order.proposal</attribute>
+		</xpath>
+    </template>
+    
+    <template id="az_proposal_sale_order_portal_content_inherited" inherit_id="sale.sale_order_portal_content">
+			<xpath expr="//t[@t-esc='sale_order.type_name']" position="replace">
+				<t t-if="sale_order.proposal" >
+					<t t-esc="'Proposal'"/>
+				</t>
+				<t t-else="" >
+					<t t-esc="sale_order.type_name"/>
+				</t>
+				<attribute name="t-att-style" add="'display: none'" />
+			</xpath>
+			<xpath expr="//em[@t-esc='sale_order.name']" position="attributes">
+				<attribute name="t-att-style" add="'display: none' if sale_order.proposal else 'display: inline-block'" />
+			</xpath>
+			<xpath expr="//em[@t-esc='sale_order.name']" position="after">
+               	<em t-esc="sale_order.proposal_name" t-att-style="'display: none' if not sale_order.proposal else 'display: inline-block'"/>
+			</xpath>
+			<xpath expr="//div[@id='so_date']/div/t[2]" position="replace">
+					<t t-else="">
+						<t t-if="not sale_order.proposal">
+                       		<strong>Quotation Date:</strong>
+                  		</t>
+                  		<t t-else="">
+                  			<strong>Proposal Date:</strong>
+                  		</t>
+                    </t>
+			</xpath>
+			<xpath expr="//div[@id='informations']/div[3]" position="attributes">
+				<attribute name="t-att-style" add="'display: none' if sale_order.proposal else 'display: block'" />
+			</xpath>
+			<xpath expr="//h3[@id='details']" position="attributes">
+				<attribute name="t-att-style" add="'display: none' if sale_order.proposal else 'display: block'" />
+			</xpath>
+			<xpath expr="//h3[@id='details']" position="after">
+				<h3 id="detailsProp" t-att-style="'display: none' if not sale_order.proposal else 'display: block'">Estimated Pricing</h3>
+			</xpath>
+			<xpath expr="//table[1]/thead/tr/th[5]" position="attributes">
+				<attribute name="t-att-style" add="'display: none !important' if sale_order.proposal else 'display: block'" />
+			</xpath>
+			<xpath expr="//table[1]/tbody/t[2]/tr/t/td[5]" position="attributes">
+				<attribute name="t-att-style" add="'display: none !important' if sale_order.proposal else 'display: block'" />
+			</xpath>
+    </template>
+    
+    <template id="az_sale_order_portal_content_totals_table_inherited" inherit_id="sale.sale_order_portal_content_totals_table">
+    	<xpath expr="//t[@t-set='tax_totals']" position="after">
+    		 <t t-set="is_proposal" t-value="sale_order.proposal"/>
+    	</xpath>
+    </template>
+    
+    <template id="az_document_tax_totals_inherited" inherit_id="account.document_tax_totals">
+    	<xpath expr="//tr[@class='border-black o_subtotal']" position="attributes">
+    		<attribute name="t-att-style" add="'display: none !important' if is_proposal else 'display: block'" />
+    	</xpath>
+    	<xpath expr="//tr[@class='border-black o_total']" position="attributes">
+    		<attribute name="t-att-style" add="'display: none !important' if is_proposal else 'display: block'" />
+    	</xpath>
+    	
+    	<xpath expr="//tr[@class='border-black o_total']" position="after">
+    		<t t-if="is_proposal">
+    			<t t-if="tax_totals['subtotals']">
+    				<t t-foreach="tax_totals['subtotals']" t-as="subtotal" >
+		                <tr class="border-black o_subtotal" id="total_untaxed">
+		                      <td><strong>Total</strong></td>
+		
+		                    <td class="text-right">
+		                        <span
+		                            t-att-class="oe_subtotal_footer_separator"
+		                            t-esc="subtotal['formatted_amount']"
+		                        />
+		                    </td>
+		                </tr>
+		
+		            </t>
+    			</t>
+    			<t t-else="">
+    				 <tr class="border-black o_total">
+		                <td><strong>Total</strong></td>
+		                <td class="text-right">
+		                    <span t-esc="tax_totals['formatted_amount_total']"/>
+		                </td>
+		            </tr>
+    			</t>
+    		</t>
+    		
+    	
+    	</xpath>
+    	<xpath expr="//t[@t-call='account.tax_groups_totals']" position="attributes">
+    		<attribute name="t-if">not is_proposal</attribute>
+    	</xpath>
+    </template>
+    
+    
+</odoo>

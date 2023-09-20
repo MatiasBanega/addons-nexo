@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="az_attachment_portal_layout_inherited" inherit_id="portal.portal_layout">
+		<xpath expr="//div[@id='o_my_sidebar']" position="inside">
+			 <div class="o_portal_my_security mt-3">
+                 <h4>Company Documents</h4>
+                 <hr class="mt-1 mb-1"/>
+                 <a href="/my/company_documents"><i class="fa fa-pencil mx-1"/>Edit Company Documents</a>
+             </div>
+		</xpath>
+	</template>
+	
+	
+     <template id="az_documents__portal_bread_crumbs_inherited" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'company_documents'" t-attf-class="breadcrumb-item">
+                <a t-if="not attachments" >Company Documents</a>
+                <t t-else="">Company Documents</t>
+            </li>   
+        </xpath>
+    </template>
+    
+	<template id="portal_contact_documents" name="contact documents">
+		<t t-call="portal.portal_layout">
+			<t t-set="breadcrumbs_searchbar" t-value="True" />
+
+			<t t-call="portal.portal_searchbar">
+				<t t-set="title">Company Documents</t>
+			</t>
+			<t t-if="not attachments">
+				<p>There are currently no company documents for your account.</p>
+			</t>
+
+			<div class="table-responsive">
+				<table class="table table-striped" id="div_dislike_table">
+					<div class="row ">
+						<div class="col-md-12 border">
+							<a href="#" id="btnUploadCompanyDocumentModal" >
+								<i class="fa fa-plus" style="margin-right:2px;margin-left:2px"></i>
+								Upload New Document
+							</a>
+						</div>
+					</div>
+					<thead>
+						<tr class="active">
+							<th class="text-left">Name</th>
+							<th class="text-left">Description</th>
+							<th class="text-left">Link</th>
+							<th class="text-left">Delete</th>
+						</tr>
+					</thead>
+					<t-body>
+						<t t-foreach="attachments" t-as="att">
+							<tr>
+								<td class="text-left">
+									<t t-esc="att.name" />
+								</td>
+								<td class="text-left">
+									<t t-esc="att.description" />
+								</td>
+								<td class="text-left">
+									<a
+										t-attf-href="/web/content/#{att.id}?download=True&amp;access_token=#{att.access_token}">
+										<i class="fa fa-download"></i>
+									</a>
+								</td>
+								<td class="text-left">
+									<t t-if="att.create_uid.id == request.env.user.id" >
+										<a href="#"  id="deleteCompanyDocument" t-att-data-attachemnt_id="att.id">
+											<i class="fa fa-trash"></i>
+										</a>
+									</t>
+								</td>
+			
+							</tr>
+						</t>
+					</t-body>
+
+				</table>
+			</div>
+		</t>
+
+		<t t-call="az_portal_contact_attachments.azk_upload_contact_attachment_modal" />
+
+	</template>
+	
+	<template id="azk_upload_contact_attachment_modal">
+		<style>
+				#loader{
+						z-index:2000;
+					}
+					.lds-dual-ring.hidden { 
+					display: none;
+					}
+					.lds-dual-ring {
+					  display: inline-block;
+					  width: 80px;
+					  height: 80px;
+					}
+					.lds-dual-ring:after {
+					  content: " ";
+					  display: block;
+					  width: 64px;
+					  height: 64px;
+					  margin: 5% auto;
+					  border-radius: 50%;
+					  border: 6px solid #fff;
+					  border-color: #fff transparent #fff transparent;
+					  animation: lds-dual-ring 1.2s linear infinite;
+					}
+					@keyframes lds-dual-ring {
+					  0% {
+					    transform: rotate(0deg);
+					  }
+					  100% {
+					    transform: rotate(360deg);
+					  }
+					}
+					
+					.overlay {
+					    position: fixed;
+					    top: 0;
+					    left: 0;
+					    width: 100%;
+					    height: 100vh;
+					    background: rgba(0,0,0,.8);
+					    z-index: 999;
+					    opacity: 1;
+					    transition: all 0.5s;
+					}
+			</style>
+			<div id="loader" class="lds-dual-ring hidden overlay"></div>
+		
+		<div class="modal" id="contactUploadAttachmentModal" role="dialog">
+			<div class="modal-dialog modal-md">
+				<div class="modal-content ">
+					<div class="modal-header lddc_right">
+						<h4 class="modal-title col-md-11" style="padding:0px;">Uplaod Attachment</h4>
+						<span class="close modal-cross" data-dismiss="modal"
+							title="close">
+							&#160;&#160;&#160;</span>
+					</div>
+					<div class="modal-body ">
+						<form role="form" method="post" t-if="not message" id="frmContactUpload" >
+							<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+							
+							<div class="row">
+								<div class="clo-sm-2 col-lg-2 cl-md-2">
+									<div class="form-group field-name">
+										<label for="attachment_file" class="lddc_label">File:</label>
+									</div>
+								</div>
+								<div class="clo-sm-10 col-lg-10 cl-md-10">
+									<div class="form-group field-name">
+										
+										<input type="file" name="attachment_file" id="attachment_file" required="required"/>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="clo-sm-2 col-lg-2 cl-md-2">
+									<div class="form-group field-name">
+										<label for="attachment_description" class="lddc_label">Description:</label>
+									</div>
+								</div>
+								<div class="clo-sm-10 col-lg-10 cl-md-10">
+									<div class="form-group field-name">
+										<textarea  name="attachment_description" id="attachment_description" rows="4" cols="50" required="required"/>
+									</div>
+								</div>
+							</div>
+
+						</form>
+
+					</div>
+					<div class="modal-footer">
+						<button id="upload_contact_file" type="button" class="btn btn-primary btn-block">Upload</button>
+						<button type="button" class="btn" data-dismiss="modal" aria-label="Cancel">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</template>
+
+</odoo>

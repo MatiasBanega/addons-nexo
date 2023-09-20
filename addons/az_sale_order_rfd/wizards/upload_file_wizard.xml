@@ -1,0 +1,18 @@
+<odoo>
+    <record id="az_request_for_delivery_upload_form_wizard_form" model="ir.ui.view">
+        <field name="name">request.for.delivery.upload.file.form.view</field>
+        <field name="model">upload.rfd.file.wizard</field>
+        <field name="arch" type="xml">
+            <form name="rfd_form">
+                <group>
+                    <field name="file" widget="binary" filename="file_name"/>
+                    <field name="comment"/>
+                </group>
+                <footer>
+                    <button name="upload_file" type="object" string="Upload" class="btn-primary"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

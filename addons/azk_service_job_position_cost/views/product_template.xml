@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="az_product_template_product_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='categ_id']" position="before">
+                		
+	                <field name="use_designation_cost" widget="toggle_boolean"/>
+					<field name="designation_cost_base" options="{'no_create': 1, 'no_edit': 1}" widget="many2many_tags" attrs="{'invisible':[('use_designation_cost','=',False)],'required': [('use_designation_cost','=', True)]}"/>
+					<field name="designation_cost" widget='monetary' options="{'currency_field': 'currency_id'}"  attrs="{'invisible':[('use_designation_cost','=',False)]}"/>
+              
+            </xpath>
+        </field>
+    </record>
+          
+</odoo>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="az_vendor_rating_purchase_order_form" model="ir.ui.view">
+		<field name="name">az_vendor_rating_purchase_order_form</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form"/>
+		<field name="arch" type="xml">
+			 <div name="button_box" position="inside">
+                    <button type="object" class="oe_stat_button" icon="fa-file-text-o" name="action_view_po_rating"
+                    	attrs="{'invisible': ['|', ('state', 'not in', ('purchase', 'done')), ('po_rating_count', '=', 0)]}"
+                        context="{'default_po_id': active_id}">
+                        <div class="o_form_field o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="po_rating_count" />
+                            </span>
+                            <span class="o_stat_text">PO Vendor Rating</span>
+                        </div>
+                    </button>
+                </div>
+               
+                <header position="inside">
+                	 <button name="create_vendor_rating_elements" string="Vendor Rating" type="object" attrs="{'invisible': ['|',('state', 'not in', ('purchase', 'done')), ('po_rating_count', '!=', 0)]}" />
+                </header>
+		</field>
+	</record>
+	
+	<record model="ir.ui.view" id="az_contact_vendor_rating_partner_view_buttons">
+            <field name="name">az_contact_vendor_rating_partner_view_buttons</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="priority" eval="11"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button type="object" class="oe_stat_button" icon="fa-file-text-o" name="action_view_vendor_rating"
+                    	attrs="{'invisible': [('vendor_rating_count', '=', 0)]}"
+                        context="{'default_partner_id': active_id}">
+                        <div class="o_form_field o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="vendor_rating_count" />
+                            </span>
+                            <span class="o_stat_text">Vendor Rating</span>
+                        </div>
+                    </button>
+                </div>
+                
+               </field>
+        </record>
+	
+	<record id="view_vendor_rating_element_tree" model="ir.ui.view">
+        <field name="name">view_vendor_rating_element_tree</field>
+        <field name="model">vendor.rating.element</field>
+        <field name="arch" type="xml">
+            <tree string="Rating Element">
+                <field name="name"/>
+                <field name="max_rate"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    
+     <record id="view_vendor_rating_element_form" model="ir.ui.view">
+        <field name="name">view_vendor_rating_element_form</field>
+        <field name="model">vendor.rating.element</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Rating Element" create="0" >
+                <sheet>
+                	<group>
+                        <group>
+                			<field name="name"/>
+                			<field name="max_rate"/>
+                			<field name="active"/>
+               			</group>
+            		</group>
+                </sheet>
+               </form>
+         </field>
+      </record>
+      
+      <record id="view_vendor_rating_tree" model="ir.ui.view">
+        <field name="name">view_vendor_rating_tree</field>
+        <field name="model">vendor.rating</field>
+        <field name="arch" type="xml">
+            <tree string="Vendor Rating" create="0" edit="0" delete="0">
+                <field name="vendor_id"/>
+                <field name="rating_element_id" />
+                <field name="rate" widget="percentage"/>
+                <field name="company_id"/>
+               
+            </tree>
+        </field>
+    </record>
+    
+     <record id="view_vendor_rating_form" model="ir.ui.view">
+        <field name="name">view_vendor_rating_form</field>
+        <field name="model">vendor.rating</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Rating" create="0" edit="0" delete="0">
+           <!--  <header>
+            	 <button name="view_po_list" 
+								title="View PO List" 
+								string="View PO List"
+								class="btn-primary" 
+								type="object" />
+            </header> -->
+                <sheet>
+                	<group>
+                       
+                			 <field name="vendor_id"/>
+			                <field name="rating_element_id"/>
+			                <field name="rate" widget="percentage"/>
+			                <field name="company_id"/>
+			                <field name="po_rating_ids" >
+			                	<tree create="0" edit="0" delete="0">
+			                		<field name="purchase_order_id" />
+			                		<field name="rating_element_id" />
+			                		<field name="rate" />
+			                		<field name="max_rate" />
+			                	</tree>
+			                </field>
+               			
+            		</group>
+                </sheet>
+               </form>
+         </field>
+      </record>
+      
+      <record id="view_po_rating_tree" model="ir.ui.view">
+        <field name="name">view_po_rating_tree</field>
+        <field name="model">purchase.order.rating</field>
+        <field name="arch" type="xml">
+            <tree string="PO Rating" editable="bottom" >
+                <field name="vendor_id" readonly="1" context="{'default_vendor_id': vendor_id}"/>
+                <field name="purchase_order_id" readonly="1" context="{'default_purchase_order_id': purchase_order_id}"/>
+                <field name="rating_element_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                <field name="rate"/>
+                <field name="create_date" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_po_rating_form" model="ir.ui.view">
+        <field name="name">view_po_rating_form</field>
+        <field name="model">purchase.order.rating</field>
+        <field name="arch" type="xml">
+            <form string="PO Rating" create="0" delete="0">
+                <sheet>
+                	<group>
+                        <group>
+                			 <field name="vendor_id" readonly="1"/>
+			                <field name="purchase_order_id" readonly="1"/>
+			                <field name="rating_element_id" readonly="1"/>
+			                <field name="rate"/>
+			                <field name="create_date" readonly="1"/>
+               			</group>
+            		</group>
+                </sheet>
+               </form>
+         </field>
+      </record>
+      
+      <record id="vendor_rating_element_action" model="ir.actions.act_window">
+        <field name="name">Vendor Rating Element</field>
+        <field name="res_model">vendor.rating.element</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record id="vendor_rating_action" model="ir.actions.act_window">
+        <field name="name">Vendor Rating</field>
+        <field name="res_model">vendor.rating</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record id="po_rating_action" model="ir.actions.act_window">
+        <field name="name">PO Rating</field>
+        <field name="res_model">purchase.order.rating</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+     <menuitem id="vendor_rating_elemnt_menu" parent="purchase.menu_purchase_config"  name="Vendor Rating Elements" action="vendor_rating_element_action" sequence="3"/>
+</odoo>

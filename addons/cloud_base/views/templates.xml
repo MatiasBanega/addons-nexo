@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="cloud_base.error_page" name="Connection error">
+        <div>
+            <span t-out="cloud_error"/>
+        </div>
+    </template>
+
+</odoo>

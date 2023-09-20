@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="az_purchase_order_portal_content_inherited" inherit_id="purchase.purchase_order_portal_content">
+		<!-- loader -->
+		<xpath expr="//div[1]" position="before">
+			<style>
+				#loader{
+						z-index:2000;
+					}
+					.lds-dual-ring.hidden { 
+					display: none;
+					}
+					.lds-dual-ring {
+					  display: inline-block;
+					  width: 80px;
+					  height: 80px;
+					}
+					.lds-dual-ring:after {
+					  content: " ";
+					  display: block;
+					  width: 64px;
+					  height: 64px;
+					  margin: 5% auto;
+					  border-radius: 50%;
+					  border: 6px solid #fff;
+					  border-color: #fff transparent #fff transparent;
+					  animation: lds-dual-ring 1.2s linear infinite;
+					}
+					@keyframes lds-dual-ring {
+					  0% {
+					    transform: rotate(0deg);
+					  }
+					  100% {
+					    transform: rotate(360deg);
+					  }
+					}
+					
+					.overlay {
+					    position: fixed;
+					    top: 0;
+					    left: 0;
+					    width: 100%;
+					    height: 100vh;
+					    background: rgba(0,0,0,.8);
+					    z-index: 999;
+					    opacity: 1;
+					    transition: all 0.5s;
+					}
+			</style>
+			<div id="loader" class="lds-dual-ring hidden overlay"></div>
+		</xpath>
+		
+		<xpath expr="//h2" position="before">
+			<div class="alert alert-danger" role="alert" t-if="order.declined" style="text-align:center">		 				
+					The RFQ has been declined due to the following reason:  <span t-esc="order.decline_reason_id.po_decline_reason" />
+
+			</div>
+		</xpath>
+		
+		<xpath expr="//h2" position="before">
+			<div class="alert alert-danger" role="alert" t-if="not order.qouted and order.state=='sent' and request.env.company.restrict_rfq_sub_after_sub_date and  
+																datetime.datetime.today().date() &gt; order.x_submission_date" style="text-align:center">		 				
+					The RFQ can not be submitted after <span t-field="order.x_submission_date" t-options='{"widget": "date"}' />
+
+			</div>
+		</xpath>
+		
+		<xpath expr="//h2" position="before">
+			<div class="alert alert-danger" role="alert" t-if="order.qouted and order.state=='sent'" style="text-align:center">
+				Your quotation has been submitted.
+			</div>
+		</xpath>
+		
+		<!-- show prices and subtotals on rfq  -->
+			<xpath expr="//table[1]/thead/tr/th[5]" position="replace">
+				<th t-if="not update_dates and order.state in ['sent', 'purchase', 'done']" t-attf-class="text-right {{ 'd-none d-sm-table-cell' if report_type == 'html' else '' }}">Unit Price</th>
+			</xpath>
+			<xpath expr="//table[1]/thead/tr/th[6]" position="replace">
+				 <th t-if="not update_dates and order.state in ['sent', 'purchase', 'done']" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                      <span>Taxes</span>
+                  </th>
+			</xpath>
+			<xpath expr="//table[1]/thead/tr/th[7]" position="replace">
+				 <th class="text-right" t-if="order.state in ['sent', 'purchase', 'done']" >
+                      <span groups="account.group_show_line_subtotals_tax_excluded">Amount</span>
+                      <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
+                  </th>
+			</xpath>
+			<xpath expr="//table[1]/tbody/t[2]/tr/t[1]/td[5]" position="replace">
+				<td t-if="not update_dates and order.state in ['sent', 'purchase', 'done']" t-attf-class="text-right {{ 'd-none d-sm-table-cell' if report_type == 'html' else '' }}">
+                    <div
+                        t-field="line.price_unit"
+                        class="text-right"
+                    />
+                </td>
+			</xpath>
+			<xpath expr="//table[1]/tbody/t[2]/tr/t[1]/td[6]" position="replace">
+				<td t-if="not update_dates and order.state in ['sent', 'purchase', 'done']" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                     <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.taxes_id))"/>
+                 </td>
+			</xpath>
+			<xpath expr="//table[1]/tbody/t[2]/tr/t[1]/td[7]" position="replace">
+				<td class="text-right" t-if="not update_dates and order.state in ['sent', 'purchase', 'done']">
+                     <span class="oe_order_line_price_subtotal" t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                     <span class="oe_order_line_price_total" t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                 </td>
+			</xpath>
+			
+			<xpath expr="//div[@id='total']" position="replace">
+				 <div id="total" t-if="order.state in ['sent', 'purchase', 'done']" class="row" name="total" style="page-break-inside: avoid;">
+	                  <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+	                      <t t-call="purchase.purchase_order_portal_content_totals_table"/>
+	                  </div>
+              	</div>
+			</xpath>
+		
+		<!-- ****************************** -->
+		<xpath expr="//div[@id='informations']/div[2]/div/strong[2]" position="attributes">
+			<attribute name="style" add="display: none" separator=";"/>
+		</xpath>
+		 <!-- <xpath expr="//div[@id='informations']/div[2]/div/div/strong" position="attributes">
+			<attribute name="style" add="display: none " separator=";"/>
+		</xpath>
+		 <xpath expr="//div[@id='informations']/div[2]/div/div/span" position="attributes">
+			<attribute name="style" add="display: none " separator=";"/>
+		</xpath> -->
+		<!-- <xpath expr="//div[@id='informations']/div[2]/div/div/strong" position="after">
+			 <strong>Requested Delivery Date:</strong>
+		</xpath> -->
+		<xpath expr="//div[@id='informations']/div[2]/div/div" position="before">
+			 <div t-att-class="'d-inline' if order.date_planned else 'd-none'">
+                <strong>Submission Date:</strong><span class="ml-1" t-field="order.x_submission_date" t-options='{"widget": "date"}'/><br/>
+              </div>
+		</xpath>
+		
+		<xpath expr="//td[@id='product_name']/img" position="attributes">
+			<attribute name="style" add="display: none !important" separatoe=";" />
+		</xpath>
+		
+		<xpath expr="//table[1]/thead/tr/th[1]" position="replace">
+			<th class="text-left"> Services / Products</th>
+		</xpath>
+		
+		<xpath expr="//table[1]/thead/tr/th[1]" position="after">
+			<th class="text-right" >Specification</th>
+			<th class="text-right" >Location</th>
+			<th class="text-right" >Incoterm</th>
+		</xpath>
+		
+		<!-- <xpath expr="//table[1]/thead/tr" position="inside">
+			<th class="text-right" t-if="order.state == 'sent'">Vendor Comments</th>
+		</xpath> -->
+		
+		<xpath expr="//td[@id='product_name']" position="after">
+			<td class="text-right" >
+				 <span t-field="line.x_spces"/>
+			</td>
+			<td class="text-right" >
+				 <span t-field="line.x_location"/>
+			</td>
+			<td class="text-right" >
+				 <span t-field="line.x_term"/>
+			</td>
+		</xpath>
+		
+		<!-- <xpath expr="//table[1]/tbody/t[2]/tr" position="inside">
+			<td class="text-right" t-if="order.state == 'sent'">
+				 <span t-field="line.vendor_conditions"/>
+			</td>
+		</xpath> -->
+		
+		<xpath expr="//table[1]/thead/tr" position="inside">
+			<th class="text-right" t-if="not order.qouted and order.state == 'sent'">Add Price</th>
+		</xpath>
+		
+		
+		<xpath expr="//table[1]/tbody/t[2]/tr" position="inside">
+			<td class="text-right" t-if="not order.qouted and order.state == 'sent' ">
+				<t t-if="not request.env.company.restrict_rfq_sub_after_sub_date or
+				 (request.env.company.restrict_rfq_sub_after_sub_date and datetime.datetime.today().date() &lt;=  order.x_submission_date )">
+					<a t-if="not order.declined" href="#"  t-att-data-line_id="line.id" 
+					class="btn btn-primary o_form_button_edit azPriceBtn">
+					<i class="fa fa-fw o_button_icon fa-pencil-square-o"></i>My Price</a>
+				</t>
+			</td>
+		</xpath>
+		
+		<xpath expr="//table[1]/thead/tr" position="inside">
+			<th class="text-right" t-if="order.state == 'sent'"> Download Attached File</th>
+		</xpath>
+
+		<xpath expr="//table[1]/tbody/t[2]/tr" position="inside">
+			<td class="text-right" t-if="order.state == 'sent'">
+				
+				<t t-foreach="line.attached_files" t-as="file">
+					<a target="_blank" t-attf-href="/web/content/#{file.id}?download=True&amp;access_token=#{file.access_token}"  
+					class="btn btn-primary o_form_button_edit">
+					<i class="fa fa-download" t-att-title="file.name"></i></a>
+				</t>
+			</td>
+		</xpath>
+		
+		<xpath expr="//div[@id='introduction']" position="before">
+			<t t-call="az_mindspace_vendor_portal.az_rfq_portal_modal" />
+			<t t-call="az_mindspace_vendor_portal.az_rfq_pdecline_reason_modal" />
+		</xpath>
+		
+		
+		<xpath expr="//div[@id='total']" position="after">
+				<div id="terms" t-if="order.state in ['sent'] and not order.qouted" class="row"  style="page-break-inside: avoid;">
+					<div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+						<a target="_blank" href="/azk_rfq/portal/terms" style="font-size: x-large">Terms &#38; Conditions</a>
+					</div>
+				</div>
+				<t t-if="not request.env.company.restrict_rfq_sub_after_sub_date or
+				 				(request.env.company.restrict_rfq_sub_after_sub_date and datetime.datetime.today().date() &lt;=  order.x_submission_date )" >
+					<div id="terms" t-if="order.state in ['sent'] and not order.qouted and not order.declined" class="row"  style="page-break-inside: avoid;">
+						<div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto" id="rfq_terms_content">
+							<input type="checkbox" id="chk_rfq_terms" /> <span > I confirm that I read the terms and conditions and I'm bound by the RFQ Process and mentioned terms and conditions.</span>
+							
+						</div>
+						
+					</div>
+					<div id="terms" t-if="order.state in ['sent'] and not order.qouted and not order.declined" class="row"  style="page-break-inside: avoid;">
+						<div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+							<input type="text" id="rfq_submitted_by" class="form-control form-control-sm" placeholder="Submited By: Enter Your Name"/>
+						</div>
+					</div>
+				</t>
+				<br/>
+				<div id="submit_prices" t-if="order.state in ['sent'] and not order.qouted" class="row"  style="page-break-inside: avoid;">
+	                  <t t-if="not request.env.company.restrict_rfq_sub_after_sub_date or
+				 				(request.env.company.restrict_rfq_sub_after_sub_date and datetime.datetime.today().date() &lt;=  order.x_submission_date )">
+		                  <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+		                    	<a  t-if="not order.declined" href="#" id="azDeclineBtn" t-att-data-order_id="order.id" 
+								class="btn btn-primary o_form_button_edit" style="width: 35%;float: left;margin-right: 5px;background-color: #721c24;">
+								<i class="fa fa-fw o_button_icon fa-pencil-square-o" ></i>Decline</a>
+		                    	<a  t-if="not order.declined" href="#" id="azSubmitPriceBtn" t-att-data-order_id="order.id" 
+								class="btn btn-primary o_form_button_edit" style="width: 60%;float: left;">
+								<i class="fa fa-fw o_button_icon fa-pencil-square-o" ></i>Submit My Prices</a>
+		                  </div>
+	                  </t>
+            	</div>
+		</xpath>
+	</template>
+	
+	<template id="az_rfq_portal_modal" name="RFQ Portal Modal">
+		<div class="modal rtl" id="rfqPortalModal" role="dialog">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content create_wishlist_modal">
+                        <div class="modal-header lddc_right">
+                            <h4 class="modal-title col-md-11" style="padding:0px;">My Price</h4>
+                            <span class="close modal-cross" data-dismiss="modal" title="close">
+                                &#160;&#160;&#160;</span>
+                        </div>
+                        <div class="modal-body">
+                        	<form  id="frmMyPrices" role="form" method="post"  >
+			        			 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+			        			 <input type="hidden" name="order_line_id" id="order_line_id" />
+			        			 <!-- <div class="row">
+					          			<div class="clo-sm-12 col-lg-12 cl-md-12">
+					          				 <div class="form-group field-name">
+					          				 	 <label for="surgery"  class="lddc_label">Delivery Date:</label>
+					          				 	 <input type="date"  name="rfq_date"  id="rfq_date" class="form-control form-control-sm" placeholder="Date" required="required"/>
+					          				 </div>
+					          			</div>
+					          		</div> -->
+					          		
+					          		<div class="row">
+					          			<div class="clo-sm-12 col-lg-12 cl-md-12">
+					          				 <div class="form-group field-name">
+					          				 	 <label for="unit_price"  >Unit Price:</label>
+	                            				  <input type="text" name="rfq_unit_price" id="rfq_unit_price" class="form-control form-control-sm" autofocus="autofocus" required="required"/>
+					          				 </div>
+					          			</div>
+					          		</div>
+					          		
+					          		<div class="row">
+					          			<div class="clo-sm-12 col-lg-12 cl-md-12">
+					          				 <div class="form-group field-name">
+					          				 	 <label for="description"  >Comments:</label>
+	                            				  <input type="text" name="rfq_description" id="rfq_description" class="form-control form-control-sm" autofocus="autofocus"/>
+					          				 </div>
+					          			</div>
+					          		</div>
+			        			 
+			        		</form>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button id="update_rfq_prices" type="button" class="btn btn-primary btn-block">Submit</button>
+                             <button type="button" class="btn" data-dismiss="modal" aria-label="Cancel">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </template>
+    
+    <template id="az_rfq_pdecline_reason_modal" >
+		<div class="modal rtl" id="rfqDeclineModal" role="dialog">
+                <div class="modal-dialog modal-gm">
+                    <div class="modal-content ">
+                        <div class="modal-header ">
+                            <h4 class="modal-title col-md-11" style="padding:0px;">PO Decline</h4>
+                            <span class="close modal-cross" data-dismiss="modal" title="close">
+                                &#160;&#160;&#160;</span>
+                        </div>
+                        <div class="modal-body">
+                        	<form  id="frmPoDeclineReason" role="form" method="post"  >
+			        			 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+			        			 <input type="hidden" name="decline_order_line_id" id="decline_order_line_id" />
+			        			 
+					          		<div class="row">
+					          			<div class="clo-sm-12 col-lg-12 cl-md-12">
+					          				 <div class="form-group field-name">
+					          				 	 <label for="unit_price"  class="lddc_label">Please specify the declining reason:</label>
+	                            				  <select name="po_decline_reson" id="po_decline_reson" class="form-control form-control-sm">
+	                            				  		 <option value="">Decline Reason...</option>
+	                            				  		 <t t-foreach="request.env['po.decline.reason'].sudo().search([])" t-as="reason">
+	                            				  		 	<option t-att-value="reason.id"><t t-esc="reason.po_decline_reason" /></option>
+	                            				  		 </t>
+	                            				  </select>
+					          				 </div>
+					          			</div>
+					          		</div>
+					          		
+			        		</form>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button id="submit_decline" type="button" class="btn btn-primary btn-block">Submit</button>
+                             <button type="button" class="btn" data-dismiss="modal" aria-label="Cancel">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </template>
+    
+     <template id="az_vendor_portal_bread_crumbs_inherited" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'rfq_terms'" t-attf-class="breadcrumb-item">
+                <t >RFQ Terms &#38; Conditions </t>
+            </li>   
+        </xpath>
+    </template>
+    
+    <template id="az_vendor_portal_terms" >
+    	<t t-call="portal.portal_layout">
+			<t t-set="breadcrumbs_searchbar" t-value="True" />
+
+			<t t-call="portal.portal_searchbar">
+				<t t-set="title">RFQ Terms &#38; Conditions</t>
+			</t>
+			
+			<div class="container border  " style="padding:10px">
+				
+				<div class="row">
+					<div class="col-sm-12 col-lg-12 col-md-12">
+						<p >
+						<!-- 	<pre> -->
+								<t t-raw="terms" />
+							<!-- </pre> -->
+						</p>
+					</div>
+				</div>
+			</div>
+			
+		</t>
+		
+    </template>
+    
+    
+</odoo>

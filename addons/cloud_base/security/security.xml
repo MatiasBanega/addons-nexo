@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="module_category_cloud_base" model="ir.module.category">
+        <field name="name">Cloud Storage</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="group_cloud_base_user" model="res.groups">
+        <field name="name">File manager access</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="cloud_base.module_category_cloud_base"/>
+    </record>
+    <record id="group_cloud_base_admin" model="res.groups">
+        <field name="name">Administration</field>
+        <field name="implied_ids" eval="[(4, ref('cloud_base.group_cloud_base_user'))]"/>
+        <field name="category_id" ref="cloud_base.module_category_cloud_base"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+
+</odoo>

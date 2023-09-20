@@ -1,0 +1,96 @@
+<odoo>
+    <record id="add_document_wizard_form" model="ir.ui.view">
+        <field name="name">add.document.wizad</field>
+        <field name="model">add.document.to.mail.composer</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="document_ids">
+                    <kanban js_class="documents_kanban" create="false" sample="1">
+                            <field name="id"/>
+                            <field name="mimetype"/>
+                            <field name="favorited_ids"/>
+                            <field name="owner_id"/>
+                            <field name="lock_uid"/>
+                            <field name="type"/>
+                            <field name="create_uid"/>
+                            <field name="url"/>
+                            <field name="create_date"/>
+                            <field name="active"/>
+                            <field name="checksum"/>
+                            <field name="name"/>
+                            <field name="res_model_name"/>
+                            <field name="res_model"/>
+                            <field name="res_name"/>
+                            <field name="activity_ids"/>
+                            <field name="activity_state"/>
+                            <templates>
+                                <t t-name="kanban-box">
+                                    <t t-set="fileRequest" t-value="record.type.raw_value === 'empty'"/>
+                                    <div draggable="true" t-attf-class="oe_kanban_global_area o_document_draggable o_kanban_attachment o_documents_attachment {{fileRequest ? 'oe_file_request' : ''}}" t-att-data-id="record.id.raw_value">
+                                        <div t-attf-class="o_kanban_image #{fileRequest ? 'o_request_image' : ''}">
+                                            <t t-set="webimage" t-value="new RegExp('image.*(gif|jpeg|jpg|png)').test(record.mimetype.value)"/>
+                                            <t t-set="binaryPreviewable" t-value="new RegExp('(image|video|application/pdf|text)').test(record.mimetype.value) &amp;&amp; record.type.raw_value === 'binary'"/>
+                                            <!-- should be made more generic if we support different websites for videos -->
+                                            <t t-set="youtubeUrlMatch" t-value="record.url.raw_value ? record.url.raw_value.match('youtu(?:\.be|be\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]{11})') : false"/>
+                                            <t t-set="youtubeVideoToken" t-value="youtubeUrlMatch ? youtubeUrlMatch.length &gt; 1 ? youtubeUrlMatch[1] : false : false"/>
+                                            <div name="document_preview" t-attf-class="o_kanban_image_wrapper #{(webimage or binaryPreviewable or youtubeVideoToken) ? 'oe_kanban_previewer' : ''}" t-att-title="fileRequest ? 'Upload file' : ''">
+                                                <img t-if="youtubeVideoToken" width="100" height="100" alt="Document" class="o_attachment_image" t-attf-src="https://img.youtube.com/vi/{{youtubeVideoToken}}/0.jpg"/>
+                                                <div t-elif="record.type.raw_value == 'url'" class="o_url_image fa fa-link fa-3x text-muted"/>
+                                                <t t-elif="webimage">
+                                                    <t t-set="unique" t-value="record.checksum.value ? record.checksum.value.slice(-8) : ''"/>
+                                                    <img t-attf-src="/documents/image/#{record.id.raw_value}?field=thumbnail&amp;unique=#{unique}" width="100" height="100" alt="Document Thumbnail" class="o_attachment_image"/>
+                                                </t>
+                                                <div t-elif="fileRequest" class="fa fa-upload fa-3x text-muted"/>
+                                                <div t-else="!webimage" class="o_image o_image_thumbnail" t-att-data-mimetype="record.mimetype.value"/>
+                                            </div>
+                                        </div>
+                                        <div class="o_kanban_details">
+                                            <div class="o_kanban_details_wrapper">
+                                                <div t-att-title="record.name.raw_value" class="o_kanban_record_title">
+                                                    <t t-if="record.lock_uid.raw_value">
+                                                        <i class="o_documents_lock fa fa-lock" t-att-title="record.lock_uid.value"/>
+                                                    </t>
+                                                    <field name="name" required="True" class="o_text_overflow"/>
+                                                </div>
+                                                <div class="o_kanban_record_body">
+                                                    <t t-if="record.res_model_name.raw_value &amp;&amp; record.res_model.raw_value !== 'documents.document'">
+                                                        <strong><field name="res_model_name"/></strong>
+                                                        <t t-if="record.res_name.raw_value">
+                                                            <span t-att-title="record.res_name.raw_value">: <field name="res_name"/></span>
+                                                        </t>
+                                                        <t t-elif="fileRequest">
+                                                             <span><b> Request</b></span>
+                                                        </t>
+                                                    </t>
+                                                    <t t-elif="record.type.raw_value == 'url'">
+                                                        <span class="o_document_url"><i class="fa fa-globe" title="Document url"/> <field name="url" widget="url"/></span>
+                                                    </t>
+                                                    <t t-elif="fileRequest">
+                                                        <span><b>Requested Document</b></span>
+                                                    </t>
+                                                    <samp t-else="" class="text-muted"> </samp>
+                                                    <field name="tag_ids" widget="documents_many2many_tags"/>
+                                                </div>
+                                                <div class="o_kanban_record_bottom flex-wrap">
+                                                    <time class="oe_kanban_bottom_left">
+                                                        <field name="create_date" widget="date"/>
+                                                    </time>
+                                                    <div class="oe_kanban_bottom_right">
+                                                        <field name="owner_id" widget="many2one_avatar_user"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </templates>
+                        </kanban>
+                    </field>
+                    <footer>
+                        <button name="add_document_to_mail" string="Attach" type="object"/>
+                        <button name="cancel" string="Cancel" type="object"/>
+                    </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

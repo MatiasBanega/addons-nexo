@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_az_proposal_stage,az_proposal_stage,model_az_proposal_stage,base.group_user,1,1,1,1

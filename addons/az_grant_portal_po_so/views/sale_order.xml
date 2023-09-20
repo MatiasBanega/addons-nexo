@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="sale_wizard_action_create_and_open" model="ir.actions.server">
+		<field name="name">Grant portal access</field>
+		<field name="model_id" ref="portal.model_portal_wizard"/>
+		<field name="binding_model_id" ref="sale.model_sale_order"/>
+		<field name="state">code</field>
+		<field name="code">action = model.action_open_wizard()</field>
+	</record>
+
+	<record id="purchase_wizard_action_create_and_open" model="ir.actions.server">
+		<field name="name">Grant portal access</field>
+		<field name="model_id" ref="portal.model_portal_wizard"/>
+		<field name="binding_model_id" ref="purchase.model_purchase_order"/>
+		<field name="state">code</field>
+		<field name="code">action = model.action_open_wizard()</field>
+	</record>
+</odoo>

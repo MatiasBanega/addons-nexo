@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_payment_history,access_sale_payment_history,model_sale_payment_history,base.group_user,1,1,1,1
+access_purchase_payment_history,access_purchase_payment_history,model_purchase_payment_history,base.group_user,1,1,1,1
+access_sale_advance_payment_wizard,access_sale_advance_payment_wizard,model_advance_payment,base.group_user,1,1,1,1

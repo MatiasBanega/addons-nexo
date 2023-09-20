@@ -1,0 +1,10 @@
+<template>
+    <div t-name="IZIViewAnalysis" class="izi_view_analysis">
+        <div class="izi_dashboard_block_item">
+            <div class="izi_dashboard_block_header flex-row">
+                <h4 style="visibility: hidden;" class="izi_dashboard_block_title flex-1" t-esc="widget.analysis_name"></h4>
+            </div>
+            <div class="izi_dashboard_block_content"></div>
+        </div>
+    </div>
+</template>

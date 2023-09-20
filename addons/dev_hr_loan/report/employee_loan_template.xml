@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+    For Module Support : devintelle@gmail.com  or Skype : devintelle
+-->
+<odoo>
+<template id="dev_employee_loan_template">
+    <t t-call="web.external_layout">
+        <div class="page">
+            <style>
+                .header_table td{
+                    padding:5px;
+                    font-size:13px;
+                }
+                .installment_table th{
+                    background:#ebeced;
+                    padding:5px;
+                    font-size:12px;
+                }
+                .installment_table td{
+                    padding:5px;
+                    font-size:12px;
+                }
+            </style>
+            <div class="row">
+                <div class="col-12">
+                    <center><h3>Employee Loan - <span t-esc="o.name"/></h3></center>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-5">
+                    <b> Employee : </b><br/>
+                    <b><span t-esc="o.employee_id.name"/></b><br/>
+                    <t t-if="o.employee_id.address_home_id">
+                        <div t-field="o.employee_id.address_home_id"
+                                t-options='{"widget": "contact", "fields": ["address", "phone"], "no_marker": True, "phone_icons": False}'/>
+                    </t>
+                    
+                </div>
+                <div class="col-1">
+                </div>
+                <div class="col-6">
+                    <table width="100%" class="header_table">
+                        <tr>
+                            <td width="30%"> <b>Date</b> </td>
+                            <td width="5%"> : </td>
+                            <td width="65%"> <span t-field="o.date" t-options ='{"format": "dd-MM-yyyy"}' /> </td>
+                        </tr>
+                        
+                        <tr>
+                            <td width="30%"> <b>Department</b> </td>
+                            <td width="5%"> : </td>
+                            <td width="65%"> <span t-field="o.department_id"/> </td>
+                        </tr>
+                        
+                        <tr>
+                            <td width="30%"><b>Manager</b></td>
+                            <td width="5%"> : </td>
+                            <td width="65%"> <span t-field="o.manager_id"/> </td>
+                        </tr>
+                        
+                        <tr>
+                            <td width="30%"> <b>Job Position</b> </td>
+                            <td width="5%"> : </td>
+                            <td width="65%"> <span t-field="o.job_id"/> </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row mt16 mb16">
+                <div class="col-12">
+                    <h3>Loan Details</h3>
+                </div>
+            </div>
+            <div class="row mt16 mb16">
+                <div class="col-6">
+                    <table class="header_table">
+                        <tr>
+                            <td width="30%"> <b>Loan Type</b> </td>
+                            <td width="5%"> : </td>
+                            <td width="65%"> <span t-field="o.loan_type_id"/> </td>
+                        </tr>
+                        <tr>
+                            <td width="30%"> <b>Loan Term</b> </td>
+                            <td width="5%"> : </td>
+                            <td width="65%"> <span t-field="o.term"/> </td>
+                        </tr>
+                        <tr>
+                            <td width="30%"> <b>Interest Rate</b> </td>
+                            <td width="5%"> : </td>
+                            <td width="65%"> <span t-field="o.interest_rate"/> </td>
+                        </tr>
+                        <tr>
+                            <td width="30%"> <b>Interest Type</b> </td>
+                            <td width="5%"> : </td>
+                            <td width="65%" style="text-transform: capitalize"> <span t-field="o.interest_type"/> </td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="col-6">
+                    <table class="header_table">
+                        <tr>
+                            <td width="40%"> <b>Loan Amount</b> </td>
+                            <td width="5%"> : </td>
+                            <td width="55%"> <span t-field="o.loan_amount"/> </td>
+                        </tr>
+                        <tr>
+                            <td width="40%"> <b>Interest Amount</b> </td>
+                            <td width="5%"> : </td>
+                            <td width="55%"> <span t-field="o.interest_amount" /> </td>
+                        </tr>
+                        <tr>
+                            <td width="40%"> <b>Paid Amount</b> </td>
+                            <td width="5%"> : </td>
+                            <td width="55%" > <span t-field="o.paid_amount"/> </td>
+                        </tr>
+                        <tr>
+                            <td width="40%"> <b>Remaing Amount</b> </td>
+                            <td width="5%"> : </td>
+                            <td width="55%" > <span t-field="o.remaing_amount"/> </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row mt16 mb16">
+                <div class="col-12">
+                    <table width="100%" class="installment_table">
+                        <thead>
+                            <tr>
+                                <th width="33%" style="border:1px solid black" class="text-center">Payment Method</th>
+                                <th width="33%" style="border:1px solid black" class="text-center">Start Date</th>
+                                <th width="34%" style="border:1px solid black" class="text-center">End Date</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                            <tr>
+                                <td style="border:1px solid black" class="text-center">By Payslip</td>
+                                <td style="border:1px solid black" class="text-center"><span t-field="o.start_date" t-options ='{"format": "dd-MM-yyyy"}'/></td>
+                                <td style="border:1px solid black" class="text-center"><span t-field="o.end_date" t-options ='{"format": "dd-MM-yyyy"}'/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="row mt16 mb16">
+                <div class="col-12">
+                    <table width="100%" class="installment_table">
+                        <thead>
+                            <tr>
+                                <th width="25%">Name</th>
+                                <th width="15%" class="text-center">Date</th>
+                                <th width="20%" class="text-right">Ins. Amount</th>
+                                <th width="20%" class="text-right">Int. Amount</th>
+                                <th width="20%" class="text-right">Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                            <tr t-foreach="o.installment_lines" t-as="line"  style="page-break-inside: avoid">
+                                <t t-if="line.is_paid">
+                                    <td style="color:green"><span t-field="line.name"/></td>
+                                    <td style="color:green" class="text-center success"><span t-field="line.date" t-options ='{"format": "dd-MM-yyyy"}'/></td>
+                                    <td style="color:green" class="text-right success"><span t-field="line.installment_amt"/></td>
+                                    <td style="color:green" class="text-right success"><span t-field="line.ins_interest"/></td>
+                                    <td style="color:green" class="text-right success"><span t-field="line.total_installment"/></td>
+                                </t>
+                                <t t-if="not line.is_paid">
+                                    <td><span t-field="line.name"/></td>
+                                    <td class="text-center"><span t-field="line.date" t-options ='{"format": "dd-MM-yyyy"}'/></td>
+                                    <td class="text-right"><span t-field="line.installment_amt"/></td>
+                                    <td class="text-right"><span t-field="line.ins_interest"/></td>
+                                    <td class="text-right"><span t-field="line.total_installment"/></td>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+    </template>
+   
+   <template id="employee_loan_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="dev_hr_loan.dev_employee_loan_template"/>
+            </t>
+        </t>
+</template>
+</odoo>

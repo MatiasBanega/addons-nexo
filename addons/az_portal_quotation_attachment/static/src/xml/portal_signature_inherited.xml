@@ -1,0 +1,32 @@
+<templates id="template" xml:space="preserve">
+
+ <t t-name="az_portal_quotation_attachment.portal_signature" owl="1">
+        <form method="POST">
+            <input type="hidden" name="csrf_token" t-att-value="widget.csrf_token"/>
+            <div class="o_web_sign_name_and_signature"/>
+           <div class="alert alert-warning" id="az_po_upload_warning">
+               In case the purchase order is not available, the confirmation will get the job moving. However, No delivery will be made unless the purchase order is obtained.
+           </div>
+            <div class="o_portal_sign_controls my-3">
+            	
+                <div class="text-right my-3">
+                	<input type="file" class="az_purchase_file" name="purchase_file" style="display:none; width:30%; float: left" />
+                	<button type="button" class="o_portal_sign_upload_cancel btn btn-primary"  style="display: none">
+                        <i class="fa fa-download"/>
+						Cancel Upload
+                    </button>
+                	<button type="button" class="o_portal_sign_upload btn btn-primary"  >
+                        <i class="fa fa-download"/>
+						Attach  Your Purchase Order
+                    </button>
+                    <button type="submit" class="o_portal_sign_submit btn btn-primary" disabled="disabled">
+                        <i class="fa fa-check"/>
+                        <t t-esc="widget.sendLabel"/>
+                    </button>
+                </div>
+            </div>
+            
+        </form>
+    </t>
+  
+</templates>

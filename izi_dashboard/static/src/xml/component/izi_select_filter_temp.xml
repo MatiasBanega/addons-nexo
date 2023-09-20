@@ -1,0 +1,40 @@
+<template>
+    <div t-name="IZISelectFilterTemp" class="izi_analysis_filter_temp_container">
+        <div class="izi_analysis_filter_temp" title="Filter String" id="izi_analysis_filter_temp_string_search" data-type="string_search">
+            <div class="izi_analysis_filter_temp_title dropdown izi_dropdown">
+                <span class="material-icons-outlined dropdown-toggle" data-toggle="dropdown">search</span>
+                <div class="dropdown-menu">
+                </div>
+            </div>
+            <div class="izi_analysis_filter_temp_content">
+            </div>
+        </div>
+        <div class="izi_analysis_filter_temp" title="Filter Date Range" id="izi_analysis_filter_temp_date_range" data-type="date_range">
+            <div class="izi_analysis_filter_temp_title dropdown izi_dropdown">
+                <span class="material-icons-outlined dropdown-toggle" data-toggle="dropdown">date_range</span>
+                <div class="dropdown-menu">
+                </div>
+            </div>
+            <div class="izi_analysis_filter_temp_content">
+            </div>
+        </div>
+        <div class="izi_analysis_filter_temp" title="Filter Date Format" id="izi_analysis_filter_temp_date_format" data-type="date_format">
+            <div class="izi_analysis_filter_temp_title dropdown izi_dropdown">
+                <span class="material-icons-outlined dropdown-toggle" data-toggle="dropdown">today</span>
+                <div class="dropdown-menu">
+                </div>
+            </div>
+            <div class="izi_analysis_filter_temp_content">
+            </div>
+        </div>
+        <div class="izi_analysis_filter_temp" title="Filter Date Format" id="izi_analysis_filter_temp_date_format" data-type="date_format">
+            <div id="izi_export_capture1" class="izi_btn izi_btn_wlp px-1" title="Capture Analysis">
+                <span class="material-icons izi_btn_icon">photo_camera</span>
+            </div>
+            <div id="izi_export_capture_loading1" style="display:none; cursor:progress" class="izi_btn izi_btn_wlp active px-1" title="Capturing..">
+                <span class="material-icons izi_btn_icon izi_rotate">rotate_right</span>
+            </div>
+        </div>
+        <div style="clear:both;"/>
+    </div>
+</template>

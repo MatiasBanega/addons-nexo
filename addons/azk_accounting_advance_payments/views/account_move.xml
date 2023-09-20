@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+	<record id="azk_accounting_advance_payment_account_move_form_inherit" model="ir.ui.view">
+		<field name="name">azk_accounting_advance_payment_account_move_form_inherit</field>
+		<field name="model">account.move</field>
+		<field name="inherit_id" ref="account.view_move_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='ref']" position="before">
+				<field name="advance_payment_moves" widget="many2many_tags" readonly="1"/>
+				<field name="reversed_advance_payment" readonly="1" force_save="1"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

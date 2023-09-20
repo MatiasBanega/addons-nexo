@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+		  <record id="az_brief_email_template" model="mail.template">
+            <field name="name">Brief: Send by email</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">{{ object.company_id.name }} (Ref {{ object.active_brief.name or 'n/a' }})</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="body_html" type="html">
+				<div style="margin: 0px; padding: 0px;">
+				    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+				        <t t-set="doc_name" t-value="'proposal'"/>
+				        Hello,
+				        <br/><br/>
+				        <t t-out="object.env.user.name" /> has shared with you a new brief  number <t t-out="object.active_brief.name" />
+				        <br/>
+				       <!--  Check the brief:
+				        <t t-out="object.brief_url" /> -->
+				        <br/>
+				        <br/>
+				        <t t-out="object.user_id.signature" />
+				            
+				           
+				    </p>
+				</div>
+            </field>
+          	 <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+		
+		 <record id="az_brief_ask_to_adjust" model="mail.template">
+            <field name="name">Brief Ask To Adjust</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">Brief Adjustment Request</field>
+             <field name="email_from">${{object.partner_id.email}}</field>
+            <field name="email_to">{{ctx.get('to_mails')}}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        <t t-out="object.partner_id.name" /> is asking to adjust the brief number <a t-attf-href="{{ctx.get('brief_url')}}" target="_blank" > <t t-out="ctx.get('brief_name')" /></a> / <a t-attf-href="{{ctx.get('so_url')}}" target="_blank" ><t t-out="object.name" /></a>
+                    </p>
+                </div>
+           </field>
+           <field name="auto_delete" eval="False"/>
+        </record>
+        
+         <record id="az_brief_reassign" model="mail.template">
+            <field name="name">Brief Reassign</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">Brief Reassign</field>
+             <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="email_to">{{object.partner_id.email}</field>
+            <field name="partner_to">{{object.partner_id.id}}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        <t t-out="object.user_id.name" /> has added replies and assigned the brief  <t t-out="ctx.get('brief_name')" />  to you. Kindly check.  <a t-attf-href="{{ctx.get('brief_url')}}" target="_blank" ><t t-out="ctx.get('brief_name')" /></a>
+                    </p>
+                </div>
+           </field>
+           <field name="auto_delete" eval="False"/>
+        </record>
+        
+         <record id="az_brief_confirm" model="mail.template">
+            <field name="name">Brief Confirmed</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">Brief Confirmed</field>
+             <field name="email_from">${{object.partner_id.email}}</field>
+            <field name="email_to">{{ctx.get('to_mails')}}</field>
+            <field name="partner_to">{{object.partner_id.id}}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        <t t-out="object.user_id.name" /> has confirmed the brief  <t t-out="ctx.get('brief_name')" />  to you. Kindly check.  <a t-attf-href="{{ctx.get('so_url')}}" target="_blank" ><t t-out="ctx.get('brief_name')" /></a>
+                    </p>
+                </div>
+           </field>
+           <field name="auto_delete" eval="False"/>
+        </record>
+       
+	</data>
+</odoo>

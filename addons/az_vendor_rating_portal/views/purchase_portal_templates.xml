@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="az_vendor_rating_portal_content_inherited" inherit_id="purchase.purchase_order_portal_content">
+		<xpath expr="//section[@id='terms']" position="before">
+			<t t-if="order.state in ['purchase', 'done'] and order.po_rating_ids" >
+				<section id="rating" class="mt-5" >
+	              <h3 style="font-family: times new roman;font-weight: bold;font-style: italic;color: #052c3d;">
+	             	 Vendor Rating
+	              </h3>
+	           
+		             <table class="table table-sm" style="border: 1px solid #DEE2E6;width:70%">
+		             	 <tbody>
+		             	 	<t t-foreach="order.po_rating_ids" t-as="rate_el" >
+		             	 		<tr>
+			             	 		<th t-esc="rate_el.rating_element_id.name" style="width:70%;background-color: #F8F9FA !important;"></th>
+					             	<td style="background-color: #DEE2E6;"><t t-esc="round((rate_el.rate / rate_el.max_rate) *100,2)"/> %</td>
+				             	</tr>
+		             	 	</t>
+		             	 </tbody>
+		             </table>
+	          </section>
+				
+			</t>
+		</xpath>
+	</template>
+	
+	<template id="az_vendor_rating_portal_layout_inherited" inherit_id="portal.portal_layout">
+		<xpath expr="//div[@id='o_my_sidebar']" position="inside">
+			<t t-set="partner" t-value="request.env.user.partner_id" />
+			<t t-if="(partner.company_type == 'company' and partner.vendor_rating_ids) or (partner.company_type == 'company' and partner.parent_id and partner.parent_id.vendor_rating_ids)" >
+				 <div class="o_portal_my_security mt-3">
+	                 <h4>Vendor Rating</h4>
+	                 <hr class="mt-1 mb-1"/>
+	                 <a href="/my/vendor_rating"><i class="fa fa-pencil mx-1"/>View Vendor Rating</a>
+	             </div>
+             </t>
+		</xpath>
+	</template>
+	
+	 <template id="az_vendor_rating_portal_bread_crumbs_inherited" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'vendor_rating'" t-attf-class="breadcrumb-item">
+                <t >Vendor Rating</t>
+            </li>   
+        </xpath>
+    </template>
+    
+    <template id="portal_vendor_rating" name="vendor rating">
+		<t t-call="portal.portal_layout">
+			<t t-set="breadcrumbs_searchbar" t-value="True" />
+
+			<t t-call="portal.portal_searchbar">
+				<t t-set="title">Vendor Rating</t>
+			</t>
+			
+			<section id="rating" class="mt-1" >
+				<div class="table-responsive">
+					<table class="table table-sm" style="border: 1px solid #DEE2E6;width:100%">
+		             	 <tbody>
+		             	 	<t t-set="vendor_rating" t-value="list(partner.vendor_rating_ids.sorted(key=lambda r: r.rating_element_id.name))" />
+		             	 	<t t-foreach="vendor_rating" t-as="rate_el" >
+		             	 		<tr>
+			             	 		<th t-esc="rate_el.rating_element_id.name" style="width:70%;background-color: #F8F9FA !important;"></th>
+					             	<td style="background-color: #DEE2E6;"><t t-esc="round(rate_el.rate * 100, 2)"/> %</td>
+				             	</tr>
+		             	 	</t>
+		             	 </tbody>
+		             </table>
+				</div>
+			</section>
+			
+			<section id="rating_chart" class="mt-1" >
+				<canvas id="vendorRatingChart" width="400" height="200"></canvas>
+			</section>
+		</t>
+
+	</template>
+    
+</odoo>

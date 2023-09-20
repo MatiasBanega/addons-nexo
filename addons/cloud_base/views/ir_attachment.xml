@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ir_attachment_search_form_cloud_base" model="ir.ui.view">
+        <field name="model">ir.attachment</field>
+        <field name="priority">10000</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="clouds_folder_id"/>
+                <field name="create_uid" string="Created by"/>
+                <field name="mimetype" groups="base.group_no_one"/>
+
+                <separator/>
+                <filter name="synced_files" string="Synced" domain="[('cloud_key', '!=', False)]"/>
+                <filter name="not_synced_files" string="Not Synced" domain="[('cloud_key', '=', False)]"/>
+                <separator/>
+                <filter name="my_documents_filter" string="My Files" domain="[('create_uid','=',uid)]"/>
+                <separator/>
+                <filter name="url_filter" string="URL" domain="[('type', '=', 'url')]"/>
+                <filter name="binary_filter" string="Binary" domain="[('type', '=', 'binary')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="mimetype" string="Mimetype" domain="[]" context="{'group_by':'mimetype'}"/>
+                    <filter name="owner" string="Owner" domain="[]" context="{'group_by':'create_uid'}"/>
+                    <filter string="Type" 
+                            name="type" 
+                            domain="[]" 
+                            context="{'group_by':'type'}" 
+                            groups="base.group_no_one"
+                    />
+                    <filter string="Creation Date" 
+                            name="creation_month" 
+                            domain="[]" 
+                            context="{'group_by':'create_date'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="ir_attachment_view_form_cloud_base" model="ir.ui.view">
+        <field name="name">ir.attachment.form.cloud.base</field>
+        <field name="model">ir.attachment</field>
+        <field name="priority">10000</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <field name="clouds_folder_id"/>
+                        <field name="type"/>
+                        <field name="datas"
+                               filename="name"
+                               attrs="{'invisible':[('type','=','url')]}"
+                        />
+                        <field name="url"
+                               widget="url"
+                               attrs="{'invisible':[('type','=','binary')]}"
+                        />
+                        <field name="mimetype" groups="base.group_no_one"/>
+                        <field name="file_size"/>
+                    </group>
+                    <group>
+                        <group string="Attached To" groups="base.group_no_one">
+                            <field name="res_model"/>
+                            <field name="res_field"/>
+                            <field name="res_id"/>
+                            <field name="res_name"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                            <field name="public"/>
+                        </group>
+                        <group string="Sync Information" attrs="{'invisible': [('cloud_key', '=', False)]}">
+                            <field name="cloud_key" readonly="1"/>
+                        </group>
+                    </group>
+              </sheet>
+            </form>         
+        </field>
+    </record>
+    <record id="ir_attachment_view_kanban_cloud_base" model="ir.ui.view">
+        <field name="name">ir.attachment.kanban.cloud.base</field>
+        <field name="model">ir.attachment</field>
+        <field name="priority">10000</field>
+        <field name="arch" type="xml">
+            <kanban js_class="cloud_base_kanban" 
+                    class="file_manager_kanban_view"
+                    group_create="0"
+                    group_delete="0"
+                    group_edit="0"
+                    archivable="0"
+                    quick_create="0"
+            >
+                <field name="id"/>
+                <field name="mimetype"/>
+                <field name="type"/>
+                <field name="create_uid"/>
+                <field name="url"/>
+                <field name="create_date"/>
+                <field name="name"/>
+                <field name="cloud_key"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_attachment">
+                            <div class="o_kanban_image">
+                                <div class="o_kanban_image_wrapper">
+                                    <t t-set="webimage" 
+                                       t-value="new RegExp('image.*(gif|jpeg|jpg|png)').test(record.mimetype.value)"
+                                    />
+                                    <div t-if="!webimage or (record.type.raw_value == 'url' and record.cloud_key.raw_value)" 
+                                         class="o_image o_image_thumbnail"
+                                         t-att-data-mimetype="record.mimetype.value"
+                                    />
+                                    <div t-elif="record.type.raw_value == 'url'" 
+                                         class="o_url_image fa fa-link fa-3x text-muted" 
+                                         aria-label="Image is a link"
+                                    />
+                                    <img t-elif="webimage" 
+                                         t-attf-src="/web/image/#{record.id.raw_value}" 
+                                         width="100" 
+                                         height="100" 
+                                         alt="File" 
+                                         class="o_attachment_image"
+                                    />
+                                </div>
+                            </div>
+                            <div class="o_kanban_details">
+                                <div class="o_kanban_details_wrapper">
+                                    <div class="o_kanban_record_title file_manager_kanban_title">
+                                        <i class="fa fa-lg fa-square-o pull-right file_select hidden_mobile hidden_tablet"> </i>
+                                        <field name="name" class="o_text_overflow"/>
+                                    </div>
+                                    <div class="o_kanban_record_body file_manager_kanban_body">
+                                        <t t-if="record.type.raw_value == 'url'">
+                                            <span class="o_document_url o_text_overflow">
+                                                <i class="fa fa-globe" aria-label="File url"/> 
+                                                <field name="url" widget="url"/>
+                                            </span>
+                                        </t>
+                                        <samp t-else="" class="text-muted"> </samp>
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <time class="oe_kanban_bottom_left">
+                                            <field name="create_date" widget="date"/>
+                                        </time>
+                                        <div class="oe_kanban_bottom_right">
+                                            <a name="action_donwload_cloud_file"
+                                               type="object"
+                                               t-if="record.type.raw_value == 'url' and record.cloud_key.raw_value"
+                                               class="fa fa-lg fa-cloud file_manager_cloud_download" 
+                                               title="download"   
+                                            > </a>
+                                            <a name="action_donwload_cloud_file"
+                                               type="object"
+                                               t-if="record.type.raw_value != 'url' and !record.cloud_key.raw_value"
+                                               class="fa fa-lg fa-download file_manager_cloud_download" 
+                                               title="download"   
+                                            > </a>
+                                            <field name="create_uid" widget="many2one_avatar_user"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="ir_attachment_action" model="ir.actions.act_window">
+        <field name="name">Files Manager</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ir.attachment</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="context">{
+            "kanban_view_ref": "cloud_base.ir_attachment_view_kanban_cloud_base",
+            "form_view_ref": "cloud_base.ir_attachment_view_form_cloud_base",
+        }</field>
+        <field name="domain">[("clouds_folder_id", "!=", False)]</field>
+        <field name="search_view_id" ref="ir_attachment_search_form_cloud_base"/>
+    </record>
+    <record id="ir_attachment_view_form_simple_js_upload" model="ir.ui.view">
+        <field name="name">ir.attachment.form.js.upload</field>
+        <field name="model">ir.attachment</field>
+        <field name="priority">20000</field>
+        <field name="arch" type="xml">
+            <form string="Attachments">
+                <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <field name="datas" filename="name"/>
+                        <field name="mimetype" groups="base.group_no_one" invisible="1"/>
+                    </group>
+              </sheet>
+            </form>         
+        </field>
+    </record>
+
+
+</odoo>

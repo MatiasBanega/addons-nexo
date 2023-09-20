@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+     <record id="mass_attachment_update_form_view" model="ir.ui.view">
+        <field name="name">mass.attachment.update.form</field>
+        <field name="model">mass.attachment.update</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="attachments" invisible="1"/>
+                    <field name="folder_id"
+                           options="{'no_create_edit': 1, 'no_quick_create': 1}" 
+                    />
+                </group>
+            </form>
+        </field>
+    </record>
+
+</odoo>

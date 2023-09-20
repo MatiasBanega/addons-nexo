@@ -1,0 +1,139 @@
+/*******************************/
+/* Basic styles */
+/*******************************/
+.cloud_base_hidden {display: none !important}
+@media screen and (max-width: 520px) {
+    .hidden_mobile {display: none !important}
+}
+@media screen and (min-width: 520px) and (max-width: 840px) {
+    .hidden_tablet {display: none !important}
+}
+@media screen and (max-width: 1050px) {
+    .hidden_under1000 {display: none !important}
+}
+/*******************************/
+/* File manager interface*/
+/*******************************/
+/* Kanban card */
+.file_manager_kanban_view {overflow: auto !important}
+.file_manager_kanban_title {width: 100% !important}
+.file_manager_kanban_body .o_text_overflow.o_field_url {display: inline !important}
+.file_manager_cloud_download {
+    color: #dddddd;
+    margin-left: 2px;
+}
+.file_select {margin-top: 2px;}
+.file_select:hover {font-weight: bold;}
+.file_kanabanselected {
+    border: 2px solid #00A09D !important;
+    box-shadow: 2px 2px 2px 2px #6c757d !important;
+}
+/* Navigation panel */
+.file_manager_functional_button {cursor: pointer}
+.file_manager_functional_button:hover {color: white;}
+.file_manager_navigation_panel {
+    background-color:  #212529;
+    display: block;
+    color: #dee2e6;
+    overflow: auto;
+    padding-top: 20px;
+}
+.file_manager_navigation_panel_left {flex: 0 0 500px;}
+.file_manager_navigation_content {
+    display: block;
+    width: 100%;
+}
+.file_manager_right_navigation_panel {flex: 0 0 320px;}
+.file_manager_navigation_header {
+    color: #dee2e6;
+    width: 100%;
+    padding: 3% 0% 1% 8%;
+    font-size: 13pt;
+}
+.file_manager_navigation_section {
+    width: 100%;
+    padding-left: 1%;
+}
+.file_manager_left_navigation_control_panel {
+    width: 100%;
+    padding-left: 2%;
+}
+.file_manager_panel_body_files {
+    width: 100%;
+    padding: 3% 2% 1% 8%;
+}
+.file_manager_attachments_selection {
+    max-height: 700px;
+    overflow: auto !important;
+}
+.file_manager_hr {
+    background-color: #dee2e6;
+    width: 100%;
+}
+.file_manager_clear {
+    font-size: 9pt;
+    padding-left: 3px;
+}
+ul.file_manager_selection_ul {padding-inline-start: 15px}
+/*******************************/
+/* Cloud logs */
+/*******************************/
+.o_widget_cloud_logs {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+.cloud_logs_view {
+    display: flex;
+    height: 100%;
+}
+.clouds_logs_navigation {
+    flex: 0 0 320px;
+    background-color: white;
+}
+.cloud_logs_client_select {
+    width: 100%;
+    padding: 2% 4% 2% 4%;
+    font-size: 13pt;
+    cursor: pointer;
+    margin-top: 12px;
+}
+.cloud_logs_client_checked {background-color: rgba(108, 193, 237, 0.3)}
+.cloud_queue_panel {
+    width: 100%;
+    padding: 2% 4% 2% 4%;
+    font-size: 13pt;
+    margin-top: 12px;
+}
+.cloud_logs_screen {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: column-reverse;
+    background-color: black;
+    color: white;
+    font-size: 13pt;
+    overflow-y: auto !important;
+    padding-left: 12px;
+}
+#clouds_logs_more_div{padding: 4px 0}
+#cloud_logs_html {
+    display: flex;
+    flex: 1 0 100%;
+    flex-flow: column;
+}
+.cloud_logs_control_panel {
+    padding-right: 2%;
+}
+.cloud_logs_functional_btn {cursor: pointer}
+.cloud_logs_functional_btn:hover {color: black}
+#cloud_logs_last_string {flex: 1 0 10%}
+.cloud_logs_level {}
+.cloud_logs_INFO {color: green}
+.cloud_logs_ERROR {color: red}
+.cloud_logs_WARNING {color: orange}
+.cloud_logs_DEBUG {color: grey}
+/*******************************/
+/* Others + used for cloud_base_documents */
+/*******************************/
+.file_manager_url_widget {cursor:pointer}
+.file_manager_url_widget:hover {color: white}

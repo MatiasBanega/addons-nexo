@@ -1,0 +1,46 @@
+===================
+Under consideration
+===================
+File manager
+------------
+* multi drag&drop files to file manager kanban area
+* drag&drop files to a target jstree folder
+* file manager previewer + sliding
+* portal views + sharing (share folder, share selected attachments; downloading from portal)
+
+
+Sync queue
+----------
+* combining both crons in a single process to avoid any probability of concurrency (seems bad for performance though)
+* optimizing folders queue preparation: not to consider long ago deactivated folders
+* when failed task is deleted because of attempts number > adapt child tasks to avoid their further fullfilment
+
+Cloud clients
+-----------------
+* Amazon S3: introduce
+* Box: introduce
+* Onedrive/Sharepoint: consider switching to more contemporary lib 
+  (e.g. https://github.com/microsoftgraph/msgraph-sdk-python-core)
+
+Misc
+----
+* add help notes to cloud clients & cloud rules
+* generating Odoo dumps ans sync to target clients
+
+============
+Known Issues
+============
+* [Not controlled by the app] Google Drive frequently revoked token: Token from refresh token response: {'error': 
+  'invalid_grant', 'error_description': 'Token has been expired or revoked.'}. 
+  # Recommendations #: (a) get Google app approval; (b) manually reconnect
+* [Not reproduced any more] Firefox Uncaught DOMException: The quota has been exceeded, when adding a new node to 
+  jstree on the attachment box jstree.js 8011:
+  set http://localhost:8014/cloud_base/static/lib/jstree/jstree.js:8011
+    save_state http://localhost:8014/cloud_base/static/lib/jstree/jstree.js:7975
+    to http://localhost:8014/cloud_base/static/lib/jstree/jstree.js:7948
+    proxy http://localhost:8014/web/content/233-4ef885d/web.assets_common.js:2072
+  # Recommendations #: (a) clear browser cache; (b) increase quota for FF
+* [Not a bug; assumed bh] if folder is deleted because parent object is deleted > fhe folder would be still in clouds.
+  # Recommendations #: (b) delete folder in clouds manually; 
+* [Not a bug; assumed bh] Sync errors because of lack in storage
+  # Recommendations #: (a) increase capacity or free space

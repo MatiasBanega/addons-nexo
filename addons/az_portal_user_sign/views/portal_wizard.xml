@@ -1,0 +1,13 @@
+<odoo>
+    <record id="wizard_view_inherited" model="ir.ui.view">
+        <field name="name">Grant portal access</field>
+        <field name="model">portal.wizard</field>
+        <field name="inherit_id" ref="portal.wizard_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_grant_access']" position="after">
+                <button string="Grant Access / Vendor Document Sigantaure" name="action_grant_access_vendor" type="object" class="btn-secondary"/>
+                <button string="Grant Access / Customer Document Sigantaure" name="action_grant_access_customer" type="object" class="btn-secondary"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

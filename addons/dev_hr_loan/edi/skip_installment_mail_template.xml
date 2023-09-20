@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<odoo>
+        <!--Email template -->
+        <record id="dev_skip_dep_manager_approval" model="mail.template">
+            <field name="name">Skip Installment Request to Department Manager</field>
+            <field name="email_from">{{object.user_id.email }}</field>
+            <field name="subject">Skip Installment {{object.name}} Request form {{object.employee_id.name}</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="dev_hr_loan.model_dev_skip_installment"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+            
+            	<p>Dear <i> <span t-esc="object.manager_id.name"/></i></p>
+            	<p></p>
+            	<p> Skip Installment request from <b><i> <span t-esc="object.employee_id.name"/></i></b></p>
+            	<p>
+            		<b>Installment Detail:</b><br/>
+            		<b>Loan :</b> <span t-esc="object.loan_id.name"/> <br/>
+            		<b>Installment: </b> <span t-esc="object.installment_id.name"/><br/>
+            		<b>Installment Amount: </b> <span t-esc="object.installment_id.installment_amt"/> <br/>
+            		<b>Interest Amount: </b> <span t-esc="object.installment_id.ins_interest"/> <br/>
+            	</p>
+            	
+            	<p>You can access Skip Installment From Bellow URL</p>
+		
+            	<p>  <span t-esc="object.skip_installment_url"/></p>
+            	
+            	<b>Regards,</b><br/>
+            	<span t-esc="object.employee_id.name"/> 
+                ]]></field>
+         </record>
+
+        <!--Email template -->
+        <record id="dev_skip_ins_hr_manager_request" model="mail.template">
+            <field name="name">Skip Installment Request to HR Manager</field>
+            <field name="email_from">{{ object.manager_id.work_email }}</field>
+            <field name="subject">Skip Installment {{object.name}} Request form {{object.employee_id.name}}</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="dev_hr_loan.model_dev_skip_installment"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+
+            	<p>To <b><i>HR Manager</i></b></p>
+            	<p> Skip Installment request from <b><i> <span t-esc="object.employee_id.name"/> </i></b></p>
+            	<p> Skip Installment Request Approve by <b><i><span t-esc="object.manager_id.name"/> </i></b> Department Manager</p>
+            	<p>
+            		<b>Installment Detail:</b><br/>
+            		<b>Loan :</b> <span t-esc="object.loan_id.name"/> <br/>
+            		<b>Installment: </b> <span t-esc="object.installment_id.name"/> <br/>
+            		<b>Installment Amount: </b> <span t-esc="object.installment_id.installment_amt"/> <br/>
+            		<b>Interest Amount: </b>  <span t-esc="object.installment_id.ins_interest"/> <br/>
+            	</p>
+
+            	<p>You can access Loan From Bellow URL</p>
+            	<p> <span t-esc="object.skip_installment_url"/></p>
+
+            	<b>Regards,</b><br/>
+            	<span t-esc="object.manager_id.name"/> 
+                ]]></field>
+         </record>
+
+        <record id="hr_manager_confirm_skip_installment" model="mail.template">
+            <field name="name">Skip Installment Request Confirm By Hr Manager</field>
+            <field name="email_from">{{object.hr_manager_id.work_email }}</field>
+            <field name="subject">Your Skip Installment {{object.name}} Request has been Confirmed</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="dev_hr_loan.model_dev_skip_installment"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+
+            	<p>Dear <i> <span t-esc="object.employee_id.name"/></i></p>
+            	<p></p>
+            	<p> Your Skip Installment <b><i> <span t-esc="object.name"/>  </i></b> Request Confirm By <b><i><span t-esc="object.hr_manager_id.name"/> </i></b></p>
+
+            	<p>You can access Loan From Bellow URL</p>
+            	<p> <i><span t-esc="object.skip_installment_url"/> </p>
+
+            	<b>Regards,</b><br/>
+		<span t-esc="object.hr_manager_id.name"/>
+                ]]></field>
+         </record>
+
+        <record id="dep_manager_reject_skip_installment" model="mail.template">
+            <field name="name">Dep Manager Skip Installment Request Reject</field>
+            <field name="email_from">{{object.manager_id.work_email }}</field>
+            <field name="subject">Your Skip Installment {{object.name}} Request has been Rejected</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="dev_hr_loan.model_dev_skip_installment"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+
+            	<p>Dear <i> <span t-esc="object.employee_id.name"/></i></p>
+            	<p></p>
+            	<p> Your Skip Installment <b><i> <span t-esc="object.name"/> </i></b> Request Rejected By <b><i><span t-esc="object.manager_id.name"/> </i></b></p>
+
+            	<p>You can access Loan From Bellow URL</p>
+            	<p>  <span t-esc="object.skip_installment_url"/> </p>
+
+            	<b>Regards,</b><br/>
+		<span t-esc="object.manager_id.name"/>
+                ]]></field>
+         </record>
+
+        <record id="hr_manager_reject_skip_installment" model="mail.template">
+            <field name="name">Skip Installment Request Reject By Hr Manager</field>
+            <field name="email_from">{{object.hr_manager_id.work_email }}</field>
+            <field name="subject">Your Skip Installment {{object.name}} Request has been Rejected</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="dev_hr_loan.model_dev_skip_installment"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+
+            	<p>Dear <i> <span t-esc="object.employee_id.name"/> </i></p>
+            	<p></p>
+            	<p> Your Skip Installment <b><i> <span t-esc="object.name"/>  </i></b> Request Rejected By <b><i> <span t-esc="object.hr_manager_id.name"/> </i></b></p>
+
+            	<p>You can access Loan From Bellow URL</p>
+            	<p><span t-esc="object.skip_installment_url"/> </p>
+
+            	<b>Regards,</b><br/>
+		<span t-esc="object.hr_manager_id.name"/>
+                ]]></field>
+         </record>
+
+</odoo>
+        
+        
+        
+      
+        
+        
+    

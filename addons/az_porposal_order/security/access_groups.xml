@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="group_proposal_approver" model="res.groups">
+        <field name="name">Proposal Approver</field>
+        <field name="users" eval="[(4, ref('base.group_system'))]" />
+    </record>
+   
+</odoo>

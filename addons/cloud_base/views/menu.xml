@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <menuitem name="Cloud Storage"
+              id="menu_cloud_base_main"
+              sequence="40"
+              groups="cloud_base.group_cloud_base_user"
+              web_icon="cloud_base,static/description/icon.png"
+    />
+    <menuitem id="menu_file_manager"
+              action="cloud_base.ir_attachment_action" 
+              name="File Manager"
+              parent="menu_cloud_base_main"
+              sequence="10"
+              groups="cloud_base.group_cloud_base_user"
+    />
+    <menuitem name="Configuration"
+              id="menu_cloud_base_conf"
+              parent="menu_cloud_base_main"
+              sequence="300"
+              groups="cloud_base.group_cloud_base_admin"
+    />  
+    <menuitem id="menu_clouds_client"
+              action="cloud_base.clouds_client_action" 
+              name="Cloud Clients"
+              parent="menu_cloud_base_conf"
+              sequence="10"
+              groups="cloud_base.group_cloud_base_admin"
+    />
+    <menuitem id="menu_sync_model"
+              action="cloud_base.sync_model_action" 
+              name="Folder Rules"
+              parent="menu_cloud_base_conf"
+              sequence="30"
+              groups="cloud_base.group_cloud_base_admin"
+    />
+    <menuitem id="clouds_logs_menu"
+              action="clouds_log_action"
+              parent="menu_cloud_base_conf"
+              name="Sync Logs"
+              sequence="40"
+              groups="cloud_base.group_cloud_base_admin"
+    />
+    <menuitem id="menu_clouds_folder"
+              action="cloud_base.clouds_folder_action" 
+              name="Folders"
+              parent="menu_cloud_base_conf"
+              sequence="50"
+              groups="base.group_no_one"
+    />
+    <menuitem id="clouds_queue_menu"
+              action="clouds_queue_action"
+              parent="menu_cloud_base_conf"
+              name="Sync Queue"
+              sequence="60"
+              groups="base.group_no_one"
+    />
+    <menuitem name="Configuration"
+              id="menu_res_config_settings_cloud_base"
+              parent="menu_cloud_base_conf"
+              sequence="500"
+              action="cloud_config_action"
+              groups="cloud_base.group_cloud_base_admin"
+    />
+
+
+</odoo>

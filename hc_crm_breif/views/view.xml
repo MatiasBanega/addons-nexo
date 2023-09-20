@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+                <record id="view_customer_sale_breif_form" model="ir.ui.view">
+            <field name="name">sale.order.brief</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="az_sale_brief.az_brief_view_order_form_inherited"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='brief_ids']" position="replace">
+
+                    <field name="brief_ids" mode='tree'>
+							<tree create="0" edit="0" delete="0">
+								<field name="name" />
+								<field name="sequence" />
+								<field name="send_date" />
+<!--								<field name="is_active" />-->
+								<field name="confirmed" />
+							</tree>
+
+						</field>
+
+                </xpath>
+
+
+            </field>
+        </record>
+
+
+
+
+
+        <record id="view_sbrief_form" model="ir.ui.view">
+            <field name="name">res.brief.target</field>
+            <field name="model">az.brief</field>
+            <field name="inherit_id" ref="az_sale_brief.brief_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//h1" position="after">
+
+                    <h1>
+                        <field name="sequence"/>
+                    </h1>
+
+
+                </xpath>
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <button name="button_internal_approve" type="object" string="Approve Brief" attrs="{'invisible': [('state', '!=', 'draft')]}" class="oe_highlight" groups="hc_crm_breif.group_breif_approval"/>
+<!--                        <button name="button_cust_approve" type="object" string="Approve Brief" class="oe_highlight" groups="purchase.group_purchase_manager"/>-->
+                        <button name="button_behalf_cust_approve" type="object" string="Approve For Customer" class="oe_highlight" groups="hc_crm_breif.group_breif_approval_for_customer" attrs="{'invisible': [('state', '!=', 'int_approve')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+
+
+
+
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_crm_sbrief_form" model="ir.ui.view">
+            <field name="name">crm.lead.target</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+
+                    <button class="oe_stat_button" name="open_brief"
+                                    string="Breifs" type="object"
+                                     icon="fa-note"/>
+
+
+                </xpath>
+            </field>
+        </record>
+
+
+
+
+    </data>
+</odoo>

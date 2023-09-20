@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="az_portal_my_details_inherited" inherit_id="portal.portal_my_details">
+				
+		<xpath expr="//form/div/div/div/div[8]" position="before">
+			<div t-attf-class="form-group #{error.get('x_studio_trade_license_number') and 'o_has_error' or ''} col-xl-6">
+                <label class="col-form-label" for="x_studio_trade_license_number">Trade License Number</label>
+                <input type="text" name="x_studio_trade_license_number" required="required" t-attf-class="form-control #{error.get('x_studio_trade_license_number') and 'is-invalid' or ''}" t-att-value="x_studio_trade_license_number or partner.x_studio_trade_license_number" />
+            </div>
+
+			<div t-attf-class="form-group #{error.get('x_studio_trade_license_expiry') and 'o_has_error' or ''} col-xl-6">
+                <label class="col-form-label" for="x_studio_trade_license_expiry">Trade License Expiry</label>
+                <input type="date" name="x_studio_trade_license_expiry" required="required" t-attf-class="form-control #{error.get('x_studio_trade_license_expiry') and 'is-invalid' or ''}" t-att-value="x_studio_trade_license_expiry or partner.x_studio_trade_license_expiry" />
+            </div>
+		</xpath>
+		
+		<xpath expr="//input[@name='vat']" position="replace">
+			 <input type="text" name="vat" t-attf-class="form-control #{error.get('vat') and 'is-invalid' or ''}" t-att-value="vat or partner.vat"  />
+		</xpath>
+		<!-- <xpath expr="//input[@name='company_name']" position="replace">
+			  <input type="text"  t-attf-class="form-control #{error.get('company_name') and 'is-invalid' or ''}" t-att-value="company_name or partner.commercial_company_name" t-att-readonly="None if partner_can_edit_vat else '1'" />
+		</xpath> -->
+		
+	</template>
+
+</odoo>

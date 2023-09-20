@@ -1,0 +1,17 @@
+<odoo>
+	<data>
+		<record id="azk_accounting_advance_payments_view_res_partner_form_inherit" model="ir.ui.view">
+			<field name="name">azk_accounting_advance_payments_view.res.partner.form_inherit</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='property_account_payable_id']" position="after">
+					<field name="prepayment_receivable_id"/>
+					<field name="prepayment_payable_id"/>
+					<field name="prepayment_vat_receivable_id"/>
+					<field name="prepayment_vat_payable_id"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

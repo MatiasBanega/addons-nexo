@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+
+<record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_timesheet.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+              <xpath expr="//div[@data-key='hr_timesheet']" position="inside">
+            
+               <div class="col-lg-6 col-12 o_setting_box">
+                <span class="o_form_label">Hourly Time Sheet Calculation : </span>
+                <group>
+               <field name="designation_cost_calculate" options="{'no_create': 1, 'no_edit': 1}"/>
+              </group>
+               </div>
+               </xpath>
+        </field>
+    </record>
+          
+</odoo>

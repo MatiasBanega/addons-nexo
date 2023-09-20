@@ -1,0 +1,17 @@
+<odoo>
+    <record id="az_add_documents_to_mail_composer" model="ir.ui.view">
+        <field name="name">add.documents.for.mail.composer</field>
+        <field name="model">mail.compose.message</field>
+        <field name="inherit_id" ref="mail.email_compose_message_wizard_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='attachment_ids']//.." position="after">
+                <group attrs="{'invisible' : [('model', '!=', 'crm.lead')]}">
+                    <button name="add_document" type="object">
+                        <span class="fa fa-file"/>
+                        Add Document
+                    </button>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

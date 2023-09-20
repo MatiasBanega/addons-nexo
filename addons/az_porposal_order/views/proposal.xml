@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="az_proposal_view_order_form_inherited" model="ir.ui.view">
+		<field name="name">az_proposal_view_order_form_inherited</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='state']" position="attributes">
+				<attribute  name="attrs">{'invisible': [('proposal', '!=', False)]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='state']" position="after">
+				<field name="proposal" invisible="1" force_save="1"/>
+				<field name="approved" invisible="1" force_save="1"/>
+				 <field name="proposal_stage_id" widget="statusbar" attrs="{'invisible': [('proposal', '=', False)], 'readonly' : True}"/>
+			</xpath>
+			<xpath expr="//field[@name='name']" position="attributes">
+				<attribute  name="attrs">{'invisible': [('proposal', '!=', False)]}</attribute>
+			</xpath>
+			<xpath expr="//button[@name='action_quotation_send'][1]" position="attributes">
+				<attribute  name="attrs">{'invisible': ['|',('proposal', '=', True) ]}</attribute>
+			</xpath>
+			<xpath expr="//button[@name='action_confirm'][2]" position="attributes">
+				<attribute  name="attrs">{'invisible': ['|', ('state', 'not in', ['draft']), ('proposal', '=', True) ]}</attribute>
+			</xpath>
+			<xpath expr="//button[@name='action_cancel']" position="attributes">
+				<attribute  name="attrs">{'invisible': ['|', '|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False), ('proposal', '=', True) ]}</attribute>
+			</xpath>
+			<!-- <xpath expr="//button[@name='action_quotation_send'][2]" position="attributes">
+			 	<field name="is_abandoned_cart" invisible="1"/>
+                <field name="cart_recovery_email_sent" invisible="1"/>
+				<attribute  name="attrs">{'invisible': ['|','|', '&amp;',('is_abandoned_cart', '=', True), ('cart_recovery_email_sent', '=', False),('proposal', '=', True)]}</attribute>
+			</xpath> -->
+			
+			<xpath expr="//header" position="inside">
+				<field name="is_proposal_draft" invisible="1" />
+				<field name="is_proposal_pending" invisible="1" />
+				<field name="is_proposal_approved" invisible="1" />
+				<field name="is_proposal_refused" invisible="1" />
+				<button name="action_convert_to_quotation" type="object" 
+                            string="Convert To Quotation" class="oe_highlight"
+                            attrs="{'invisible': [('proposal', '=', False)]}"/>
+                <button name="action_ask_for_approval" type="object" 
+                            string="Ask For Approval" class="oe_highlight"
+                            attrs="{'invisible': ['|',('proposal', '=', False),('is_proposal_draft', '=', False)]}"/>
+                <button name="action_proposal_approve" type="object" 
+                            string="Approve" class="oe_highlight"
+                            attrs="{'invisible': ['|',('proposal', '=', False),('is_proposal_pending', '=', False)]}"
+                            groups="az_porposal_order.group_proposal_approver"/>
+                <button name="action_proposal_refuse" type="object" 
+                            string="Refuse" class="oe_highlight"
+                            attrs="{'invisible': ['|',('proposal', '=', False),('is_proposal_pending', '=', False)]}"
+                            groups="az_porposal_order.group_proposal_approver"/>
+                 <button name="action_proposal_send" type="object" 
+                            string="Send Proposal" class="oe_highlight"
+                            attrs="{'invisible': ['|',('proposal', '=', False),('is_proposal_approved', '=', False)]}"
+                           />
+                    
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="az_proposal_stage_tree" model="ir.ui.view">
+        <field name="name">az_proposal_stage_tree</field>
+        <field name="model">az.proposal.stage</field>
+        <field name="arch" type="xml">
+            <tree string="Proposal Stages" editable="bottom">
+            	<field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="is_draft"/>
+                <field name="is_pending"/>
+                <field name="is_approved"/>
+                <field name="is_refused"/>
+            </tree>
+        </field>
+    </record>
+    
+   
+	
+	<record id="az_proposal_tree" model="ir.ui.view">
+        <field name="name">az_proposal_tree</field>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <tree string="Proposals" >
+            	<field name="proposal" invisible="1" force_save="1"/>
+            	<field name="state" invisible="1" force_save="1"/>
+                <field name="proposal_name"/>
+                <field name="partner_id"/>
+                <field name="date_order"/>
+                <field name="user_id"/>
+                <field name="proposal_stage_id" widget="badge"/>
+                <field name="is_proposal_draft" invisible="1" />
+                <field name="is_proposal_pending" invisible="1" />
+                <field name="is_proposal_approved" invisible="1" />
+                <field name="is_proposal_refused" invisible="1" />
+            </tree>
+        </field>
+    </record>
+    
+    <record id="az_proposal_view_search" model="ir.ui.view">
+        <field name="name">az_proposal_view_search</field>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <search string="Proposal Search">
+                <field name="proposal_name"/>
+                <field name="partner_id" readonly="1"/>
+                <field name="date_order"/>
+                <field name="user_id"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                	<filter string="Stage" name="proposal_stage_id" domain="[]" context="{'group_by': 'proposal_stage_id'}"/>
+                    
+                </group>
+            </search>
+        </field>
+    </record>
+	
+	<!--  <record id="az_proposal_view_order_tree_inherited" model="ir.ui.view">
+		<field name="name">az_proposal_view_quotation_tree_inherited</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_tree"/>
+		<field name="arch" type="xml">
+			<field name="name" position="after">
+				<field name="proposal" invisible="1" force_save="1"/>
+				<field name="proposal_name" />
+			</field>
+			<xpath expr="//field[@name='name']" position="attributes">
+				<attribute  name="attrs">{'invisible': [('proposal', '!=', False)]}</attribute>
+			</xpath>
+		</field>
+	</record> -->
+	
+	
+      
+     <record id="az_porposal_stage_action" model="ir.actions.act_window">
+        <field name="name">Proposal Stages</field>
+        <field name="res_model">az.proposal.stage</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+   		<record id="az_porposal_action" model="ir.actions.act_window">
+          <field name="name">Proposal Orders</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">sale.order</field>
+          <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+          <field name="search_view_id" ref="az_proposal_view_search"/>
+          <field name="view_id" ref="az_proposal_tree"/>
+          <field name="context">{'default_proposal': True}</field>
+          <field name="domain">[('proposal', '=', True)]</field>
+       </record>
+        
+     <record id="sale.action_orders" model="ir.actions.act_window">
+           <field name="name">Sales Orders</field>
+           <field name="type">ir.actions.act_window</field>
+           <field name="res_model">sale.order</field>
+           <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+           <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+           <field name="context">{}</field>
+           <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')), ('proposal', '=', False)]</field>
+           <field name="help" type="html">
+               <p class="o_view_nocontent_smiling_face">
+                   Create a new quotation, the first step of a new sale!
+               </p><p>
+                   Once the quotation is confirmed, it becomes a sales order.<br/> You will be able to create an invoice and collect the payment.
+               </p>
+           </field>
+        </record>
+        
+        <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
+            <field name="name">Quotations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_id" ref="sale.view_quotation_tree_with_onboarding"/>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+            <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <field name="domain">[('proposal', '=', False)]</field>
+            <field name="context">{'search_default_my_quotation': 1}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new quotation, the first step of a new sale!
+              </p><p>
+                Once the quotation is confirmed by the customer, it becomes a sales order.<br/> You will be able to create an invoice and collect the payment.
+              </p>
+            </field>
+        </record>
+    
+     <menuitem id="az_porposal_stages_menu" parent="sale.menu_sale_config"  name="Proposal Stages" action="az_porposal_stage_action" sequence="3"/>
+     <menuitem id="az_porposal_menu" parent="sale.sale_order_menu"  name="Proposals" action="az_porposal_action" sequence="3"/>
+</odoo>

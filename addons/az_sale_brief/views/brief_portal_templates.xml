@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="az_brief_order_menu"  inherit_id="portal.portal_my_home" priority="21">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+           <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Order Briefs</t>
+                <t t-set="url" t-value="'/my/briefs'"/>
+                <t t-set="placeholder_count" t-value="'brief_count'"/>
+            </t> 
+		</xpath>
+	</template>
+	
+	 <template id="az_brief_portal_bread_crumbs" inherit_id="portal.portal_breadcrumbs" priority="20">
+       		<xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+	            <li t-if="page_name == 'briefs'" t-attf-class="breadcrumb-item #{'active ' if not brief else ''}">
+	                <a t-if="brief" t-attf-href="/my/briefs?{{ keep_query() }}">Briefs</a>
+	                <t t-else="">Briefs</t>
+	            </li>
+	            <li t-if="brief" class="breadcrumb-item active">
+	                <t t-esc="brief.name"/>
+	            </li>
+            </xpath>
+    </template>
+    
+     <template id="portal_my_briefs" name="My Briefs">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Briefs</t>
+            </t>
+            <t t-if="not briefs">
+                <p>There are currently no briefs for your account.</p>
+            </t>
+            <t t-if="briefs" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Number  #</th>
+                        <th class="text-right">Date </th>
+                        <th class="text-center">Active </th>
+                        <th class="text-right">View Brief</th>
+                    </tr>
+                </thead>
+                <t t-foreach="briefs" t-as="brief">
+                    <tr>
+                        <td><t t-esc="brief.name"/></td>
+                        <td class="text-right"><span t-field="brief.send_date"/></td>
+                        <td class="text-center">
+                           <t t-if="brief.is_active"><span><i class="fa fa-check" ></i></span></t>
+                           <t t-else="" ></t>
+                        </td>
+                        <td class="text-right">
+                           <a t-att-href="brief.get_portal_url()">View Brief</a>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    
+    <template id="az_brief_sale_order_portal_content_inherited" inherit_id="sale.sale_order_portal_content">
+			<xpath expr="//section[@id='details']" position="before">
+				<t t-if="sale_order.brief_ids and sale_order.brief_ids.filtered(lambda b: b.shared)">
+					<section id="details" style="page-break-inside: auto;" class="mt32">
+	                	<h3 id="details">Brief</h3>
+	                	<table id="brief_tb"  class="table table-sm" >
+	                	<thead>
+                    		<tr >
+		                		<th>Number  #</th>
+		                        <th class="text-right">Date </th>
+		                        <th class="text-center">Active </th>
+		                        <th class="text-right">View Brief</th>
+	                        </tr>
+	                        </thead>
+	                        <tbody class="sale_tbody">
+	                        	<t t-foreach="sale_order.brief_ids.filtered(lambda b: b.shared)" t-as="brief">
+				                    <tr>
+				                        <td><t t-esc="brief.name"/></td>
+				                        <td class="text-right"><span t-field="brief.send_date"/></td>
+				                        <td class="text-center">
+				                           <t t-if="brief.is_active"><span><i class="fa fa-check" ></i></span></t>
+				                           <t t-else="" ></t>
+				                        </td>
+				                        <td class="text-right">
+				                           <a t-att-href="brief.get_portal_url()">View Brief</a>
+				                        </td>
+				                    </tr>
+				                </t>
+	                        </tbody>
+	                	</table>
+	                </section>
+                </t>
+			</xpath>
+	</template>
+	
+	 <template id="az_brief_details" >
+	 	<t t-call="portal.portal_layout">
+		 	<style>
+		 		.b_label{
+						font-weight: bold;
+						margin-right: 5px;
+						font-size: 13px;
+						font-family: timees new roman;
+					}
+				.b_span{
+					margin-right: 5px;
+					font-size: 13px;
+					font-family: timees new roman;
+				}
+				.form-group{
+					margin-bottom: 0px !important;
+				}
+				.q_box{
+					min-height: 300px;
+					width: 100%;
+				    border-radius: 15px;
+					position: relative;
+				  
+				}
+				.q_header{
+					font-weight: bold;
+				    text-align: center;
+				    background: silver;
+				     border-radius:15px 15px 0px 0px;
+				     min-height: 50px;
+				     margin-bottom: 0px;
+				     line-height: 50px;
+    				padding: 5px;
+
+				}
+				
+				.q_answer{
+				    background: #030333;
+				    padding: 5px;
+				    min-width: 50px;
+				    color: white;
+				}
+				
+				.action_div{
+					position: absolute;
+    				bottom: 2px;
+    				font-size: 15px;
+				    font-family: times new roman;
+				    font-weight: bold;
+				    margin-top: 5px;
+    				padding-left: 5px
+				}
+				.reply_info{
+					font-size: 10px;
+					font-style: italic;
+				}
+				#loader{
+						z-index:2000;
+					}
+					.lds-dual-ring.hidden { 
+					display: none;
+					}
+					.lds-dual-ring {
+					  display: inline-block;
+					  width: 80px;
+					  height: 80px;
+					}
+					.lds-dual-ring:after {
+					  content: " ";
+					  display: block;
+					  width: 64px;
+					  height: 64px;
+					  margin: 5% auto;
+					  border-radius: 50%;
+					  border: 6px solid #fff;
+					  border-color: #fff transparent #fff transparent;
+					  animation: lds-dual-ring 1.2s linear infinite;
+					}
+					@keyframes lds-dual-ring {
+					  0% {
+					    transform: rotate(0deg);
+					  }
+					  100% {
+					    transform: rotate(360deg);
+					  }
+					}
+					
+					.overlay {
+					    position: fixed;
+					    top: 0;
+					    left: 0;
+					    width: 100%;
+					    height: 100vh;
+					    background: rgba(0,0,0,.8);
+					    z-index: 999;
+					    opacity: 1;
+					    transition: all 0.5s;
+					}
+					
+					.reply_div img{
+						height: 100% !important;
+						width: 100% !important;
+						
+					}
+		 	</style>
+		 	<div id="loader" class="lds-dual-ring hidden overlay"></div>
+			<t t-set="breadcrumbs_searchbar" t-value="True" />
+
+			<t t-call="portal.portal_searchbar">
+				<t t-set="title">Brief Details</t>
+			</t>
+			
+			<div class="container card" style="padding-top: 5px;padding-left: 20px;padding-right: 20px;">
+				<t t-call="az_sale_brief.az_brief_modal" />
+				<div class="row" style="border-radius: 15px">
+					<div class="col-md-6 border" style="border-radius: 15px 0px 0px 0px;">
+						<div class="form-group field-name">
+							<label for="smoke" class="b_label">Client:</label>
+							<span class="b_span" t-esc="brief.partner_id.name" />
+						</div>
+					</div>
+					<div class="col-md-6 border" style="border-radius: 0px 15px 0px 0px;">
+						<div class="form-group field-name">
+							<label for="smoke" class="b_label">Brand:</label>
+							<span class="b_span" t-esc="brief.brand"></span>
+						</div>
+					</div>
+					<div class="col-md-6 border" >
+						<div class="form-group field-name">
+							<label for="smoke" class="b_label">Project Name:</label>
+							<span class="b_span" t-esc="brief.project_name"></span>
+						</div>
+					</div>
+					<div class="col-md-6 border">
+						<div class="form-group field-name">
+							<label for="smoke" class="b_label">Job Number:</label>
+							<span class="b_span" t-esc="brief.job_number"></span>
+						</div>
+					</div>
+					<div class="col-md-4 border">
+						<div class="form-group field-name">
+							<label for="smoke" class="b_label">CS Contact:</label>
+							<span class="b_span" t-esc="brief.cs_contact.name"></span>
+						</div>
+					</div>
+					<div class="col-md-4 border">
+						<div class="form-group field-name">
+							<label for="smoke" class="b_label">Brief Date:</label>
+							<span class="b_span" t-field="brief.send_date"></span>
+						</div>
+					</div>
+					<div class="col-md-4 border">
+						<div class="form-group field-name">
+							<label for="smoke" class="b_label">First Deadline:</label>
+							<span class="b_span" t-field="brief.first_deadline"></span>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row" style="margin-top:5px; margin-bottom:5px; padding: 10px" t-if="brief.is_active and not brief.confirmed and not brief.ask_to_adjust">
+					<button type="button" class="btn btn-primary" id="btnConfirmBrief"  t-att-data-brief_id="brief.id"  style="margin-right: 3px; margin-left:3px">Confirm Brief</button>
+					<button type="button" class="btn btn-danger" id="btnAdjustBrief"  t-att-data-brief_id="brief.id" >Ask To Adjust</button>
+				</div>
+				<div class="row" style="margin-top:5px">
+					<t t-foreach="brief.brief_line_ids" t-as="line">
+						<input type="hidden" t-attf-id="question_color-#{line.id}" t-att-value="line.portal_bg_color" />
+						<div class="col-sm-12 col-md-4 " style="margin-bottom: 10px">
+							<div class=" border q_box">
+								<h5 class="q_header" t-esc="line.question" />
+								<div class="q_answer" t-esc="line.answer" />
+								<t t-if="line.attachments">
+									<div class="q_answer" >
+										<ul class="list-group">
+											<t t-foreach="line.attachments" t-as="file">
+												<li class="list-group-item">
+												<a target="_blank" t-attf-href="/web/content/#{file.id}?download=True&amp;access_token=#{file.access_token}"  
+												>
+												<i class="fa fa-download" t-att-title="file.name"></i> <t t-esc="file.name" /></a>
+												</li>
+											</t>
+											
+										</ul>
+									</div>
+								</t>
+								
+								<ul class="list-group">
+									<t t-foreach="line.reply_ids" t-as="reply">
+										<li class="list-group-item list-group-item-dark" t-attf-style="background-color:#{ line.portal_bg_color}">
+											<div class="row">
+												<div class="col-sm-6 col-md-6 reply_info">
+													By: <span t-esc="reply.create_uid.name" />
+												</div>
+												<div class="col-sm-6 col-md-6 reply_info">
+													Date: <span t-field="reply.create_date"  />
+												</div>
+												<hr />
+												<div class="col-sm-12 col-md-12 reply_div">
+													<t t-raw="reply.reply" />
+												</div>
+											</div>
+										</li>
+									</t>
+								</ul>
+								<br/>
+								<div class="action_div" t-if="brief.is_active and not brief.confirmed and not brief.ask_to_adjust">
+									<a href="#" class="btnReply"  t-att-data-brief_line_id="line.id"  style="float: right"><i class="fa fa-fw o_button_icon fa-pencil-square-o"></i>Add Reply</a>
+								</div>
+							</div>
+						</div>
+					</t>
+				</div>
+			</div>
+		</t>
+	 </template>
+	 
+	 <template id="az_brief_modal" name="Sale Brief Modal">
+		<div class="modal" id="azBriefModal" role="dialog">
+                <div class="modal-dialog ">
+                    <div class="modal-content ">
+                        <div class="modal-header ">
+                            <h4 class="modal-title col-md-11" style="padding:0px;">New Reply</h4>
+                            <span class="close modal-cross" data-dismiss="modal" title="close">
+                                &#160;&#160;&#160;</span>
+                        </div>
+                        <div class="modal-body">
+                        	<form  id="frmBriefReply" role="form" method="post"  >
+			        			 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+			        			 <input type="hidden" name="brief_line_id" id="brief_line_id" />
+			        			
+					          		<div class="row">
+					          			<div class="clo-sm-12 col-lg-12 cl-md-12">
+					          				 <div class="form-group field-name">
+					          				 	<!--  <label for="unit_price"  >Reply:</label> -->
+	                            				  <textarea id="txtBriefReply" style="width:100%" rows="40"></textarea>
+					          				 </div>
+					          			</div>
+					          		</div>
+ 
+			        		</form>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button id="azSubmitBriefBtn" type="button" class="btn btn-primary btn-block">Submit</button>
+                             <button type="button" class="btn" data-dismiss="modal" aria-label="Cancel">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </template>
+    
+</odoo>

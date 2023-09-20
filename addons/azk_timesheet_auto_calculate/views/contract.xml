@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_contract_form_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//page['information']" position="inside">
+                     <group>
+                         <field name="recalculate"/>
+                         <field name="company_currency_id" invisible="1"/>
+                         <field name="salary_time_sheet" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                     </group>
+                 </xpath>
+            </field>
+    </record>
+          
+</odoo>

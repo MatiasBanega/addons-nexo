@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="az_rfq_purchase_order_form" model="ir.ui.view">
+		<field name="name">az_rfq_purchase_order_form</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='partner_ref']" position="after">
+				<field name="qouted"  />
+				<field name="submitted_by" attrs="{ 'invisible': [('submitted_by', '=', False)]}" />
+				<field name="declined" attrs="{ 'invisible': [('declined', '=', False)]}" />
+				<field name="decline_reason_id" attrs="{ 'invisible': ['|',('decline_reason_id', '=', False),('declined', '=', False)]}" />
+			</xpath>
+			<xpath expr="//field[@name='price_subtotal']" position="after">
+				<field name="vendor_conditions" attrs="{ 'readonly': True}" />
+				
+				<field name="attached_files" widget="many2many_binary" options="{'no_create': True}"/>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="view_po_decline_reason_tree" model="ir.ui.view">
+        <field name="name">view_po_decline_reason_tree</field>
+        <field name="model">po.decline.reason</field>
+        <field name="arch" type="xml">
+            <tree string="PO Decline Reason">
+                <field name="po_decline_reason"/>
+            </tree>
+        </field>
+    </record>
+    
+     <record id="view_po_decline_reason_form" model="ir.ui.view">
+        <field name="name">view_po_decline_reason_form</field>
+        <field name="model">po.decline.reason</field>
+        <field name="arch" type="xml">
+            <form string="PO Decline Reason">
+                <sheet>
+                	<group>
+                        <group>
+                			<field name="po_decline_reason" string="Decline Reason"/>
+               			</group>
+            		</group>
+                </sheet>
+               </form>
+         </field>
+      </record>
+      
+      <record id="po_decline_reason_action" model="ir.actions.act_window">
+        <field name="name">PO Decline Reason</field>
+        <field name="res_model">po.decline.reason</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+     <menuitem id="po_decline_reason_menu" parent="purchase.menu_purchase_config"  name="PO Decline Reason" action="po_decline_reason_action" sequence="3"/>
+</odoo>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="fileManagerNavigationPanel">
+        <div class="file_manager_navigation_panel file_manager_navigation_panel_left hidden_mobile hidden_tablet">
+            <div class="file_manager_navigation_content">
+                <div class="file_manager_navigation_section">
+                    <div class="file_manager_left_navigation_control_panel">
+                        <span id="file_manager_select_all" class="file_manager_functional_button">
+                            <i class="fa fa-bookmark-o"></i>
+                            Select all found attachments
+                        </span>
+                    </div>
+                </div>
+                <hr class="mb16 file_manager_hr"/>
+                <div class="file_manager_navigation_section">
+                    <div id="cloud_folders_navigation">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+    <t t-name="fileManagerRightNavigationPanel">
+        <div class="file_manager_right_navigation_panel file_manager_navigation_panel hidden_mobile hidden_tablet">
+            <div class="file_manager_navigation_content">
+                <div class="file_manager_attachments_selection">
+                    <div class="file_manager_navigation_header">
+                        <span>
+                            Selected attachments (<t t-out="count_files"/>)
+                            <i id="file_manager_clear_selection" 
+                               class="fa fa-ban file_manager_functional_button file_manager_clear"></i>
+                        </span>
+                    </div>
+                    <div class="file_manager_panel_body_files">
+                        <ul class="file_manager_selection_ul">
+                            <t t-foreach="attachments" t-as="attachment">
+                                <li>
+                                    <span class="file_manager_remove_from_selection file_manager_functional_button"
+                                          t-att-id="attachment.id"
+                                          title="click to remove this attachment from selection"
+                                    >
+                                        <t t-out="attachment.name"/>
+                                    </span>
+                                </li>
+                            </t>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="mb8 file_manager_hr"/>
+                <div class="file_manager_navigation_header">
+                    <div>
+                        <span id="file_manager_download_btn" class="file_manager_functional_button">
+                            <i class="fa fa-download"></i> Download
+                        </span>
+                    </div>
+                    <div>
+                        <span id="file_manager_update_btn" class="file_manager_functional_button">
+                            <i class="fa fa-edit"></i> Update
+                        </span>
+                    </div>
+                    <div>
+                        <span id="file_manager_unlink_btn" class="file_manager_functional_button">
+                            <i class="fa fa-times"></i> Delete
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+    <div t-name="fileManagerButtons">
+        <div>
+            <button type="button" id="file_manager_add_file" class="btn btn-primary" accesskey="c">
+                Upload file
+            </button>
+        </div>
+    </div>
+
+</templates>

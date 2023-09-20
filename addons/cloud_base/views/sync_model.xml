@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="sync_model_view_search" model="ir.ui.view">
+        <field name="name">sync.model.search</field>
+        <field name="model">sync.model</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="client_id"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group  expand='0' string='Group by...'>
+                    <filter name="client_group" 
+                            context="{'group_by' : 'client_id'}"
+                            string="Client"
+                            invisible="1"
+                    />    
+                    <filter name="model_group"
+                            string="Model"
+                            context="{'group_by' : 'model_id'}"
+                    />
+                    <filter name="ttype_group" 
+                            context="{'group_by' : 'rule_type'}"
+                            string="Rule Type"
+                            invisible="1"
+                    />                    
+                    <filter name="parent_id_group" 
+                            context="{'group_by' : 'parent_id'}"
+                            string="Parent Rule"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="sync_model_view_form" model="ir.ui.view" >
+        <field name="name">sync.model.form</field>
+        <field name="model">sync.model</field>
+        <field name="arch" type="xml">
+            <form delete="0">
+                <sheet>
+                    <group name="type_group" invisible="1">
+                        <field name="rule_type" attrs="{'readonly': [('create_date', '!=', False)]}"/>
+                    </group>
+                    <group name="client_settings">
+                        <field name="name"/>
+                        <field name="own_client_id" 
+                               attrs="{'invisible': [('parent_client_id', '!=', False)]}"
+                               options="{'no_create_edit': 1, 'no_quick_create': 1}"
+                        />
+                        <field name="parent_client_id" invisible="1"/>
+                        <field name="client_id" attrs="{'invisible': [('parent_client_id', '=', False)]}"/>
+                    </group>
+                    <group name="model_settings" attrs="{'invisible': [('rule_type', '!=', 'model')]}">
+                        <field name="model_id"
+                               options="{'no_create_edit': 1, 'no_quick_create': 1}"
+                               attrs="{'required': [('rule_type', '=', 'model')], 'readonly': [('create_date', '!=', False)]}"
+                        />
+                        <field name="parent_id" attrs="{'invisible': [('model_id', '=', False)]}"/>
+                        <field name="parent_field"
+                               attrs="{'invisible': [('parent_id', '=', False)], 'required': [('parent_id', '!=', False)]}"
+                               widget="parentRuleMany2one"
+                        />
+                    </group>
+                    <notebook attrs="{'invisible': [('rule_type', '!=', 'model')]}">
+                        <page name="filters" string="Filters">
+                            <div attrs="{'invisible': [('model_id', '=', False)]}">
+                                <label for="domain"/>
+                                <field name="domain"
+                                       widget="domain"
+                                       style="min-height:200px !important;"
+                                       options="{'model': 'model'}"
+                                />
+                            </div>
+                        </page>
+                        <page name="periods" string="Periods">
+                            <field name="period_ids">
+                                <tree editable="1">
+                                    <field name="field_id"
+                                           domain="[
+                                                      ('model', '=', parent.model),
+                                                      ('ttype', 'in', ['date', 'datetime']),
+                                                   ]"
+                                           options="{'no_create_edit': 1, 'no_quick_create': 1}"
+                                    />
+                                    <field name="period_direction"/>
+                                    <field name="period_value"/>
+                                    <field name="period_type"/>
+                                    <field name="inclusive_this"/>
+                                    <field name="domain" invisible="1"/>
+                                </tree>
+                            </field>
+                            <group>
+                                <field name="period_title"/>
+                                <field name="period_domain" invisible="1"/>
+                            </group>
+                            <p class="text-muted">
+                                Periods are calculated relatively to today, e.g. Today is 03/09/2020, it means that the 
+                                'last 2 months' are July and August. The 'next 5 days' are 04/09-08/09/2020.
+                            </p>
+                            <p class="text-muted">
+                                If the 'Current Included' flag is checked, the current period is also included. 
+                                E.g. today is 25/09/2020. We selected 'last 2 months'. If not checked, Odoo would 
+                                consider July and August. If checked, August and September.
+                            </p>
+                            <p class="text-muted">
+                                Restrictions of periods are accumulated. If you added a few lines, it means that all 
+                                periods conditions should be satisfied. E.g. deadline should be within the last 2 months
+                                <strong>AND</strong> close date should be within the last year.
+                                However, if you added the same date twice, condition should satisfy <strong>ANY</strong>
+                                of those criteria. E.g. deadline should be within the last 2 months <strong>OR</strong>
+                                the next month <strong>AND</strong> close date should be within the last year.
+                            </p>
+                        </page>
+                        <page string="Name Expression" attrs="{'invisible': [('rule_type', '!=', 'model')]}">
+                            <p class="text-muted">
+                                Introduce expression to extract folder name for object directories. To that end
+                                use Odoo syntax like in email templates. For example, {{ object.name }}.
+                            </p>
+                            <p class="text-muted">
+                                Leave it empty if you wanted to apply standard Odoo name_get method. The name_get method
+                                would be also used in case expression cannot be parsed or it has a syntax error.
+                            </p>
+                            <group>
+                                <field name="name_expression"/>
+                            </group>
+                        </page>
+                        <page string="Defaults">
+                            <p class="text-muted">
+                                Define default structure of subfolders and files which would be created by default for 
+                                each newly generated directory under this rule
+                            </p>
+                            <field name="default_folders" widget="jsTreeWidget"/>
+                        </page>
+                        <page string="Tech" invisible="1">
+                            <group>
+                                <field name="model"/>
+                                <field name="active"/>
+                                <field name="create_date"/>
+                                <field name="sequence"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="sync_model_view_tree" model="ir.ui.view">
+        <field name="name">sync.model.tree</field>
+        <field name="model">sync.model</field>
+        <field name="arch" type="xml">
+            <tree delete="0">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="client_id"/>
+                <field name="rule_type" invisible="1"/>
+                <field name="parent_id"/>
+                <field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="sync_model_action" model="ir.actions.act_window">
+        <field name="name">Auto Folders Rules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sync.model</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" eval="sync_model_view_search"/>
+    </record>
+
+</odoo>

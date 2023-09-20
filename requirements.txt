@@ -1,1 +1,4 @@
+dropbox
+openpyxl
+sqlparse
 odoo-test-helper
