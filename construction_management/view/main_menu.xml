@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem
+                id="work_packages_main"
+                name="Work Package"
+                parent="project.menu_project_config"/>
+    </data>
+</odoo>

@@ -1,0 +1,2 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+report_report_cb_report_id,report_report_cb_report_id,model_report_report_cb_report,cb_report.group_cb_report_visibility,1,1,1,1

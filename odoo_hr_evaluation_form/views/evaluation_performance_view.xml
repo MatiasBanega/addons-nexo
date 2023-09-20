@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_hr_evalution_performance_form">
+            <field name="name">hr.evalution.performance.form</field>
+            <field name="model">hr.evalution.performance</field>
+            <field name="arch" type="xml">
+                <form string="Evaluation Form" create="0">
+                    <header>
+                        <button name="button_confirmed" string="Confirm" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="button_approve_by_reviewer" string="Submit" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'confirmed')]}"/>
+                        <widget name="signature" string="Sign" highlight="1"
+                            attrs="{'invisible': ['|', ('state', '!=', 'submited'), ('is_signed', '=', True)]}"
+                            full_name="reviewer_id"/>
+                        <button name="%(odoo_hr_evaluation_form.report_evaluation_performance_custom)d" string="Print" type="action" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'submited')]}"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,submited" statusbar_colors='{"progress":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="empl_department_id"/>
+                                <field name="job_title_id"/>
+                                <field name="company_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="is_user_employee" invisible="1"/>
+                                <field name="is_user_reviewer" invisible="1"/>
+                                <field name="is_user_officer" invisible="1"/>
+                                <field name="performance_seq" invisible="1"/>
+                                <field name="is_signed" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="reviewer_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <label for="review_period_start_date" string="Review Period"/>
+                                <div class="o_row">
+                                    <field name="review_period_start_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/> To
+                                    <field name="review_period_end_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </div>
+                                <field name="evalution_officer_id"/>
+                            </group>
+                        </group>
+                        <group name="introduction" string="Description">
+                            <field name="performance_introduction" nolabel="1" attrs="{'readonly': [('state', '=', 'submited')]}"/>
+                        </group>
+                        <notebook>
+                            <page string="First Part: Competencies">
+                                <field name="first_competencies_ids" context="{'default_employee_id': employee_id, 'default_reviewer_id': reviewer_id, 'default_type': 'competencies'}">
+                                    <tree editable="bottom" create="0" delete="0">
+                                        <field name="competencies_objectives_id" domain="[('type', '=', 'competencies')]" readonly="1"/>
+                                        <field name="evalution_performance_state" invisible="1"/>
+                                        <field name="reviewer_points_id" attrs="{'readonly': [('parent.state', '=', 'submited')], 'required': [('parent.state', '=', 'confirmed')]}" options="{'no_open': True, 'no_create_edit': True}"/>
+                                    </tree>
+                                </field>
+                                <group name="total_score_competencies" string="Total Score Competencies">
+                                    <field name="total_score_competencies"/>
+                                </group>
+                                <group name="reviewer_comments" string="Competencies Comments">
+                                    <field name="reviewer_comment" nolabel="1" attrs="{'readonly': [('state', '=', 'submited')]}"/>
+                                </group>
+                            </page>
+                            <page string="Second Part: OBJECTIVES">
+                                <field name="second_objectives_ids" context="{'default_employee_id': employee_id, 'default_reviewer_id': reviewer_id, 'default_type': 'objectives'}">
+                                    <tree editable="bottom" create="0" delete="0">
+                                        <field name="competencies_objectives_id" domain="[('type', '=', 'objectives')]" readonly="1"/>
+                                        <field name="second_objectives_performance_id" invisible="1"/>
+                                        <field name="second_objectives_performance_state" invisible="1"/>
+                                        <field name="reviewer_points_id" attrs="{'readonly': [('parent.state', '=', 'submited')], 'required': [('parent.state', '=', 'confirmed')]}" options="{'no_open': True, 'no_create_edit': True}"/>
+
+  
+                                    </tree>
+                                </field>
+                                <group name="total_score_objectives" string="Total Score Objectives">
+                                    <field name="total_score_objectives"/>
+                                </group>
+                                <group name="reviewer_comments" string="Objectives Comments">
+                                    <field name="reviewer_objectives_comment" nolabel="1" attrs="{'readonly': [('state', '=', 'submited')]}"/>
+                                </group>
+                            </page>
+                            <page name="signature" string="Signature">
+                                <field name="signature" widget="image" class="oe_avatar"/>
+                            </page>
+                        </notebook>
+                        <group>
+                            <field name="overall_score"/>
+                        </group>
+                        <group name="reviewer_overalls_comments" string="Overall Comments">
+                            <field name="reviewer_overall_comments" nolabel="1" attrs="{'readonly': [('state', '=', 'submited')]}"/>
+                        </group>
+                        <group name="development_plan" string="Development Plan – Describe the areas of development and training needs" attrs="{'invisible': [('state', 'in', ['draft'])]}">
+                            <field name="development_plan" nolabel="1" attrs="{'readonly': [('state', '=', 'submited')]}"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_hr_evalution_performance_tree">
+            <field name="name">hr.evalution.performance.tree</field>
+            <field name="model">hr.evalution.performance</field>
+            <field name="arch" type="xml">
+                <tree string="Evaluation Form" create="0">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="reviewer_id"/>
+                    <field name="state"/>
+                    <field name="total_score_competencies"/>
+                    <field name="total_score_objectives"/>
+                    <field name="overall_score"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_hr_evalution_performance_kanban">
+            <field name="name">hr.evalution.performance.kanban</field>
+            <field name="model">hr.evalution.performance</field>
+            <field name="arch" type="xml">
+                <kanban create="false">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="reviewer_id"/>
+                    <field name="state"/>
+                    <field name="company_id"/>
+                    <field name="overall_score"/>
+                    <field name="total_score_competencies"/>
+                    <field name="total_score_objectives"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title"><t t-esc="record.name.value"/></strong>
+                                        <strong class="o_kanban_record_title"><t t-esc="record.employee_id.value"/></strong>
+                                    </div>
+                                </div>
+                                <div class="container o_kanban_card_content mt0">
+                                    <div class="row mb16">
+                                        <div class="col-6 o_kanban_primary_right"/>
+                                        <div class="col-6 o_kanban_primary_right">
+                                            <div class="d-flex">
+                                                <span class="badge badge-pill">Competencies Score : <t t-esc="record.total_score_competencies.value"/></span>
+                                            </div>
+                                            <div class="d-flex">
+                                                <span class="badge badge-pill">Objectives Score : <t t-esc="record.total_score_objectives.value"/></span>
+                                            </div>
+                                            <div class="d-flex">
+                                                <span class="badge badge-pill">Overall Score : <t t-esc="record.overall_score.value"/></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="date"/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right mr4">
+                                        <field name="state" widget="label_selection" options="{'classes': {'new': 'default', 'confirmed': 'success', 'wait_officer_approval':'success', 'submited': 'success'}}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_hr_evalution_performance_pivot">
+            <field name="name">hr.evalution.performance.pivot</field>
+            <field name="model">hr.evalution.performance</field>
+            <field name="arch" type="xml">
+                <pivot string="Evaluation Form Pivot">
+                    <field name="employee_id" type="row"/>
+                    <field name="name" type="row"/>
+                    <field name="total_score_competencies" type="measure"/>
+                    <field name="total_score_objectives" type="measure"/>
+                    <field name="overall_score" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_hr_evalution_performance_graph">
+            <field name="name">hr.evalution.performance.graph</field>
+            <field name="model">hr.evalution.performance</field>
+            <field name="arch" type="xml">
+                <graph string="Evaluation Form Graph">
+                    <field name="employee_id" type="row"/>
+                    <field name="name" type="row"/>
+                    <field name="total_score_competencies" type="measure"/>
+                    <field name="total_score_objectives" type="measure"/>
+                    <field name="overall_score" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        
+        <record id="action_hr_evalution_performance" model="ir.actions.act_window">
+            <field name="name">Evaluation Evaluation Form </field>
+            <field name="res_model">hr.evalution.performance</field>
+            <field name="view_mode">tree,kanban,pivot,graph,form</field>
+            <field name="domain"></field>
+        </record>
+
+        <record id="action_hr_my_evalution_performance" model="ir.actions.act_window">
+            <field name="name">My Evaluation Form</field>
+            <field name="res_model">hr.evalution.performance</field>
+            <field name="domain">[('reviewer_id.user_id', '=', uid)]</field>
+            <field name="view_mode">tree,kanban,pivot,graph,form</field>
+        </record>
+        
+        
+        
+        <record id="action_hr_to_approve_evalution_performance" model="ir.actions.act_window">
+            <field name="name">Evaluation Form to Submit</field>
+            <field name="res_model">hr.evalution.performance</field>
+            <field name="domain">[('state', 'in', ['confirmed', 'wait_officer_approval'])]</field>
+            <field name="view_mode">tree,kanban,pivot,graph,form</field>
+        </record>
+
+
+        <menuitem id="menu_hr_evaluation_performance" name="Evaluation Forms" parent="odoo_hr_evaluation_form.menu_hr_evaluation" sequence="1"/>
+        <menuitem id="menu_hr_all_evaluation_performance" name="All Evaluation Forms" parent="menu_hr_evaluation_performance"
+            action="action_hr_evalution_performance"/>
+        <menuitem id="menu_hr_my_evaluation_performance" name="My Evaluation Forms" parent="menu_hr_evaluation_performance"
+            action="action_hr_my_evalution_performance"/>
+        <menuitem id="menu_hr_to_approve_evaluation_performance" name="Evaluation Forms to Approve" parent="menu_hr_evaluation_performance" action="action_hr_to_approve_evalution_performance"/>
+
+    </data>
+</odoo>
+

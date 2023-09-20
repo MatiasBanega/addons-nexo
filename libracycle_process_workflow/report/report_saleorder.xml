@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="web.external_layout_standard">
+        <t t-if="not o" t-set="o" t-value="doc" />
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
+        </t>
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="row">
+                <div class="col-2">
+                </div>
+                <div class="col-8">
+                    <img t-if="company.logo" t-att-src="'/libracycle_process_workflow/static/src/lbc.png'" height="100px" alt="Logo" />
+                </div>
+                <div class="col-2">
+                </div>
+            </div>
+            <div class="row zero_min_height m-0">
+                <div class="col-12">
+                    <div style="border-bottom: 1px solid black;" />
+                </div>
+            </div>
+        </div>
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}" t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div class="pt-0 m-0">
+                <t t-call="web.address_layout" />
+            </div>
+            <t t-out="0" />
+        </div>
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <div t-field="company.report_footer" />
+                </ul>
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page: <span class="page" /> / <span class="topage" />
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//t[@t-set='address']" position="replace">
+            <div class="row">
+                <div class="col-auto col-4 mw-100 mb-2">
+                    <strong>Invoicing and Shipping Address:</strong>
+                    <span t-field="doc.partner_id.name" style="{margin: 0px;padding: 0px;}" /><br />
+                    <span t-field="doc.partner_id.street" style="{margin: 0px;padding: 0px;}" /><br />
+                    <span t-field="doc.partner_id.city" style="{margin: 0px;padding: 0px;}" />
+                    <span t-field="doc.partner_id.state_id" style="{margin: 0px;padding: 0px;}" /><br />
+                    <span t-field="doc.partner_id.country_id" style="{margin: 0px;padding: 0px;}" />
+                </div>
+                <div class="col-auto col-4 mw-100 mb-2" />
+                <div class="col-auto col-4 mw-100 mb-2" />
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-set='information_block']" position="replace" />
+        <xpath expr="//h2[hasclass('mt16')]" position="replace">
+            <div class="row mb-2">
+                <div class="col-12">
+                    <h3 t-field="doc.name" />
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//p[@t-if='not is_html_empty(doc.payment_term_id.note)']" position="replace" />
+        <xpath expr="//div[@id='informations']" position="replace">
+            <div class="row mt32 mb32" id="informations">
+                <div t-if="doc.name" class="col-auto col-3 mw-100 mb-2">
+                    <strong>Your Reference:</strong>
+                    <p class="m-0" t-field="doc.name" />
+                </div>
+                <div t-if="doc.date_order and doc.state not in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
+                    <strong>Invoice Date:</strong>
+                    <p class="m-0" t-field="doc.date_order" />
+                </div>
+                <div t-if="doc.date_order and doc.state in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
+                    <strong>Invoice Date:</strong>
+                    <p class="m-0" t-field="doc.date_order" t-options='{"widget": "date"}' />
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Salesperson:</strong>
+                    <t>
+                        <p class="m-0" t-field="doc.user_id" t-if="doc.user_id.name" />
+                    </t>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2" name="payment_terms">
+                    <strong>Payment Terms:</strong>
+                    <t>
+                        <p class="m-0" t-field="doc.payment_term_id" t-if="doc.payment_term_id" />
+                    </t>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[@id='informations']" position="after">
+            <div class="row mb-32" id="lbc1">
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Job Reference:</strong>
+                    <p class="m-0" t-field="doc.project_id.job_refs" t-if="doc.project_id.job_refs" />
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Carrier:</strong>
+                    <p class="m-0" t-field="doc.project_id.ship_line" t-if="doc.project_id.ship_line" />
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Client Ref:</strong>
+                    <p class="m-0" t-field="doc.project_id.client_ref" />
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2">
+                </div>
+            </div>
+            <div class="row mt64 mb64" id="lbc2">
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Job Type:</strong>
+                    <t>
+                        <p class="m-0" t-field="doc.project_id.mode_shipment_air_sea" t-if="doc.project_id.mode_shipment_air_sea" />
+                    </t>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Port of Loading:</strong>
+                    <p class="m-0" t-field="doc.project_id.port_many_loading" />
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Port Of Origin:</strong>
+                    <p class="m-0" t-field="doc.project_id.country_of_loading" />
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2">
+                </div>
+            </div>
+            <div class="row mt64 mb64" id="lbc2">
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>BOL/AWB Number:</strong>
+                    <p class="m-0" t-field="doc.project_id.bol_awb_ref" />
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Port of Discharge:</strong>
+                    <p class="m-0" t-field="doc.project_id.destination_port" />
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Destination:</strong>
+                    <p class="m-0" t-field="doc.project_id.country_of_destination" />
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2">
+                </div>
+            </div>
+            <div class="row" id="lbc3">
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Form M Number:</strong>
+                    <p class="m-0" t-field="doc.project_id.job_form_m_mf" />
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Terminal:</strong>
+                    <p class="m-0" t-field="doc.project_id.custom_terminal" />
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Vessel:</strong>
+                    <p class="m-0" t-field="doc.project_id.ves_line" />
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2">
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//p[@id='fiscal_position_remark']" position="after">
+            <div class="row">
+                <div class="col-6 offset-6">
+                    <p t-field="doc.bank_account_id.description" />
+                    <table class="table table-striped table-borderless table-sm">
+                        <tbody>
+                            <tr>
+                                <td><strong>Bank Name</strong></td>
+                                <td><span t-field="doc.bank_account_id.bank_id" /> </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Account Number</strong></td>
+                                <td><span t-field="doc.bank_account_id.acc_number" /></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Account Holder Name</strong></td>
+                                <td><span t-field="doc.bank_account_id.acc_holder_name" /></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sort Code</strong></td>
+                                <td><span t-field="doc.bank_account_id.sortcode" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

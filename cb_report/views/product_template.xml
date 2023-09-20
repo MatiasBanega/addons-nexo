@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="product_template_extra">
+        <field name="name">product.template.form.extra</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='options']//span[2]" position="inside">
+                <span class="d-inline-block">
+                    <field name="product_duty"/>
+                    <label for="product_duty"/>
+                </span>
+                <span class="d-inline-block">
+                    <field name="shipping_charge"/>
+                    <label for="shipping_charge"/>
+                </span>
+            </xpath>
+            <xpath expr="//div[@name='options']" position="after">
+                <div name="options" groups="base.group_user">
+                    <span class="d-inline-block">
+                        <field name="terminal_charge"/>
+                        <label for="terminal_charge"/>
+                    </span>
+                    <span class="d-inline-block">
+                        <field name="nafdac"/>
+                        <label for="nafdac"/>
+                    </span>
+                    <span class="d-inline-block">
+                        <field name="son"/>
+                        <label for="son"/>
+                    </span>
+                    <span class="d-inline-block">
+                        <field name="agency"/>
+                        <label for="agency"/>
+                    </span>
+                    <span class="d-inline-block">
+                        <field name="transportation"/>
+                        <label for="transportation"/>
+                    </span>
+                    <span class="d-inline-block">
+                        <field name="others"/>
+                        <label for="others"/>
+                    </span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

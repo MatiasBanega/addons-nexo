@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+payroll_report,access.payroll.report,model_payroll_report,hr_payroll.group_hr_payroll_user,1,1,1,1
+payroll_report_wiz,access.payroll.report.wiz,model_payroll_report_wiz,hr_payroll.group_hr_payroll_user,1,1,1,1
+payroll_report_excel,access.payroll.report.excel,model_payroll_report_excel,hr_payroll.group_hr_payroll_user,1,1,1,1

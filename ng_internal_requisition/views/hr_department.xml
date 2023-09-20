@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <record id="hr_department_form_inherit_intreq" model="ir.ui.view">
+      <field name="name">hr.department.form.inherit.intreq</field>
+      <field name="model">hr.department</field>
+      <field name="inherit_id" ref="hr.view_department_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='manager_id']" position="after">
+          <field name="location_id" widget="selection"/>
+        </xpath>
+        </field>
+    </record>
+    
+  </data>
+</odoo>

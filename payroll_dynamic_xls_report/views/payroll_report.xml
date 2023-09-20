@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_hr_salary_report">
+        <field name="name">payroll.report.form</field>
+        <field name="model">payroll.report</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Report">
+                <sheet>
+                    <group colspan="2" col="2">
+                        <field name="report_title"/>
+                        <field name="rule_ids"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_hr_salary_report_tree">
+        <field name="name">payroll.report.tree</field>
+        <field name="model">payroll.report</field>
+        <field name="arch" type="xml">
+            <tree string="Payroll Report">
+                <field name="report_title"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record id="action_hr_payroll_report_config" model="ir.actions.act_window">
+        <field name="name">Payroll Report</field>
+        <field name="res_model">payroll.report</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_payroll_report" name="Payroll Report Configuration" action="action_hr_payroll_report_config"
+              parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration"/>
+</odoo>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_barge_road" model="ir.actions.act_window">
+            <field name="name">Barge or Road</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">barge.road</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_barge_road"
+            name="Barge or Road"
+            sequence="21"
+            parent="project.menu_project_config"
+            action="action_barge_road"/>
+
+        <record id="action_barge_from" model="ir.actions.act_window">
+            <field name="name">Barge From</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">barge.from</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_barge_from"
+            name="Barge From"
+            sequence="22"
+            parent="project.menu_project_config"
+            action="action_barge_from"/>
+
+        <record id="action_barge_to" model="ir.actions.act_window">
+            <field name="name">Barge To</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">barge.to</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_barge_to"
+            name="Barge To"
+            sequence="23"
+            parent="project.menu_project_config"
+            action="action_barge_to"/>
+
+        <record id="action_tug_model" model="ir.actions.act_window">
+            <field name="name">Tug</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tug.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_tug_model"
+            name="Tug"
+            sequence="24"
+            parent="project.menu_project_config"
+            action="action_tug_model"/>
+
+        <record id="action_barge_operator" model="ir.actions.act_window">
+            <field name="name">Barge Name/Operator</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">barge.operator</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_barge_operator"
+            name="Barge Name/Operator"
+            sequence="24"
+            parent="project.menu_project_config"
+            action="action_barge_operator"/>
+
+        <record id="action_last_known_location" model="ir.actions.act_window">
+            <field name="name">Last Know Location</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">last.known.location</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_last_known_location"
+            name="Last Know Location"
+            sequence="24"
+            parent="project.menu_project_config"
+            action="action_last_known_location"/>
+
+        <record id="action_transporter_name" model="ir.actions.act_window">
+            <field name="name">Transporter Name</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">transporter.name</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_transporter_name"
+            name="Transporter Name"
+            sequence="24"
+            parent="project.menu_project_config"
+            action="action_transporter_name"/>
+
+        <record id="action_current_empty_location" model="ir.actions.act_window">
+            <field name="name">Current Empty Location</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">current.empty.location</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_current_empty_location"
+            name="Current Empty Location"
+            sequence="24"
+            parent="project.menu_project_config"
+            action="action_current_empty_location"/>
+
+    </data>
+</odoo>

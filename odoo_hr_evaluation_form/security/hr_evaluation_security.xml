@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="grp_evalution_user" model="res.groups">
+    <field name="name">Evaluation Officer</field>
+    <field name="implied_ids" eval="[(4, ref('hr.group_hr_user'))]"/>
+  </record>
+
+  <record id="grp_evalution_manager" model="res.groups">
+    <field name="name">Evaluation Administrator</field>
+    <field name="implied_ids"
+	   eval="[(4, ref('odoo_hr_evaluation_form.grp_evalution_user'))]"/>
+  </record>
+
+  <!-- ********************* RULES ************************************* -->
+  <!-- ***************** Evaluation********** -->
+
+  <record id="evaluation_manager_rule" model="ir.rule">
+    <field name="name">Evaluation Manager Rule</field>
+    <field name="model_id" ref="model_hr_evaluation_evaluation"/>
+    <field name="groups"
+	   eval="[(4, ref('odoo_hr_evaluation_form.grp_evalution_manager'))]"/>
+    <field name="domain_force">[(1, '=', 1)]</field>
+  </record>
+   <record id="evaluation_user_rule1" model="ir.rule">
+        <field name="name">Evaluation User Rule</field>
+        <field name="model_id" ref="model_hr_evaluation_evaluation"/>
+        <field name="groups"
+           eval="[(4, ref('odoo_hr_evaluation_form.grp_evalution_user'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+      </record>
+  
+    <record id="evaluation_internal_user_rule1" model="ir.rule">
+        <field name="name">Evaluation Internal User Rule</field>
+        <field name="model_id" ref="model_hr_evaluation_evaluation"/>
+        <field name="groups"
+           eval="[(4, ref('base.group_user'))]"/>
+        <field name="domain_force">['|', '|', ('employee_id.user_id.id','=',user.id), ('manager_id.user_id', '=', False), ('manager_id.user_id', '=', user.id)]</field>
+    </record>
+    <record model="ir.rule" id="custom_hr_evaluation_evaluation_comp_rule">
+        <field name="name">Evaluation multi-company</field>
+        <field name="model_id" ref="odoo_hr_evaluation_form.model_hr_evaluation_evaluation"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+  <!-- *****************Evaluation Performance ********** -->
+
+    <record id="evalution_performance_manager_rule" model="ir.rule">
+        <field name="name">Evaluation Form Manager Rule</field>
+        <field name="model_id" ref="model_hr_evalution_performance"/>
+        <field name="groups" eval="[(4, ref('odoo_hr_evaluation_form.grp_evalution_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="evalution_performance_rule" model="ir.rule">
+            <field name="name">Evaluation Form Rule</field>
+            <field name="model_id" ref="model_hr_evalution_performance"/>
+            <field name="domain_force">['|', ('reviewer_id.user_id', '=', user.id), ('evalution_officer_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    
+    
+    <record model="ir.rule" id="custom_hr_evalution_performance_comp_rule">
+        <field name="name">Evaluation Form Team multi-company</field>
+        <field name="model_id" ref="odoo_hr_evaluation_form.model_hr_evalution_performance"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

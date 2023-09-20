@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sweep_process_wizard" model="ir.ui.view">
+        <field name="name">sweep.process.wizard.view</field>
+        <field name="model">sweep.process.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+           <form>
+               <group>
+                   <p>Run the sweep process to swept the journal enteries.</p>
+                   <group>
+                       <field name="start_date"/>
+                       <field name="end_date"/>
+                   </group>
+               </group>
+               <footer>
+                   <button name="process_sweep_scheduler" string="Run" type="object" class="oe_highlight"/>
+                   <button string="Cancel" class="btn btn-default" special="cancel"/>
+               </footer>
+           </form>
+        </field>
+    </record>
+
+<!--    <record id="sweep_wizard_action" model="ir.actions.act_window">-->
+<!--        <field name="name">Sweep Process</field>-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="res_model">sweep.process.wizard</field>-->
+<!--        <field name="view_type">form</field>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="target">new</field>-->
+<!--        <field name="view_id" ref="view_sweep_process_wizard"/>-->
+<!--    </record>-->
+    <record model="ir.actions.act_window" id="sweep_wizard_action">
+        <field name="name">Sweep Process</field>
+        <field name="res_model">sweep.process.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_open_view_sweep_process_wizard"
+        name="Sweep Process"
+        action="sweep_wizard_action"
+        parent="account.menu_finance_entries"
+        sequence="77"/>
+
+</odoo>

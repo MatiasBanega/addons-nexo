@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+	  <record id="ng_internal_requisition_submit" model="mail.template">
+			<field name="name" >IR Confirmed Email to Manager</field>
+			<field name="email_from">${object.requester.company_id.email}</field>
+			<field name="reply_to">${object.requester.partner_id.email}</field>
+			<field name="subject">An Internal Requisition Has Been Created from ${object.requester.name}</field>
+			<field name="email_to">${ctx.get('recipient')|safe}</field>
+			<field name="model_id"   model="ir.model"  search="[('model', '=', 'ng.ir.request')]" />
+		    <field name="auto_delete" eval="True"/>
+			<field name="body_html"  >
+				<![CDATA[
+				<p>Dear ${object.hod.name},</p>
+				<p>${object.requester.name} created an Internal Requisition </p>
+				<p><a href="${ctx.get('url')}">Please follow the Link to See the Internal Requisition</a></p>
+				<p>Regards and Thanks</p>
+				<p>System auto generated email</p>
+				]]>
+			</field>
+		</record>
+
+		<!--  -->
+		<record id="ng_internal_requisition_approval" model="mail.template">
+			<field name="name" >IR Approval Email</field>
+			<field name="email_from">${user.company_id.email}</field>
+			<field name="reply_to">${user.partner_id.email}</field>
+			<field name="subject">An Internal Requisition Approval Email for ${object.requester.name}</field>
+			<field name="email_to">${ctx.get('recipient')|safe}</field>
+			<field name="model_id"   model="ir.model"  search="[('model', '=', 'ng.ir.request')]" />
+		    <field name="auto_delete" eval="True"/>
+			<field name="body_html"  >
+				<![CDATA[
+				<p>Dear ${ctx.get('recipient')},</p>
+				<p>${user.partner_id.name} has approved an ${object.name} and it's wating form your confirmation.</p> 
+				<p><a href="${ctx.get('url')}">Please follow the Link to See the Internal Requisition</a></p>
+				<p>Regards and Thanks</p>
+				<p>System auto generated email</p>
+				]]>
+			</field>
+		</record>
+
+		<record id="ng_internal_requisition_warehouse_officer" model="mail.template">
+			<field name="name" >IR Approval Email</field>
+			<field name="email_from">${user.company_id.email}</field>
+			<field name="reply_to">${user.partner_id.email}</field>
+			<field name="subject">An Internal Requisition Approval from ${object.requester.name}</field>
+			<field name="email_to">${ctx.get('recipient')|safe}</field>
+			<field name="model_id"   model="ir.model"  search="[('model', '=', 'ng.ir.request')]" />
+		    <field name="auto_delete" eval="True"/>
+			<field name="body_html"  >
+				<![CDATA[
+				<p>Dear ${ctx.get('recipient')},</p>
+				<p>${user.partner_id.name} has approved an ${object.name} and it's wating form your confirmation.</p> 
+				<p><a href="${ctx.get('url')}">Please follow the Link to See the Internal Requisition</a></p>
+				<p>Regards and Thanks</p>
+				<p>System auto generated email</p>
+				]]>
+			</field>
+		</record>
+
+		<record id="ng_internal_requisition_transfer" model="mail.template">
+			<field name="name" >Internal Requisition Transfer Email</field>
+			<field name="email_from">${user.company_id.email}</field>
+			<field name="reply_to">${user.partner_id.email}</field>
+			<field name="subject">An Internal Requisition Approval from </field>
+			<field name="email_to">${object.requester.partner_id.email|safe}</field>
+			<field name="model_id"   model="ir.model"  search="[('model', '=', 'ng.ir.request')]" />
+		    <field name="auto_delete" eval="True"/>
+			<field name="body_html"  >
+				<![CDATA[
+				<p>Dear ${object.requester.partner_id.name},</p>
+				<p>${object.requester.partner_id.name} has been transfered.</p> 
+				<p><a href="${ctx.get('url')}">Please follow the Link to See the Internal Requisition</a></p>
+				<p>Regards and Thanks</p>
+				<p>System auto generated email</p>
+				]]>
+			</field>
+		</record>
+		
+	</data>
+</odoo>

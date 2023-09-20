@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hr_payslip_run_view_form" model="ir.ui.view">
+            <field name="name">hr.payslip.run.form.libra</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll_account.hr_payslip_run_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_validate']" position="replace">
+                    <button name="action_validate" type="object" string="Validate" states="account" class="oe_highlight" context="{'payslip_generate_pdf': True}" groups="account.group_account_user,account.group_account_manager" />
+                </xpath>
+                <xpath expr="//button[@name='action_draft']" position="before">
+                    <button name="action_submit_to_qac" type="object" string="Submit" states="verify" class="oe_highlight" />
+                    <button name="action_officer_approved" type="object" string="Submit" states="officer" class="oe_highlight" />
+                    <button name="action_submit_to_officer" type="object" string="Review" states="qac" class="oe_highlight" />
+                    <button name="action_reject" type="object" string="Reject" states="admin,officer,qac" confirm="Are you sure you want to reject this record? the record will be set back to draft" />
+                </xpath>
+                <xpath expr="//sheet" position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='credit_note']" position="after">
+                    <field name="payroll_total" widget="monetary" />
+                </xpath>
+            </field>
+        </record>
+        <record id="hr_payslip_run_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.run.form.libra</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="payroll_total" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

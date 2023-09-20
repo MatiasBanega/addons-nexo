@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data>
+       <!--Email template -->
+       <record id="email_template" model="mail.template">
+           <field name="name">Truck Email Template</field>
+           <field name="model_id" ref="project.model_project_project"/>
+           <field name="email_from">{{object.user_id.email}}</field>
+           <field name="email_to">{{object.partner_id.email}}</field>
+           <field name="subject">Container Information</field>
+           <field name="lang">${object.partner_id.lang}</field>
+           <field name="body_html"><![CDATA[
+                <p>Hi</p>
+                <br/>
+                <p>Your Truck is loaded</p>
+                <br/>
+                 ]]>
+           </field>
+       </record>
+       <record id="template_tracking_team_update" model="mail.template">
+           <field name="name">Tracking Team Template</field>
+           <field name="model_id" ref="project.model_project_project"/>
+           <field name="email_from">{{object.user_id.email}}</field>
+           <field name="email_to">{{object.partner_id.email}}</field>
+           <field name="subject">Project TDO Date is reached</field>
+           <field name="lang">${object.partner_id.lang}</field>
+           <field name="body_html" type="html">
+           <br/>
+           <br/>
+           </field>
+       </record>
+   </data>
+</odoo>
+           <!-- <field name="body_html"><![CDATA[
+                <br/>
+                <p>This records needs to check</p>
+                <a t-att-href="object.event_id.website_url"
+                            style="padding: 8px 12px; font-size: 12px; color: #FFFFFF; text-decoration: none !important; font-weight: 400; background-color: #875A7B; border: 0px solid #875A7B; border-radius:3px">
+                            View Event
+                        </a>
+                <br/>
+                 ]]>
+           </field> -->

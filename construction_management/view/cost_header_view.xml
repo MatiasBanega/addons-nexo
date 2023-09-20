@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_cost_header_tree" model="ir.ui.view">
+            <field name="name">cost.header.tree</field>
+            <field name="model">cost.header</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Cost Header">
+                    <field name="number"/>
+                    <field name="name"/>
+                    <field name="cost_of_header"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_cost_header_form" model="ir.ui.view">
+            <field name="name">cost.header.form</field>
+            <field name="model">cost.header</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Cost Header">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="number" select="1"/>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="cost_of_header"/>
+                            </group>
+                        </group>
+                        <separator string="Cost Code" colspan="4"/>
+                        <tree  editable="bottom">
+                            <field name="cost_code_ids"/>
+                        </tree>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_cost_header_search" model="ir.ui.view">
+            <field name="name">cost.header.search</field>
+            <field name="model">cost.header</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Cost Header">
+                    <field name="number" select="True"/>
+                    <field name="name"/>
+                    <field name="cost_of_header"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_cost_header_view">
+            <field name="name">Cost Header</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cost.header</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_cost_header_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_cost_header_view_form">
+            <field name="act_window_id" ref="act_open_cost_header_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_cost_header_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_cost_header_view_tree">
+            <field name="act_window_id" ref="act_open_cost_header_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_cost_header_tree"/>
+        </record>
+
+        <menuitem action="act_open_cost_header_view"
+                  id="menu_cost_header"
+                  parent="project.menu_project_config"/>
+    </data>
+</odoo>

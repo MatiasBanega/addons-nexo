@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_cbreport_xlsx" model="ir.actions.report">
+        <field name="name">C &amp; B Report</field>
+        <field name="model">report.report_cb_report</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">cb_report.report_cbreport_xlsx</field>
+        <field name="report_file">cb_report.report_cbreport_xlsx</field>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

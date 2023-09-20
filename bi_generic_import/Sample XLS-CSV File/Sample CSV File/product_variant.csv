@@ -1,0 +1,5 @@
+NAME,INTERNAL REFERANCE,CATEGORY,TYPE,BARCODE,UOM,PURCHASE UOM,CUSTOMER TAXES,VANDOR TAXES,DESCRIPTION,INVOICING POLICY,SALE PRICE,COST PRICE,WEIGHT,VOLUME,IMAGE PATH,CAN BE SOLD,CAN BE PURCHASE,ON HAND QUANTITY
+monitorc,HP0012c,All,Stockable Product,11134556656,Units,Units,,,,delivery,100,1000000,103,44,https://www.gstatic.com/webp/gallery3/1.sm.png,TRUE,TRUE,270
+monitor,HP0013,Internal,,23499677655,,,,,,,,3000000,146,32,https://www.gstatic.com/webp/gallery3/1.sm.png,TRUE,TRUE,10
+BOX,ST0011,Internal,,5585834558555,,,,,,,,4560000,532,32,https://www.gstatic.com/webp/gallery3/1.sm.png,TRUE,TRUE,
+Smart Phone,PH0001,Software,,43211100015,Units,Units,,,,,499,2500000,52,25,https://www.gstatic.com/webp/gallery3/1.sm.png,TRUE,TRUE,5

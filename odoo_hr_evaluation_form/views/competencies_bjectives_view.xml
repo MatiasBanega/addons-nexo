@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_competencies_objectives_form">
+            <field name="name">competencies.objectives.form</field>
+            <field name="model">competencies.objectives</field>
+            <field name="arch" type="xml">
+                <form string="Competencies Objectives Form">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <group>
+                            <group>
+                                <field name="type"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="name" nolabel="1"/>
+                        </group>
+                        <group>
+                            <field name="competences_objectives_name" nolabel="1" invisible="1"/>
+                        </group>
+                        <group name="other">
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_competencies_objectives_tree">
+            <field name="name">competencies.objectives.tree</field>
+            <field name="model">competencies.objectives</field>
+            <field name="arch" type="xml">
+                <tree string="Competencies Objectives List">
+                    <field name="type"/>
+                    <field name="name"/>
+                    <field name="competences_objectives_name" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_competencies_objectives_search">
+            <field name="name">competencies.objectives.search</field>
+            <field name="model">competencies.objectives</field>
+            <field name="arch" type="xml">
+                <search string="Competencies Objectives">
+                   <field name="name" string="Competencies / Objectives"/>
+                   <field name="competences_objectives_name" string="Competencies / Objectives" invisible="1"/>
+               </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_competencies">
+            <field name="name">Competencies Questions</field>
+            <field name="res_model">competencies.objectives</field>
+            <field name="domain">[('type', '=', 'competencies')]</field>
+             <field name="context">{'default_type': 'competencies'}</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem  id="menu_competencies" parent="odoo_hr_evaluation_form.menu_human_resources_configuration_hr_evaluation" action="action_competencies"/>
+
+        <record model="ir.actions.act_window" id="action_objectives">
+            <field name="name">Objectives Questions</field>
+            <field name="res_model">competencies.objectives</field>
+            <field name="domain">[('type', '=', 'objectives')]</field>
+             <field name="context">{'default_type': 'objectives'}</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem  id="menu_objectives" parent="odoo_hr_evaluation_form.menu_human_resources_configuration_hr_evaluation" action="action_objectives"/>
+
+
+
+    </data>
+</odoo>
+

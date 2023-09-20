@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_product_project_form_inherit" model="ir.ui.view">
+            <field name="name">product.product.form.inherit.view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view" />
+            <field name="priority" eval="100" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='categ_id']" position="before">
+                    <field name="is_project_item" />
+                </xpath>
+            </field>
+        </record>
+        <record id="product_uom_form_view" model="ir.ui.view">
+            <field name="name">uom.uom.form.inherit.project</field>
+            <field name="model">uom.uom</field>
+            <field name="inherit_id" ref="uom.product_uom_form_view" />
+            <field name="arch" type="xml">
+                <field name="uom_type" position="after">
+                    <field name="unit_measured_as" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

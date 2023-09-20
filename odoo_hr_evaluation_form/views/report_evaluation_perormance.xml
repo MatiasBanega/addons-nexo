@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data> 
+        <record id="report_evaluation_performance_custom" model="ir.actions.report">
+            <field name="name">Evaluation Performance</field>
+            <field name="model">hr.evalution.performance</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">odoo_hr_evaluation_form.evaluation_performance_template_custom</field>
+            <field name="report_file">odoo_hr_evaluation_form.evaluation_performance_template_custom</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+        
+        <template id="evaluation_performance_template_custom">
+            <t t-call="web.html_container">
+               <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                         <div class="page">
+                              <div class="text-center">
+                                 <h2>
+                                    <strong>Employee Evaluation Form</strong>
+                                 </h2>
+                                </div>
+                               <table class="table table-bordered" style="table-layout: fixed">     
+                                  <tr>
+                                     <th><strong> Employee Name:</strong></th>
+                                        <td><span t-field="doc.employee_id"/></td>
+                                         <th><strong>Date:</strong></th>
+                                        <td> <span t-field="doc.date"/></td>
+                                        <th><strong> Job Title:</strong></th>
+                                        <td><span t-field="doc.job_title_id"/></td>
+                                    </tr>
+                                    <tr>
+                                    <th><strong>Reviewer's Name:</strong></th>
+                                    <td><span t-field="doc.reviewer_id"/></td>
+                                    <th><strong>Review Period:</strong></th>
+                                    <td><span t-field="doc.review_period_start_date"/> to<span t-field="doc.review_period_end_date"/></td>
+                                </tr>
+                            </table>
+                            <h4> INTRODUCTION</h4>
+                            <p><span t-field="doc.performance_introduction"/></p>
+                            <table class="table table-bordered" style="table-layout: fixed">     
+                                <tr>
+                                    <th><strong> Employee Name:</strong></th>
+                                    <td><span t-field="doc.employee_id"/></td>
+                                    <th><strong>Date:</strong></th>
+                                    <td> <span t-field="doc.date"/></td>
+                                </tr>
+                                <tr>
+                                    <th><strong>Reviewer's Name:</strong></th>
+                                    <td><span t-field="doc.reviewer_id"/></td>
+                                    <th><strong>Review Period:</strong></th>
+                                    <td><span t-field="doc.review_period_start_date"/> to<span t-field="doc.review_period_end_date"/></td>
+                                </tr>
+                            </table>
+                            <h4>First Part: COMPETENCIES</h4>
+                            <table class="table table-bordered">  
+                                <tr>
+                                    <th><strong>Name: </strong></th>
+                                    <th><strong>Rating: </strong></th>
+                                     <th><strong>TOTAL SCORE COMPETENCIES:</strong></th>
+                                     <th><strong>Reviewer’s Comments:</strong></th>
+                                </tr>
+                                <t t-foreach ="doc.first_competencies_ids" t-as="line">
+                                    <tr>
+                                      <td><span t-field="line.competencies_objectives_id"/></td>
+                                      <td><span t-field="line.reviewer_points_id"/></td>
+                                      <td><span t-field="doc.total_score_competencies"/></td>
+                                    <td> <span t-field="doc.reviewer_comment"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                    <h4>Second Part: OBJECTIVES</h4>
+                        <table class="table table-bordered">  
+                            <tr>
+                                <th><strong>Name: </strong></th>
+                                <th><strong>Ratting: </strong></th>
+                                 <th><strong>Total Score Objectives:</strong></th>
+                             </tr>
+                            <tr>
+                                <t t-foreach ="doc.second_objectives_ids" t-as="line">
+                              <td><span t-field="line.competencies_objectives_id"/></td>
+                              <td><span t-field="line.reviewer_points_id"/></td>
+                              <td><span t-field="doc.total_score_objectives"/></td>
+                              </t>
+                            </tr>
+                            <tr>
+                            <th><strong>Reviewer’s Comments:</strong></th>
+                            <th><strong>Overall Score:</strong></th>
+                            </tr>
+                        <tr>
+                            <td> <span t-field="doc.reviewer_objectives_comment"/></td>
+                            <td> <span t-field="doc.overall_score"/></td>
+                        </tr>
+                    </table>
+                    <div>
+                       
+                        <p style="margin-top: 110px"><h4>Reviewer Overall’s Comments</h4><span t-field="doc.reviewer_overall_comments"/></p>
+                        <p style="margin-top: 110px"><h4>Development Plan – Describe the areas of development and training needs</h4><span t-field="doc.development_plan"/></p>
+
+                        <p style="margin-top: 110px"><h4>Signature :<td t-if="doc.signature"><img alt="set company logo" style="width:100px;height:100px;" t-attf-src="data:image/gif;base64, #{doc.signature}"/></td></h4></p>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </t>
+    </template>   
+  </data>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="hide_create_edit_buttons" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/customize_vpcs/static/src/js/project_project.js"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>

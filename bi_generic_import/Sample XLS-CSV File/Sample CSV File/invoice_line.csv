@@ -1,0 +1,4 @@
+PRODUCT,QUANTITY,UOM,DESCRIPTION,PRICE,TAX,DISCOUNT,x_partner_id@name,x_partner_ids@name,x_color,x_notes,x_amount,x_bool
+Basic Computer,1,Units,Basic Computer,10000,,10,Addison Olson,"Douglas Fletcher,Lorraine Douglas",red,red,10000,1
+Little Server,2,Units,Little Server,50000,,20,Douglas Fletcher,"Addison Olson,Lorraine Douglas",blue,blue,50000,0
+Desk Combination,3,Units,Desk Combination,70000,,30,Addison Olson,"Douglas Fletcher,Lorraine Douglas",red,red,10000,1

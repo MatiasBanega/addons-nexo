@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="in_transit_tracking_action" model="ir.actions.server">
+            <field name="name">To In Transit</field>
+            <field name="model_id" ref="customize_vpcs.model_custom_tracking_report"/>
+            <field name="binding_model_id" ref="customize_vpcs.model_custom_tracking_report"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                records.action_in_tracking_transit()
+            </field>
+        </record>
+
+        <record id="in_barged_out_tracking_action" model="ir.actions.server">
+            <field name="name">To Barged Out</field>
+            <field name="model_id" ref="customize_vpcs.model_custom_tracking_report"/>
+            <field name="binding_model_id" ref="customize_vpcs.model_custom_tracking_report"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                records.action_barged_out_tracking()
+            </field>
+        </record>
+
+        <record id="in_port_tracking_action" model="ir.actions.server">
+            <field name="name">To Delivered/Shipped</field>
+            <field name="model_id" ref="customize_vpcs.model_custom_tracking_report"/>
+            <field name="binding_model_id" ref="customize_vpcs.model_custom_tracking_report"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                records.action_in_tracking_delivery()
+            </field>
+        </record>
+
+        <record id="in_return_tracking_action" model="ir.actions.server">
+            <field name="name">To Return Item</field>
+            <field name="model_id" ref="customize_vpcs.model_custom_tracking_report"/>
+            <field name="binding_model_id" ref="customize_vpcs.model_custom_tracking_report"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                records.action_return_item_tracking()
+            </field>
+        </record>
+    </data>
+</odoo>

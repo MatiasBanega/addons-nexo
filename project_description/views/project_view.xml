@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="phl_project_base_tree" model="ir.ui.view">
+        <field name="name">Job List</field>
+        <field name="model">project.project</field>
+        <field name="arch" type="xml">
+            <tree string="Job List">
+                <field name="partner_id" string="Client" />
+                <field name="clearing_agent_id" string="Clearing Agent" />
+                <!-- <field name="team_id" string="Job Team" /> -->
+                <field name="user_id" string="Dealer" />
+                <field name="job_allocation_date" />
+                <field name="bol_awb_ref" />
+                <field name="client_ref" string="Ref No/PO No" />
+                <field name="project_categ_id" string="Job Dynamics" />
+                <field name="type_id" string="Type(AIR/SEA)" />
+                <field name="job_form_m" string="Form M/NXP No." />
+                <field name="job_ba_number" string="BA No." />
+                <field name="vessel_det" string="Vessel" />
+                <field name="items_total_weight" string="Weight" />
+                <field name="schedule_item_count" string="Cont. Count" />
+                <field name="items_total_size" string="Size" />
+                <field name="job_cbm" string="CBM" />
+                <field name="etd" string="ETD" />
+                <field name="eta" string="ETA" />
+                <field name="ata" string="ATA" />
+                <field name="discharge_date" string="Discharge Date" />
+                <field name="shipping_doc" string="Shipping Doc." />
+                <field name="bill_of_lading" string="OBL" />
+                <field name="job_paar" string="PAAR/NEPZA" />
+                <field name="doc_to_agent" string="Doc. to Agent" />
+                <field name="rotation_number" string="Rotation Number" />
+                <field name="job_assessment" string="Assessment" />
+                <field name="job_duty" string="Duty Payment Date" />
+                <field name="nafdac_1_stamp_date" string="NAFDAC 1st Stamping Date" />
+                <field name="son_date" string="SON Date" />
+                <field name="pod" string="POD" />
+                <field name="job_liner" string="Terminal" />
+                <field name="free_days" string="No of free days" />
+                <field name="shipping_rating_till" string="Shipping rated till" />
+                <field name="job_do" string="DO" invisible="1"/>
+                <field name="loading_terminal_id" string="Terminal" required="1"/>
+                <field name="terminal_rating_till" string="Terminal rated till" />
+                <field name="custom_exam_date" string="Customs Exams Booking Date" />
+                <field name="custom_date" string="Customs Date" />
+                <field name="custom_release_date" string="Customs Release Date" />
+                <field name="fou_release_date" string="FOU Release Date" />
+                <field name="gate_release_date" string="Gate Release Date" />
+                <field name="job_tdo" string="TDO" />
+                <field name="nafdac_2_stamp_date" string="NAFDAC 2nd Stamping Date" />
+                <field name="state" string="Job Status" />
+                <field name="cleared_date" string="Cleared Date" />
+                <field name="loading_date" string="Loading Date" />
+                <field name="delivery_date" string="Delivery Date" />
+                <field name="empty_container_return_date" string="Empty Container Return Date" />
+                <field name="total_cycle" string="Total Cycle" />
+                <field name="ecd_date" string="ECD Date" />
+                <field name="refund_demurrage_option" string="Refund/Demmurage" />
+                <field name="refund_demurrage_benef_id" string="Beneficiary" />
+                <field name="refund_demurrage_amount" string="Amount Paid" />
+                <field name="cdr_amount_deposit" string="Amount Deposited" />
+                <field name="cdr_beneficiary_id" string="Beneficiary" />
+                <field name="cdr_amount_paid" string="Amount Paid" />
+                <field name="cdr_comment" string="Comment" />
+                <field name="etr_invoice_number" string="Invoice No" />
+                <field name="etr_credit_memo" string="Credit Memo" />
+                <field name="etr_amount" string="Amount" />
+            </tree>
+        </field>
+    </record>
+    <record id="phl_project_awaiting_shipping" model="ir.ui.view">
+        <field name="name">Awaiting Shipping</field>
+        <field name="model">project.project</field>
+        <field name="arch" type="xml">
+            <tree string="Job Awaiting Shipping">
+                <field name="bol_awb_ref" string="BOL/AWB" />
+                <field name="client_ref" string="Client Ref." />
+                <field name="description" string="Description" widget="html" />
+                <field name="project_categ_id" string="Job Dynamics" />
+                <field name="schedule_item_count" string="Cont. Count" />
+                <field name="job_cbm" string="CBM" />
+                <field name="items_total_weight" string="Weight" />
+                <field name="vessel_det" string="Vessel" />
+                <field name="job_liner" string="Shipping Line" />
+                <field name="loading_terminal_id" string="Loading Terminal"/>
+                <field name="job_allocation_date" string="Job Allocation Date" />
+                <field name="etd" string="ETD" />
+                <field name="eta" string="ETA" />
+                <field name="ata" string="ATA" />
+                <!-- <field name="last_project_comment" string="Comment" widget="html" /> -->
+            </tree>
+        </field>
+    </record>
+    <record id="phl_project_arrived" model="ir.ui.view">
+        <field name="name">Job Arrived</field>
+        <field name="model">project.project</field>
+        <field name="arch" type="xml">
+            <tree string="Job Arrived (In clearing)">
+                <field name="bol_awb_ref" string="BOL/AWB" />
+                <field name="client_ref" string="Client Ref." />
+                <field name="description" string="Description" widget="html" />
+                <field name="project_categ_id" string="Job Dynamics" />
+                <field name="schedule_item_count" string="Cont. Count" />
+                <field name="job_cbm" string="CBM" />
+                <field name="items_total_weight" string="Weight" />
+                <field name="ata" string="ATA" />
+                <field name="loading_terminal_id" string="Loading Terminal" />
+                <field name="job_duty" string="Duty Payment Date" />
+                <field name="nafdac_1_stamp_date" string="NAFDAC 1st Stamping Date" />
+                <field name="son_date" string="SON Date" />
+                <field name="job_do" string="DO" />
+                <field name="custom_exam_date" string="Customs exams date" />
+                <field name="custom_release_date" string="Customs release date" />
+                <field name="cleared_date" string="Cleared Date" />
+                <field name="loading_date" string="Loading date" />
+                <field name="delivery_date" string="Delivery Date" />
+                <!-- <field name="last_project_comment" string="Comment" widget="html" /> -->
+            </tree>
+        </field>
+    </record>
+    <record id="phl_project_delivered_not_invoiced" model="ir.ui.view">
+        <field name="name">Delivered (Not Invoiced)</field>
+        <field name="model">project.project</field>
+        <field name="arch" type="xml">
+            <tree string="Job Delivered (Not Invoiced)">
+                <field name="bol_awb_ref" string="BOL/AWB" />
+                <field name="client_ref" string="Client Ref." />
+                <field name="description" string="Description" />
+                <field name="project_categ_id" string="Job Dynamics" />
+                <field name="schedule_item_count" string="Cont. Count" />
+                <field name="job_cbm" string="CBM" />
+                <field name="items_total_weight" string="Weight" />
+                <field name="ata" string="ATA" />
+                <field name="cleared_date" string="Clear Date" />
+                <field name="delivery_date" string="Delivery Date" />
+                <field name="job_invoiced" string="Invoiced" />
+            </tree>
+        </field>
+    </record>
+    <record id="phl_project_delivered_invoiced" model="ir.ui.view">
+        <field name="name">Delivered Invoiced</field>
+        <field name="model">project.project</field>
+        <field name="arch" type="xml">
+            <tree string="Job Delivered (Invoiced)">
+                <field name="bol_awb_ref" string="BOL/AWB" />
+                <field name="client_ref" string="Client Ref." />
+                <field name="description" string="Description" />
+                <field name="project_categ_id" string="Job Dynamics" />
+                <field name="schedule_item_count" string="Cont. Count" />
+                <field name="job_cbm" string="CBM" />
+                <field name="items_total_weight" string="Weight" />
+                <field name="ata" string="ATA" />
+                <field name="cleared_date" string="Clear Date" />
+                <field name="delivery_date" string="Delivery Date" />
+                <field name="job_invoiced" string="Invoiced" />
+            </tree>
+        </field>
+    </record>
+    <record id="res_partner_form_inherit_phlema" model="ir.ui.view">
+        <field name="name">Partner Update</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="is_carrier_partner" />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_project_inherit" model="ir.ui.view">
+        <field name="name">project.project.tree.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <!-- Add new fields here -->
+                <field name="project_categ_id" />
+                <field name="job_allocation_date" />
+            </xpath>
+            <field name="partner_id" position="after">
+                <field name="arrival_date" />
+                <field name="job_son" invisible="1" />
+                <field name="job_liner" invisible="1" />
+                <field name="job_ba_number" />
+                <field name="items_total_weight" />
+                <field name="schedule_item_count" />
+                <field name="items_total_size" />
+                <field name="job_cbm" invisible="1" />
+                <field name="bill_of_lading" />
+                <field name="shipping_doc" invisible="1" />
+                <field name="job_paar" />
+                <field name="job_assessment" invisible="1" />
+                <field name="job_duty" invisible="1" />
+                <field name="job_shipping_co" invisible="1" />
+                <field name="job_terminal_payment" invisible="1" />
+                <field name="custom_release_date" invisible="1" />
+                <field name="job_tdo" invisible="1" />
+                <field name="job_plant_delivery_date" invisible="1" />
+                <field name="exchange_control_returned" invisible="1" />
+                <field name="shipping_rating_till" invisible="1" />
+                <field name="terminal_rating_till" invisible="1" />
+                <field name="cleared_date" invisible="1" />
+                <field name="loading_date" invisible="1" />
+                <field name="delivery_date" invisible="1" />
+                <field name="container_return_date" invisible="1" />
+                <field name="total_cycle" invisible="1" />
+                <field name="job_do" invisible="1" />
+                <field name="ecd_date" invisible="1" />
+                <field name="client_ref" invisible="1" />
+                <field name="job_form_m" />
+                <field name="job_form_m_date" />
+                <field name="bol_awb_ref" invisible="1" />
+                <field name="job_carrier_id" />
+                <field name="vessel_det" />
+                <field name="discharge_port_id" />
+                <field name="loading_port_id" />
+                <field name="discharge_terminal_id" />
+                <field name="origin_country_id" />
+                <field name="country_of_destination" />
+                <field name="refund_demurrage_option" invisible="1" />
+                <field name="refund_demurrage_benef_id" invisible="1" />
+                <field name="refund_demurrage_amount" invisible="1" />
+                <field name="cdr_beneficiary_id" invisible="1" />
+                <field name="cdr_amount_deposit" invisible="1" />
+                <field name="cdr_amount_paid" invisible="1" />
+                <field name="cdr_comment" invisible="1" />
+                <field name="etr_invoice_number" invisible="1" />
+                <field name="etr_credit_memo" invisible="1" />
+                <field name="etr_amount" invisible="1" />
+            </field>
+        </field>
+    </record>
+    <record id="project_form_simple" model="ir.ui.view">
+        <field name="name">Project Extend simple</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.project_project_view_form_simplified" />
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="partner_id" placeholder="Job Owner" required="1" />
+            </field>
+            <field name="name" position="after">
+                <field name="project_categ_id" placeholder="Job Dynamics" />
+                <field name="job_allocation_date" placeholder="Job Allocation Date" />
+            </field>
+        </field>
+    </record>
+    <record id="project_form" model="ir.ui.view">
+        <field name="name">Project description</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <field name="analytic_account_id" position="after">
+                <field name="has_job_form_m" invisible="1" />
+                <field name="has_job_form_m_date" invisible="1" />
+                <field name="has_bol_awb_ref" invisible="1" />
+                <field name="has_arrival_date" invisible="1" />
+                <field name="has_job_son" invisible="1" />
+                <field name="has_job_liner" invisible="1" />
+                <field name="has_job_ba_number" invisible="1" />
+                <field name="has_job_cbm" invisible="1" />
+                <field name="has_bill_of_lading" invisible="1" />
+                <field name="has_shipping_doc" invisible="1" />
+                <field name="has_job_paar" invisible="1" />
+                <field name="has_job_assessment" invisible="1" />
+                <field name="has_job_duty" invisible="1" />
+                <field name="has_job_shipping_co" invisible="1" />
+                <field name="has_job_terminal_payment" invisible="1" />
+                <field name="has_custom_release_date" invisible="1" />
+                <field name="has_job_tdo" invisible="1" />
+                <field name="has_job_plant_delivery_date" invisible="1" />
+                <field name="has_exchange_control_returned" invisible="1" />
+                <field name="has_shipping_rating_till" invisible="1" />
+                <field name="has_terminal_rating_till" invisible="1" />
+                <field name="has_cleared_date" invisible="1" />
+                <field name="has_loading_date" invisible="1" />
+                <field name="has_delivery_date" invisible="1" />
+                <field name="has_container_return_date" invisible="1" />
+                <field name="has_total_cycle" invisible="1" />
+                <field name="has_job_do" invisible="1" />
+                <field name="has_ecd_date" invisible="1" />
+                <field name="has_refund_demurrage" invisible="1" />
+                <field name="has_cdr" invisible="1" />
+                <field name="has_etr" invisible="1" />
+                <field name="has_etd" invisible="1" />
+                <field name="has_eta" invisible="1" />
+                <field name="has_ata" invisible="1" />
+                <field name="has_discharge_date" invisible="1" />
+                <field name="has_doc_to_agent" invisible="1" />
+                <field name="has_rotation_number" invisible="1" />
+                <field name="has_nafdac_1_stamp_date" invisible="1" />
+                <field name="has_nafdac_2_stamp_date" invisible="1" />
+                <field name="has_son_date" invisible="1" />
+                <field name="has_pod" invisible="1" />
+                <field name="has_free_days" invisible="1" />
+                <field name="has_custom_exam_date" invisible="1" />
+                <field name="has_custom_date" invisible="1" />
+                <field name="has_fou_release_date" invisible="1" />
+                <field name="has_gate_release_date" invisible="1" />
+            </field>
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="new,pending,progress,deliver,done" invisible="1"/>
+                    <button name="create_job_quotation" type="object" string="Quotation" states="pending,progress" class="oe_highlight" />
+                    <button name="create_purchases_receipt" type="object" string="Create purchase Receipt" states="pending,progress" />
+                    <button name="action_create_vendor_bill" type="object" string="Create Vendor Bill" states="pending,progress" />
+                    <button name="action_create_invoice" type="object" string="Create Invoice" states="pending,progress" groups="account.group_account_invoice" />
+                </header>
+            </xpath>
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_sales" icon="fa-tasks">
+                    <field string="Sale orders" name="sales_order_count" widget="statinfo" options="{'label_field': 'label_items'}" />
+                </button>
+                <button class="oe_stat_button" type="object" name="action_view_purchases" icon="fa-tasks">
+                    <field string="Purchase orders" name="purchase_order_count" widget="statinfo" options="{'label_field': 'label_items'}" />
+                </button>
+                <button class="oe_stat_button" type="object" name="action_view_purchases_receipt" icon="fa-tasks">
+                    <field string="Purchase Receipts" name="purchase_order_receipt_count" widget="statinfo" options="{'label_field': 'label_items'}" />
+                </button>
+                <button class="oe_stat_button" type="object" name="action_view_vendor_bill" icon="fa-tasks">
+                    <field string="Vendor Bill" name="job_vendor_bill_count" widget="statinfo" options="{'label_field': 'label_items'}" />
+                </button>
+                <button class="oe_stat_button" type="object" name="action_view_invoice" icon="fa-tasks" groups="account.group_account_invoice">
+                    <field string="Invoice" name="job_invoice_count" widget="statinfo" options="{'label_field': 'label_items'}" />
+                </button>
+                <button class="oe_stat_button" type="object" name="action_view_cost_revenue" icon="fa-bar-chart" groups="analytic.group_analytic_accounting">
+                    <field string="Cost/Revenue" name="analysis_balance" widget="monetary" options="{'label_field': 'label_items'}" />
+                </button>
+            </div>
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <h1>
+                    <field name="project_categ_id" placeholder="Job Dynamics" attrs="{'readonly': [('state','!=','new')]}" />
+                </h1>
+                <h1>
+                    <field name="job_allocation_date" placeholder="Job Allocation Date" attrs="{'readonly': [('state','!=','new')]}" />
+                </h1>
+            </xpath>
+            <xpath expr="//notebook//page" position="before">
+                <page name="job_details" string="Job Details">
+<!--                    <group colspan="4" col="4">-->
+<!--&lt;!&ndash;                        <field name="client_ref" />&ndash;&gt;-->
+<!--                        <field name="vessel_det" />-->
+<!--&lt;!&ndash;                        <field name="origin_country_id" />&ndash;&gt;-->
+<!--                        <field name="country_of_destination" />-->
+<!--                    </group>-->
+                    <group colspan="4" col="4">
+<!--                        <field name="discharge_port_id" />-->
+<!--                        <field name="loading_port_id" />-->
+<!--                        <field name="discharge_terminal_id" context="{'default_usage': 'transit'}" />-->
+<!--                        <field name="job_carrier_id" domain="[('is_carrier_partner', '=', True)]" context="{'default_is_carrier_partner': True, 'default_project_type_id': type_id, 'default_type': 'product'}" />-->
+                    </group>
+                    <group>
+                        <group>
+                            <field name="arrival_date" attrs="{'invisible':['|',('has_arrival_date','==','no'),('project_categ_id','=', False)], 'required': [('has_arrival_date','==','required')]}" />
+                            <field name="job_son" attrs="{'invisible':['|',('has_job_son','==','no'),('project_categ_id','=', False)], 'required': [('has_job_son','==','required')]}" />
+                            <field name="job_liner" attrs="{'invisible':['|',('has_job_liner','==','no'),('project_categ_id','=', False)], 'required': [('has_job_liner','==','required')]}" />
+                            <field name="job_ba_number" attrs="{'invisible':['|',('has_job_ba_number','==','no'),('project_categ_id','=', False)], 'required': [('has_job_ba_number','==','required')]}" />
+                            <field name="job_cbm" attrs="{'invisible':['|',('has_job_cbm','==','no'),('project_categ_id','=', False)], 'required': [('has_job_cbm','==','required')]}" />
+                            <field name="bill_of_lading" attrs="{'invisible':['|',('has_bill_of_lading','==','no'),('project_categ_id','=', False)], 'required': [('has_bill_of_lading','==','required')]}" />
+                            <field name="shipping_doc" attrs="{'invisible':['|',('has_shipping_doc','==','no'),('project_categ_id','=', False)], 'required': [('has_shipping_doc','==','required')]}" />
+                            <field name="job_paar" attrs="{'invisible':['|',('has_job_paar','==','no'),('project_categ_id','=', False)], 'required': [('has_job_paar','==','required')]}" />
+                            <field name="job_assessment" attrs="{'invisible':['|',('has_job_assessment','==','no'),('project_categ_id','=', False)], 'required': [('has_job_assessment','==','required')]}" />
+                        </group>
+                        <group>
+                            <field name="job_duty" attrs="{'invisible':['|',('has_job_duty','==','no'),('project_categ_id','=', False)], 'required': [('has_job_duty','==','required')]}" />
+                            <field name="job_shipping_co" attrs="{'invisible':['|',('has_job_shipping_co','==','no'),('project_categ_id','=', False)], 'required': [('has_job_shipping_co','==','required')]}" />
+                            <field name="job_terminal_payment" attrs="{'invisible':['|',('has_job_terminal_payment','==','no'),('project_categ_id','=', False)], 'required': [('has_job_terminal_payment','==','required')]}" />
+                            <!-- <field name="custom_release_date" attrs="{'invisible':['|',('has_custom_release_date','==','no'),('project_categ_id','=', False)], 'required': [('has_custom_release_date','==','required')]}" /> -->
+<!--                            <field name="job_tdo" attrs="{'invisible':['|',('has_job_tdo','==','no'),('project_categ_id','=', False)], 'required': [('has_job_tdo','==','required')]}" />-->
+                            <field name="job_plant_delivery_date" attrs="{'invisible':['|',('has_job_plant_delivery_date','==','no'),('project_categ_id','=', False)], 'required': [('has_job_plant_delivery_date','==','required')]}" />
+                            <field name="exchange_control_returned" attrs="{'invisible':['|',('has_exchange_control_returned','==','no'),('project_categ_id','=', False)], 'required': [('has_exchange_control_returned','==','required')]}" />
+                            <field name="shipping_rating_till" attrs="{'invisible':['|',('has_shipping_rating_till','==','no'),('project_categ_id','=', False)], 'required': [('has_shipping_rating_till','==','required')]}" />
+                            <field name="terminal_rating_till" attrs="{'invisible':['|',('has_terminal_rating_till','==','no'),('project_categ_id','=', False)], 'required': [('has_terminal_rating_till','==','required')]}" />
+                            <field name="cleared_date" attrs="{'invisible':['|',('has_cleared_date','==','no'),('project_categ_id','=', False)], 'required': [('has_cleared_date','==','required')]}" />
+                        </group>
+                        <group>
+                            <field name="loading_date" attrs="{'invisible':['|',('has_loading_date','==','no'),('project_categ_id','=', False)], 'required': [('has_loading_date','==','required')]}" />
+                            <field name="delivery_date" attrs="{'invisible':['|',('has_delivery_date','==','no'),('project_categ_id','=', False)], 'required': [('has_delivery_date','==','required')]}" />
+                            <field name="container_return_date" attrs="{'invisible':['|',('has_container_return_date','==','no'),('project_categ_id','=', False)], 'required': [('has_container_return_date','==','required')]}" />
+                            <field name="total_cycle" attrs="{'invisible':['|',('has_total_cycle','==','no'),('project_categ_id','=', False)], 'required': [('has_total_cycle','==','required')]}" />
+<!--                            <field name="job_do" attrs="{'invisible':['|',('has_job_do','==','no'),('project_categ_id','=', False)], 'required': [('has_job_do','==','required')]}" />-->
+                            <field name="ecd_date" attrs="{'invisible':['|',('has_ecd_date','==','no'),('project_categ_id','=', False)], 'required': [('has_ecd_date','==','required')]}" />
+                            <field name="job_form_m" attrs="{'invisible':['|',('has_job_form_m','==','no'),('project_categ_id','=', False)], 'required': [('has_job_form_m','==','required')]}" />
+                            <field name="job_form_m_date" attrs="{'invisible':['|',('has_job_form_m_date','==','no'),('project_categ_id','=', False)], 'required': [('has_job_form_m_date','==','required')]}" />
+                            <!-- <field name="bol_awb_ref" attrs="{'invisible':['|',('has_bol_awb_ref','==','no'),('project_categ_id','=', False)], 'required': [('has_bol_awb_ref','==','required')]}" /> -->
+                        </group>
+                        <group>
+                            <!-- <field name="etd" attrs="{'invisible':['|',('has_etd','==','no'),('project_categ_id','=', False)], 'required': [('has_etd','==','required')]}" />
+                            <field name="eta" attrs="{'invisible':['|',('has_eta','==','no'),('project_categ_id','=', False)], 'required': [('has_eta','==','required')]}" /> -->
+                            <!-- <field name="ata" attrs="{'invisible':['|',('has_ata','==','no'),('project_categ_id','=', False)], 'required': [('has_ata','==','required')]}" /> -->
+                            <field name="discharge_date" attrs="{'invisible':['|',('has_discharge_date','==','no'),('project_categ_id','=', False)], 'required': [('has_discharge_date','==','required')]}" />
+                            <field name="doc_to_agent" attrs="{'invisible':['|',('has_doc_to_agent','==','no'),('project_categ_id','=', False)], 'required': [('has_doc_to_agent','==','required')]}" />
+<!--                            <field name="rotation_number" attrs="{'invisible':['|',('has_rotation_number','==','no'),('project_categ_id','=', False)], 'required': [('has_rotation_number','==','required')]}" />-->
+                            <!-- <field name="nafdac_1_stamp_date" attrs="{'invisible':['|',('has_nafdac_1_stamp_date','==','no'),('project_categ_id','=', False)], 'required': [('has_nafdac_1_stamp_date','==','required')]}" />
+                            <field name="nafdac_2_stamp_date" attrs="{'invisible':['|',('has_nafdac_2_stamp_date','==','no'),('project_categ_id','=', False)], 'required': [('has_nafdac_2_stamp_date','==','required')]}" /> -->
+                            <field name="son_date" attrs="{'invisible':['|',('has_son_date','==','no'),('project_categ_id','=', False)], 'required': [('has_son_date','==','required')]}" />
+                            <field name="pod" attrs="{'invisible':['|',('has_pod','==','no'),('project_categ_id','=', False)], 'required': [('has_pod','==','required')]}" />
+                            <!-- <field name="free_days" attrs="{'invisible':['|',('has_free_days','==','no'),('project_categ_id','=', False)], 'required': [('has_free_days','==','required')]}" /> -->
+                            <field name="custom_exam_date" attrs="{'invisible':['|',('has_custom_exam_date','==','no'),('project_categ_id','=', False)], 'required': [('has_custom_exam_date','==','required')]}" />
+                            <field name="custom_date" attrs="{'invisible':['|',('has_custom_date','==','no'),('project_categ_id','=', False)], 'required': [('has_custom_date','==','required')]}" />
+                            <field name="fou_release_date" attrs="{'invisible':['|',('has_fou_release_date','==','no'),('project_categ_id','=', False)], 'required': [('has_fou_release_date','==','required')]}" />
+                            <field name="gate_release_date" attrs="{'invisible':['|',('has_gate_release_date','==','no'),('project_categ_id','=', False)], 'required': [('has_gate_release_date','==','required')]}" />
+                        </group>
+                    </group>
+                    <group>
+                        <group name="refund_demurrage" string="Refund/Demurrage" attrs="{'invisible':['|',('has_refund_demurrage','==','no'),('project_categ_id','=', False)], 'required': [('has_refund_demurrage','==','required')]}">
+                            <field name="refund_demurrage_option" />
+                            <field name="refund_demurrage_benef_id" />
+                            <field name="refund_demurrage_amount" />
+                        </group>
+                        <group name="cdr" string="CDR" attrs="{'invisible':['|',('has_cdr','==','no'),('project_categ_id','=', False)], 'required': [('has_cdr','==','required')]}">
+                            <field name="cdr_beneficiary_id" />
+                            <field name="cdr_amount_deposit" />
+                            <field name="cdr_amount_paid" />
+                            <field name="cdr_comment" />
+                        </group>
+                        <group name="etr" string="ETR" attrs="{'invisible':['|',('has_etr','==','no'),('project_categ_id','=', False)], 'required': [('has_etr','==','required')]}">
+                            <field name="etr_invoice_number" />
+                            <field name="etr_credit_memo" />
+                            <field name="etr_amount" />
+                        </group>
+                    </group>
+                    <label for="description" string="Job description" />
+                    <field name="description" />
+                </page>
+                <page name="job_details" string="Items lines" invisible="1">
+                    <div>
+                        <button name="download_schedule_item_csv" type="object" string="Downlaod Template" class="oe_edit_only" />
+                        <button name="import_schedule_item" type="object" string="Import Items" class="btn-primary oe_edit_only" />
+                    </div>
+                    <field name="project_schedule_items_ids" context="{'default_project_id': id}">
+                        <tree string="Project Schedule items" editable="bottom">
+                            <field name="project_type_id" invisible="1" />
+                            <field name="name" />
+                            <field name="product_id" widget="selection" />
+                            <field name="project_id" />
+                            <field name="description" />
+                            <field name="size" string="Size/Weight" sum="Total Size" />
+                            <field name="product_uom_id" />
+                            <field name="product_mesured_as" readonly="1" force_save="1" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+       <!--      <xpath expr="//form[last()]" position="inside">
+            
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </xpath> -->
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', '==', 'new')]}</attribute>
+            </xpath>
+        </field>
+    </record>
+<!--    <record id="view_project_project_filter" model="ir.ui.view">-->
+    <record id="view_project_project_filter" model="ir.ui.view">
+        <field name="name">Project description</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_project_filter" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="project_categ_id" />
+            </field>
+            <group expand="0" string="Group By">
+                <filter string="Project category" domain="[]" name="project_categ_id" context="{'group_by': 'project_categ_id'}" />
+            </group>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="description" string="Project Description" />
+                <field name="state" string="Project Status" />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_project_project_custom_pivot" model="ir.ui.view">
+        <field name="name">project.project.pivot</field>
+        <field name="model">project.project</field>
+        <field name="arch" type="xml">
+            <pivot string="Job">
+                <field name="partner_id" type="row" />
+                <field name="project_categ_id" type="col" />
+            </pivot>
+        </field>
+    </record>
+    <record id="view_project_project_custom_graph" model="ir.ui.view">
+        <field name="name">project.project.graph</field>
+        <field name="model">project.project</field>
+        <field name="arch" type="xml">
+            <graph string="Project Tasks">
+                <field name="partner_id" />
+                <field name="project_categ_id" />
+            </graph>
+        </field>
+    </record>
+    <record id="view_project_project_filter" model="ir.ui.view">
+        <field name="name">project.project.select</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_project_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="before">
+                <filter name="my_manage_project" string="My Jobs" help="This are jobs that you manage" domain="['|', ('user_id','=',uid), ('create_uid', '=', uid)]" />
+                <filter string="Jobs within 24hrs" name="job_allocation_in_24_days" domain="[('job_allocation_date','&gt;=', ((context_today()-datetime.timedelta(days=0)).strftime('%Y-%m-%d'))),('job_allocation_date','&lt;=', ((context_today()-datetime.timedelta(days=7)).strftime('%Y-%m-%d')))]" />
+                <filter string="a week old jobs" name="job_allocation_in_1_week" domain="[('job_allocation_date','&gt;=', ((context_today()+datetime.timedelta(days=0)).strftime('%Y-%m-%d'))),('job_allocation_date','&lt;=', ((context_today()+datetime.timedelta(days=30)).strftime('%Y-%m-%d')))]" />
+                <filter string="3 months old jobs" name="job_allocation_in_month" domain="[('job_allocation_date','&gt;=', ((context_today()+datetime.timedelta(days=0)).strftime('%Y-%m-%d'))),('job_allocation_date','&lt;=', ((context_today()+datetime.timedelta(days=90)).strftime('%Y-%m-%d')))]" />
+                <filter string="6 months old jobs" name="job_allocation_in_six_month" domain="[('job_allocation_date','&gt;=', ((context_today()+datetime.timedelta(days=0)).strftime('%Y-%m-%d'))),('job_allocation_date','&lt;=', ((context_today()+datetime.timedelta(days=180)).strftime('%Y-%m-%d')))]" />
+            </xpath>
+        </field>
+    </record>
+    <record id="open_view_project_awaiting_shipping" model="ir.actions.act_window">
+        <field name="name">Jobs</field>
+        <field name="res_model">project.project</field>
+        <field name="domain">[('eta', '!=', False), ('ata', '=', False)]</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_id" ref="phl_project_awaiting_shipping" />
+        <field name="search_view_id" ref="view_project_project_filter" />
+        <field name="target">main</field>
+        <field name="context">{
+            'default_type': 'opportunity',
+            'default_user_id': uid,
+            'search_default_my_manage_project': 1,
+            }</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new project.
+            </p>
+        </field>
+    </record>
+    <record id="open_view_phl_project_arrived" model="ir.actions.act_window">
+        <field name="name">Job Arrived</field>
+        <field name="res_model">project.project</field>
+        <field name="domain">[('ata', '!=', False), ('delivery_date', '=', False)]</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_id" ref="phl_project_arrived" />
+        <field name="search_view_id" ref="view_project_project_filter" />
+        <field name="target">main</field>
+        <field name="context">{
+            'default_type': 'opportunity',
+            'default_user_id': uid,
+            'search_default_my_manage_project': 1,
+            }</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new project.
+            </p>
+        </field>
+    </record>
+    <record id="open_view_phl_project_delivered_not_invoice" model="ir.actions.act_window">
+        <field name="name">Job Delivered (not Invoice)</field>
+        <field name="res_model">project.project</field>
+        <field name="domain">[('ata', '!=', False),('delivery_date', '!=', False),('job_invoiced', '=', 'no')]</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_id" ref="phl_project_delivered_not_invoiced" />
+        <field name="search_view_id" ref="view_project_project_filter" />
+        <field name="target">main</field>
+        <field name="context">{
+            'default_type': 'opportunity',
+            'default_user_id': uid,
+            'search_default_my_manage_project': 1,
+            }</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new project.
+            </p>
+        </field>
+    </record>
+    <record id="open_view_phl_project_delivered_invoice" model="ir.actions.act_window">
+        <field name="name">Job Delivered (Invoiced)</field>
+        <field name="res_model">project.project</field>
+        <field name="domain">[('ata', '!=', False),('delivery_date', '!=', False),('job_invoiced', '=', 'yes')]</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_id" ref="phl_project_delivered_invoiced" />
+        <field name="search_view_id" ref="view_project_project_filter" />
+        <field name="target">main</field>
+        <field name="context">{
+            'default_type': 'opportunity',
+            'default_user_id': uid,
+            'search_default_my_manage_project': 1,
+            }</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new project.
+            </p>
+        </field>
+    </record>
+    <record id="open_view_project_report_all" model="ir.actions.act_window">
+        <field name="name">Jobs</field>
+        <field name="res_model">project.project</field>
+        <field name="domain">[]</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_id" ref="phl_project_base_tree" />
+        <field name="search_view_id" ref="view_project_project_filter" />
+        <field name="target">main</field>
+        <field name="context">{
+            'default_type': 'opportunity',
+            'default_user_id': uid,
+            'search_default_my_manage_project': 1,
+            }</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new project.
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_projects_listing" name="Job" parent="project.menu_main_pm" sequence="1" />
+    <menuitem action="open_view_project_report_all" id="menu_projects_listing_all" name="List all Jobs" parent="menu_projects_listing" sequence="1" />
+    <menuitem action="open_view_project_awaiting_shipping" id="menu_projects_awaiting_shipping" name="Awaiting Shipping" parent="menu_projects_listing" sequence="2" />
+    <menuitem action="open_view_phl_project_arrived" id="menu_projects_arrived" name="Job Arrived" parent="menu_projects_listing" sequence="3" />
+    <menuitem action="open_view_phl_project_delivered_not_invoice" id="menu_projects_delivered_not_invoice" name="Delivered (not invoiced)" parent="menu_projects_listing" sequence="4" />
+    <menuitem action="open_view_phl_project_delivered_invoice" id="menu_projects_delivered_invoice" name="Delivered (invoiced)" parent="menu_projects_listing" sequence="5" />
+    <menuitem action="project.action_view_task" id="phlema_menu_action_view_task" parent="project.menu_main_pm" sequence="1" />
+</odoo>

@@ -1,0 +1,9 @@
+14.0.0.1 ==>fixed issue of warning when Unreserve the quantity in MO.
+
+14.0.0.2 ==> Update stock methods.
+
+14.0.0.3 ==>fixed issue of inventory valuation is not cancel while cancel the mrp.
+
+14.0.0.4 ==>fixed issue of When  products are canceled, the initial stock doesn't return.
+
+14.0.0.5 ==>fixed issue of When  Components are canceled, the initial stock doesn't return.

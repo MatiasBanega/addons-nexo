@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- explicit list view definition colors="grey:state == 'done'" -->
+        <record model="ir.ui.view" id="ng_internal_requisition_list">
+            <field name="name">ng_internal_requisition list</field>
+            <field name="model">ng.ir.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="requester" />
+                    <field name="end_user" />
+                    <field name="request_date" />
+                    <field name="request_deadline" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="ng_internal_requisition_form_1_01" model="ir.ui.view">
+            <field name="name">ng_internal_requisition form</field>
+            <field name="model">ng.ir.request</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <!-- user -->
+                        <button name="submit" states="draft" string="Submit" type="object" groups="ng_internal_requisition.ng_internal_requisition_user" class="oe_highlight" />
+                        <!-- department manager -->
+                        <button name="department_manager_approve" states="submit" string="Approve" type="object" groups="ng_internal_requisition.ng_internal_requisition_dept_manager" context="{'approved':True}" class="oe_highlight" />
+                        <button name="department_manager_approve" states="submit" string="Reject" type="object" groups="ng_internal_requisition.ng_internal_requisition_dept_manager" context="{'approved':False}" />
+                        <!-- store officer (main manager)-->
+                        <button name="store_officer_approve" states="approved" string="Approve" type="object" context="{'approved':True}" class="oe_highlight" groups="ng_internal_requisition.ng_internal_requisition_stock_officer" />
+                        <button name="check_quantity_available" states="approved" string="Confirm Available Quantity" type="object" groups="ng_internal_requisition.ng_internal_requisition_stock_officer" class="oe_link" />
+                        <button name="store_officer_approve" states="approved" string="Reject" type="object" context="{'approved':False}" groups="ng_internal_requisition.ng_internal_requisition_stock_officer" />
+               
+                        <button name="internal_confirmation" states="audit" string="Approve" type="object" context="{'approved':True}" class="oe_highlight" groups="masterenergy_base_approval.group_internal_audit" />
+                        <button name="internal_confirmation" states="audit" string="Reject" type="object" groups="masterenergy_base_approval.group_internal_audit" context="{'approved':False}" />
+                  
+                        <button name="plant_manager_approve" states="approval" string="Approve" type="object" class="oe_highlight" context="{'approved':True}"/>
+                        <button name="plant_manager_approve" states="approval" string="Reject" type="object" groups="masterenergy_base_approval.group_internal_audit" context="{'approved':False}" />
+                        
+                        <button name="accept_requisition" states="ready" string="Accept" type="object" class="oe_highlight" />
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="availaibility" invisible="1" />
+                                <field name="name" readonly="1" />
+                                <field name="requester" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                                <field name="request_date" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                                <field name="request_deadline" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                                <field name="warehouse_id" states="warehouse" attrs="{'required' : [('state', '=', 'warehouse')]}" />
+                                <field name="company_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="end_user" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                                <field name="hod" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="department" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                            </group>
+                            <group>
+                                <field name="src_location_id" domain="[('usage', '=', 'internal')]" attrs="{'required' : [('state', 'in', ['audit','approved', 'approval'])]}" states="approval,audit,approved" />
+                            </group>
+                            <group>
+                                <field name="dst_location_id" states="approval,audit,approved" attrs="{'required' : [('state', 'in',
+                                    ['approval', 'audit', 'approved'])]}" domain="[('usage', '!=', 'view')]" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string='Rejection Reason' attrs="{'invisible': ['|', ('reason', '=', False), ('state', '!=', 'draft')]}">
+                                <field name="reason" readonly="1" />
+                            </page>
+                            <page string='Requisition'>
+                                <field name="approve_request_ids">
+                                    <tree editable='bottom'>
+                                        <field name="product_id" required="1" />
+                                        <field name="quantity" required="1" />
+                                        <field name="uom" />
+                                        <field name="qty" string="Avail Qty" />
+                                        <field name="purchase_agreement_id" />
+                                        <field name="to_procure" invisible="1" />
+                                        <field name="transferred" readonly="1" />
+                                        <field name="state" string="State" />
+                                        <field name="button_show_state" invisible="1" />
+                                        <button name="procure" type="object" string="Procure" class="oe_link" attrs="{'invisible': [('state', 'in', ['available', 'awaiting'])]}" groups="masterenergy_base_approval.group_store_officer" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="ng_internal_requisition_action_window">
+            <field name="name">Purchase Requisition</field>
+            <field name="res_model">ng.ir.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_request_type': 'purchase'}</field>
+            <field name="domain">[('request_type', '=', 'purchase')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+            </field>
+        </record>
+        <!-- Top menu item -->
+        <menuitem name="Store Requisition" id="ng_internal_requisition_menu_root" web_icon="ng_internal_requisition,static/description/icon.png" />
+        <!-- menu categories -->
+        <menuitem name="Purchase Requisition" id="purcahse_requisition_menu" parent="ng_internal_requisition_menu_root" action="ng_internal_requisition_action_window" />
+        <menuitem name="Sale Requisition" id="sale_requisition_menu" parent="ng_internal_requisition_menu_root" action="ng_internal_requisition_action_window" />
+        <!-- actions -->
+    </data>
+</odoo>

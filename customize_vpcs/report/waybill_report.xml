@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_manifest_report" model="ir.actions.report">
+        <field name="name">Generate Waybill</field>
+        <field name="model">custom.tracking.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">customize_vpcs.custom_template_manifest_report</field>
+        <field name="report_file">customize_vpcs.custom_template_manifest_report</field>
+        <field name="binding_model_id" ref="model_custom_tracking_report"/>
+    </record>
+
+    <template id="custom_template_manifest_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="mb-4 mt-3">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div style='text-align:left;'>
+                                        Partner :
+                                        <span style='margin-left:10px;' t-field='o.partner_id.name'/>
+                                    </div>
+                                    <div style='text-align:left;'>
+                                        Address :
+                                        <span style='margin-left:5px;' t-field='o.address'/>
+<!--                                        <span t-field='o.partner_id.street2'/>-->
+<!--                                        <span t-field='o.partner_id.city'/>-->
+<!--                                        <span t-field='o.partner_id.state_id.name'/>-->
+<!--                                        <span t-field='o.partner_id.zip'/>-->
+<!--                                        <span t-field='o.partner_id.country_id.name'/>-->
+                                    </div>
+                                    <div style='text-align:left;margin-bottom:20px;margin-top:50px;'>
+                                        <span style='border:2px solid black;padding:5px;'>WAYBILL/DELIVERY NOTE</span>
+                                        <br/>
+                                    </div>
+                                    <div style='text-align:left;'>
+                                        Transporter's Name
+                                        <span style='float:right;' t-field='o.transportar_name'/>
+                                    </div>
+                                    <div style='text-align:left;'>
+                                        Vehicle No
+                                        <span style='float:right;border-bottom:1px;' t-field='o.truck_number'/>
+                                    </div>
+                                </div>
+                                <div class='col-6'>
+                                    <div style='text-align:left;'>
+                                        No
+                                        <span style='float:right;' t-field='o.waybill_no'/>
+                                    </div>
+                                    <div style='text-align:left;'>
+                                        LPO NO:
+                                    </div>
+                                    <table style='border-collapse:collapse;width:100%;float:right;'>
+                                        <tr>
+                                            <td style='border:1px solid black;text-align:center;padding:8px;'>
+                                                <strong>Date</strong>
+                                            </td>
+                                            <td style='border:1px solid black;text-align:center;padding:8px;'>
+                                                <strong>Month</strong>
+                                            </td>
+                                            <td style='border:1px solid black;text-align:center;padding:8px;'>
+                                                <strong>Year</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='border:1px solid black;text-align:left;padding:8px;'>
+                                                <br/>
+                                            </td>
+                                            <td style='border:1px solid black;text-align:left;padding:8px;'>
+                                                <br/>
+                                            </td>
+                                            <td style='border:1px solid black;text-align:left;padding:8px;'>
+                                                <br/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br/>
+                                    <div style='text-align:left;margin-top:75px;'>
+                                        Driver Name
+                                        <span style='float:right;' t-field='o.driver_name'/>
+                                    </div>
+                                    <div style='text-align:left;'>
+                                        Driver Phone No
+                                        <span style='float:right;border-bottom:1px;' t-field='o.phone_number'/>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-12">
+                                    <table style="border:1px solid black;width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th style='border:1px solid black;text-align:center;padding:8px;'>QTY.
+                                                </th>
+                                                <th style="border:1px solid black;text-align:center;padding:8px;width:85%">
+                                                    DESCRIPTION OF GOODS
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <!-- <td rowspan="2" colspan="2">A large cell</td> -->
+                                                <td style='border:1px solid black;text-align:center;vertical-align: middle;padding:8px;'
+                                                    rowspan='9'>
+                                                    <t t-esc='o.container_size'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style='text-align:left;padding:28px;'>
+                                                    <table>
+                                                        <tr rowspan="3">
+                                                            <td>BOL NO</td>
+                                                            <td>
+                                                                <table>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            <t t-if="o.bl_number">
+                                                                                :
+                                                                                <span style="margin-left: 50%;"
+                                                                                      t-field='o.bl_number'/>
+                                                                            </t>
+                                                                            <span t-if="not o.bl_number">:</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            ______________________________________________________________________
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table>
+                                                        <tr rowspan="3">
+                                                            <td>CONTAINER NO</td>
+                                                            <td>
+                                                                <table>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            <t t-if="o.Container_number">
+                                                                                :
+                                                                                <span style="margin-left: 50%;"
+                                                                                      t-field='o.Container_number'/>
+                                                                            </t>
+                                                                            <span t-if="not o.Container_number">:</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            ____________________________________________________________
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table>
+                                                        <tr rowspan="3">
+                                                            <td>CONTAINER SEAL NO</td>
+                                                            <td>
+                                                                <table>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            <t t-if="o.container_seal_no">
+                                                                                :
+                                                                                <span style="margin-left: 50%;"
+                                                                                      t-field='o.container_seal_no'/>
+                                                                            </t>
+                                                                            <span t-if="not o.container_seal_no">:
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            ______________________________________________________
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table>
+                                                        <tr rowspan="3">
+                                                            <td>QTY. RECEIVED (ORIGIN)</td>
+                                                            <td>
+                                                                <table>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            <t t-if="o.qty_received_origin">
+                                                                                :
+                                                                                <span style="margin-left: 50%;"
+                                                                                      t-field='o.qty_received_origin'/>
+                                                                            </t>
+                                                                            <span t-if="not o.qty_received_origin">:
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            __________________________________________________
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table>
+                                                        <tr rowspan="3">
+                                                            <td>QTY. RECEIVED (DEST)</td>
+                                                            <td>
+                                                                <table>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            <t t-if="o.qty_received_dest">
+                                                                                :
+                                                                                <span style="margin-left: 50%;"
+                                                                                      t-field='o.qty_received_dest'/>
+                                                                            </t>
+                                                                            <span t-if="not o.qty_received_dest">:
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            _____________________________________________________
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table>
+                                                        <tr rowspan="3">
+                                                            <td>CARGO NAME</td>
+                                                            <td>
+                                                                <table>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            <t t-if="o.cargo_name">
+                                                                                :
+                                                                                <span style="margin-left: 50%;"
+                                                                                      t-field='o.cargo_name'/>
+                                                                            </t>
+                                                                            <span t-if="not o.cargo_name">:</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            ______________________________________________________________
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table>
+                                                        <tr rowspan="3">
+                                                            <td>DESTINATION</td>
+                                                            <td>
+                                                                <table>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            <t t-if="o.time_to_destination">
+                                                                                :
+                                                                                <span style="margin-left: 50%;"
+                                                                                      t-field='o.time_to_destination'/>
+                                                                            </t>
+                                                                            <span t-if="not o.time_to_destination">:
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            ______________________________________________________________
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table>
+                                                        <tr rowspan="3">
+                                                            <td>SEALED (YES/NO)</td>
+                                                            <td>
+                                                                <table>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            <t t-if="o.sealed">
+                                                                                :
+                                                                                <span style="margin-left: 50%;"
+                                                                                      t-field='o.sealed'/>
+                                                                            </t>
+                                                                            <span t-if="not o.sealed">:</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            __________________________________________________________
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table>
+                                                        <tr rowspan="3">
+                                                            <td>TRACKER FOUND (YES/NO)</td>
+                                                            <td>
+                                                                <table>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            <t t-if="o.tracker_found">
+                                                                                :
+                                                                                <span style="margin-left: 50%;"
+                                                                                      t-field='o.tracker_found'/>
+                                                                            </t>
+                                                                            <span t-if="not o.tracker_found">:</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            ______________________________________________
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table>
+                                                        <tr rowspan="3">
+                                                            <td>ARRIVAL DATE</td>
+                                                            <td>
+                                                                <table>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            <t t-if="o.barge_arrival_date">
+                                                                                :
+                                                                                <span style="margin-left: 50%;"
+                                                                                      t-field='o.barge_arrival_date'/>
+                                                                            </t>
+                                                                            <span t-if="not o.barge_arrival_date">:
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>
+                                                                            _____________________________________________________________
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <span>
+                                                        _______________________________________________________________________________
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: none !important;">
+                                                    <br/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: none !important;">
+                                                    <br/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: none !important;">
+                                                    <br/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: none !important;">
+                                                    <br/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: none !important;">
+                                                    <br/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: none !important;">
+                                                    <br/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: none !important;">
+                                                    <br/>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <span>
+                                        <strong>The Good(s) above is(are) delivered and received in good condition.
+                                        </strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:20px;">
+                                <div class="col-6">
+                                    <strong>Delivered By :</strong>
+                                    ________________________________________
+                                    <br/>
+                                    <br/>
+                                    <strong>Sign :</strong>
+                                    __________________________________________________
+                                    <br/>
+                                    <br/>
+                                    <strong>Date :</strong>
+                                    _________________________________________________
+                                    <br/>
+                                    <br/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Received By :</strong>
+                                    ________________________________________
+                                    <br/>
+                                    <br/>
+                                    <strong>Sign :</strong>
+                                    _________________________________________________
+                                    <br/>
+                                    <br/>
+                                    <strong>Date :</strong>
+                                    ________________________________________________
+                                    <br/>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

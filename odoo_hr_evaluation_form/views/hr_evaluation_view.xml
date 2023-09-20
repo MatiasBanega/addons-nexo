@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+      <record model="ir.ui.view" id="view_hr_evaluation_plan_search">
+            <field name="name">hr_evaluation.plan.search</field>
+            <field name="model">hr_evaluation.plan</field>
+            <field name="arch" type="xml">
+                <search string="Appraisal Plan">
+                   <field name="name" string="Appraisal Plans"/>
+                   <field name="company_id"/>
+                   <group expand="0" string="Group By" groups="base.group_multi_company">
+                        <filter name="Company" domain="[]" context="{'group_by':'company_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_hr_evaluation_plan_form">
+            <field name="name">hr_evaluation.plan.form</field>
+            <field name="model">hr_evaluation.plan</field>
+            <field name="arch" type="xml">
+                <form string="Appraisal Plan">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook> <!--1 June 22-->
+                            <page string="Appraisal Phases">
+                                <field name="phase_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_hr_evaluation_plan_tree">
+            <field name="name">hr_evaluation.plan.form</field>
+            <field name="model">hr_evaluation.plan</field>
+            <field name="arch" type="xml">
+                <tree string="Appraisal Plan">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_view_hr_evaluation_plan_tree">
+            <field name="name">Appraisal Plans</field>
+            <field name="res_model">hr_evaluation.plan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+      <!-- Appraisal Interviews Action -->
+
+        <record model="ir.ui.view" id="view_hr_evaluation_plan_phase_form">
+            <field name="name">hr_evaluation.plan.phase.form</field>
+            <field name="model">hr_evaluation.plan.phase</field>
+            <field name="arch" type="xml">
+                <form string="Appraisal Plan Phases">
+                 <notebook>
+                   <page string="General">
+                    <field name="plan_id" invisible="1"/>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="wait"/>
+                                <field name="sequence"/>
+                            </group>
+                            <group>
+                                <field name="action"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Mail Settings">
+                        <group string="Legend">
+                        </group>
+                    </page>
+                  </notebook>
+                </form>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="view_hr_evaluation_plan_phase_tree">
+            <field name="name">hr_evaluation.plan.phase.form</field>
+            <field name="model">hr_evaluation.plan.phase</field>
+            <field name="arch" type="xml">
+                <tree string="Appraisal Plan Phases" editable="bottom" >
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="action"/>
+                    <field name='competencies_objectives_tmpl_id'/>
+                    <field name="wait"/>
+                </tree>
+            </field>
+        </record>
+ 
+        <record id="hr_hr_employee_view_form" model="ir.ui.view">
+            <field name="name">hr.hr.employee.view.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='active_group']" position="before">
+                    <group string="Appraisals">
+                        <field name="evaluation_plan_id_custom"/>
+                        <field name="evaluation_date_custom"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_hr_evaluation_form">
+            <field name="name">hr_evaluation.evaluation.form</field>
+            <field name="model">hr_evaluation.evaluation</field>
+            <field name="arch" type="xml">
+                <form string="Appraisals">
+                <header>
+                    <button name="button_plan_in_progress" string="Start Appraisal" states="draft" type="object" class="oe_highlight"/>
+                    <button name="button_final_validation" string="Validate Appraisal" states="wait" type="object" class="oe_highlight"/>
+                    <button name="%(odoo_hr_evaluation_form.action_create_next_appraisal_date)d" string="Done" states="progress" type="action" class="oe_highlight"/>
+                    <button name="button_draft" string="Reset to Draft" states="cancel" type="object" />
+                    <button name="button_cancel" string="Cancel Appraisal" states="draft,wait,progress" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,progress,wait,done" statusbar_colors='{"progress":"blue"}'/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+<!--                        <button name="open_employee_performance"-->
+<!--                                class="oe_stat_button"-->
+<!--                                icon="fa-bars"-->
+<!--                                type="object"-->
+<!--                                attrs="{'invisible': [('hr_evalution_performance_id', '=', False)]}"-->
+<!--                                string="Performance">-->
+<!--                        </button>-->
+                        <button name="open_employee_performance"
+                                class="oe_stat_button"
+                                icon="fa-bars"
+                                type="object"
+                                string="Evaluation Forms">
+                        </button>
+                    </div>
+                    <label for="employee_id" class="oe_edit_only"/>
+                    <h1>
+                        <field name="employee_id" class="oe_inline" attrs="{'readonly': [('state', '=', 'done')]}" on_change="onchange_employee_id(employee_id)"/>
+                    </h1>
+                    <label for="plan_id" class="oe_edit_only"/>
+                    <h2><field name="plan_id" attrs="{'readonly': [('state', '=', 'done')]}"/></h2>
+                    <group>
+                        <field name="date" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                        <group colspan="4" attrs="{'invisible':['|', ('state','=','draft'), ('state', '=', 'wait')]}">
+                            <field name="rating" attrs="{'readonly':[('state','&lt;&gt;','progress')]}"/>
+                            <field name="date_close" readonly="1"/>
+                        </group>
+
+                        <group>
+                            <field name="company_id" widget="selection" attrs="{'readonly': [('state', '=', 'done')]}"/> <!--ODOO13-->
+                            <field name="evaluation_officer_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                        </group>
+                        <group name="evalution_performance" string="Evaluation Form">
+                            <field name="manager_id" attrs="{'readonly': ['|',('hr_evalution_performance_id', '!=', False),('state', '=', 'done')]}"/>
+                            <field name="hr_evalution_performance_id" invisible="1"/>
+                             <label for="review_period_start_date" string="Review Period"/>
+                                <div class="o_row">
+                                    <field name="review_period_start_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="review_period_end_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </div>
+                        </group>
+                    </group>
+                    <group string="Internal Notes" attrs="{'invisible':[('state','=','draft')]}">
+                        <field nolabel="1" name="note_action"
+                            groups="hr.group_hr_manager" placeholder="Appraisal Summary..." attrs="{'readonly': [('state', '=', 'done')]}"/>
+                    </group>
+                    <group string="Public Notes" attrs="{'invisible':[('state','=','draft')]}">
+                        <field nolabel="1" name="note_summary" placeholder="Action Plan..." attrs="{'readonly': [('state', '=', 'done')]}"/>
+                    </group>
+              </sheet>
+              <div class="oe_chatter">
+                  <field name="message_follower_ids" widget="mail_followers"/>
+                  <field name="activity_ids" widget="mail_activity"/>
+                  <field name="message_ids" widget="mail_thread"/>
+              </div>
+              </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_hr_evaluation_tree">
+            <field name="name">hr_evaluation.evaluation.tree</field>
+            <field name="model">hr_evaluation.evaluation</field>
+            <field name="arch" type="xml">
+                <tree string="Appraisal">
+                    <field name="employee_id"/>
+                    <field name="plan_id"/>
+                    <field name="date"/>
+                    <field name="rating"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+      <record id="odoo_hr_evaluation_form.evaluation_search" model="ir.ui.view">
+            <field name="name">hr_evaluation.evaluation_search</field>
+            <field name="model">hr_evaluation.evaluation</field>
+            <field name="arch" type="xml">
+                <search string="Search Appraisal">
+                    <field name="date"/>
+                    <filter name="Pending" domain="[('state','=','wait')]" help="Appraisal that are in Plan In Progress state"/>
+                    <filter name="In progress" domain="[('state','=','progress')]" help="Appraisal that are in waiting appreciation state"/>
+                    <field name="employee_id" />
+                    <field name="plan_id"/>
+                    <group expand='0' string='Group by...'>
+                        <filter name='Employee' domain="[]" context="{'group_by' : 'employee_id'}" />
+                        <filter name='Plan' domain="[]" context="{'group_by' : 'plan_id'}" />
+                        <filter name='Status' domain="[]" context="{'group_by' : 'state'}" />
+                        <filter name='Appraisals Month' domain="[]" context="{'group_by' : 'date'}" help="Appraisals by Month" />
+                   </group>
+               </search>
+            </field>
+        </record>    
+
+
+        <record model="ir.actions.act_window" id="open_view_hr_evaluation_tree">
+            <field name="name">Appraisal</field>
+            <field name="res_model">hr_evaluation.evaluation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="odoo_hr_evaluation_form.evaluation_search"/>
+             <field name="context">{"search_default_next_month":1}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new appraisal.
+              </p><p>
+                Each employee may be assigned an Appraisal Plan. Such a plan
+                defines the frequency and the way you manage your periodic
+                personnel evaluation. You will be able to define steps and
+                attach interviews to each step. Odoo manages all kinds of
+                evaluations: bottom-up, top-down, self-evaluation and final
+                evaluation by the manager.
+              </p>
+            </field>
+        </record> 
+
+    </data>
+</odoo>

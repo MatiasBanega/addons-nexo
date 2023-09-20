@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="project_type_view_extended" model="ir.ui.view">
+            <field name="name">Project Type Extended</field>
+            <field name="model">project.type</field>
+            <field name="inherit_id" ref="project_category.project_type_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//notebook" position="inside">
+                     <page string="Product Type">
+                         <field name="related_products_ids" context="{'default_is_project_item': True, 'default_type': 'product', 'default_project_type_id': id}"/>
+                     </page>
+
+                    </xpath>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

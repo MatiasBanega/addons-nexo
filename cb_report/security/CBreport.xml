@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>       
+        <record id ='group_cb_report_visibility' model='res.groups'>
+            <field name='name'>C &amp; B report</field>
+            <field name='category_id' ref='base.module_category_hidden'/>
+        </record>
+        <record id ='group_cb_finance' model='res.groups'>
+            <field name='name'>C&amp;B Finance</field>
+            <field name='category_id' ref='base.module_category_hidden'/>
+        </record>
+    </data>
+</odoo>

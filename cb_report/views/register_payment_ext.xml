@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record id="view_account_payment_register_form_ext" model="ir.ui.view">
+            <field name="name">account.payment.register.form</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='communication']" position="after">
+                    <field name="analytic_account_id" string="Project"
+                           attrs="{'invisible': ['|', ('payment_difference', '=', 0.0), '|',
+                           ('can_edit_wizard', '=', False), '&amp;', ('can_group_payments', '=', True),
+                           ('group_payment', '=', False)],
+                           'required': [('payment_difference_handling', '=', 'reconcile')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

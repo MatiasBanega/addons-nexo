@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- <openerp> -->
+<odoo>
+    <data noupdate="1">
+        <!--Salary rule for advance salary amount deduction-->
+        
+        <!-- <record id="hr_salary_rule_advance_salary" model="hr.salary.rule">
+            <field name="code">ADVANCSAL</field>
+            <field name="name">Advance Salary Employee Deduction</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -(employee.get_advance_salary(employee.id, payslip.date_from, payslip.date_to))</field>
+            <field name="sequence" eval="150"/>
+        </record> -->
+
+        <record id="hr_salary_rule_advance_salary" model="hr.salary.rule">
+           <field name="code">ADVANCSAL</field>
+           <field name="name">Advance Salary Employee Deduction</field>
+           <field name="category_id" ref="hr_payroll.DED"/> 
+           <field name="amount_select">code</field>
+           <field name="amount_python_compute">result = -employee.get_advance_salary(employee.id, payslip.date_from, payslip.date_to)</field>
+           <field name="condition_select">python</field>
+           <field name="condition_python">result = employee.get_advance_salary(employee.id, payslip.date_from, payslip.date_to) > 0</field>
+           <field name="sequence" eval="150"/>
+           <field name="struct_id" ref="hr_payroll.structure_002"/>
+       </record>
+       
+    </data>
+<!-- </openerp> -->
+</odoo>

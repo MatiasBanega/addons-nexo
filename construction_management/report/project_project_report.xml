@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_project_project_custom">
+            <t t-call="web.external_layout">
+                <br/><br/>
+                <div class="page">
+                    <t t-foreach="docs" t-as="o">
+                        <!-- <div class="row"> -->
+                        <div>
+                            <h2>
+                                <span t-field="o.name"/>
+                            </h2>
+                            <br/>
+                        </div>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Project Manager</th>
+                                </tr>
+                            </thead>
+                            <tbody class="project_tbody">
+                                <tr>
+                                    <td>
+                                        <span t-field="o.partner_id"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.user_id.name"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h2>Tasks :</h2>
+                        <br/>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Task Name</th>
+                                    <th>Planned Hours</th>
+                                    <th>Remaining Hours</th>
+                                    <th>Assigned To</th>
+                                    <th>Assigned Date</th>
+                                    <th>Deadline</th>
+                                    <th>Stage</th>
+                                </tr>
+                            </thead>
+                            <tbody class="project_tbody">
+                                <t t-foreach="o.task_ids" t-as="task">
+                                    <tr>
+                                        <td>
+                                            <span t-field="task.name"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="task.planned_hours"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="task.remaining_hours"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="task.user_ids"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="task.date_assign"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="task.date_deadline"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="task.stage_id"/>
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <h2>Sale Order :</h2>
+                        <br/>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Order Number</th>
+                                    <th>Order Date</th>
+                                    <th>Customer</th>
+                                    <th>Salesperson</th>
+                                    <th>Total</th>
+                                    <th>Invoice Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="project_tbody">
+                                <t t-foreach="o.sale_order_ids" t-as="sale">
+                                    <tr>
+                                        <td>
+                                            <span t-field="sale.name"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="sale.date_order"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="sale.partner_id"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="sale.user_id"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="sale.amount_total"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="sale.state"/>
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <h2>Purchase Order :</h2>
+                        <br/>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Order Date</th>
+                                    <th>Vendor</th>
+                                    <th>Scheduled Date</th>
+                                    <th>Source Document</th>
+                                    <th>Untaxed</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="project_tbody">
+                                <t t-foreach="o.purchase_order_ids" t-as="purchase">
+                                    <tr>
+                                        <td>
+                                            <span t-field="purchase.name"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="purchase.date_order"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="purchase.partner_id"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="purchase.date_planned"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="purchase.origin"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="purchase.amount_untaxed"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="purchase.amount_total"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="purchase.state"/>
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <h2>Inventory Usage</h2>
+                        <br/>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Project</th>
+                                    <th>Product UOM</th>
+                                    <th>Quantity</th>
+                                    <th>Price Unit</th>
+                                    <th>Price Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody class="project_tbody">
+                                <t t-foreach="o.inventory_usages_ids" t-as="inven">
+                                    <tr>
+                                        <td>
+                                            <span t-field="inven.product_id"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="inven.project_id"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="inven.uom_id"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="inven.qty"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="inven.price_unit"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="inven.price_subtotal"/>
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <h2>Project Deliverables</h2>
+                        <br/>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Material</th>
+                                    <th>Products</th>
+                                    <th>Planned Qty</th>
+                                    <th>Used Qty</th>
+                                    <th>State</th>
+                                </tr>
+                            </thead>
+                            <tbody class="project_tbody">
+                                <t t-foreach="o.project_deliverables_ids" t-as="proj">
+                                    <tr>
+                                        <td>
+                                            <span t-field="proj.project_id"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="proj.product_id"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="proj.planned_qty"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="proj.used_qty"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="proj.status"/>
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <h2>Work Package</h2>
+                        <br/>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Work Package</th>
+                                    <th>Product UOM</th>
+                                    <th>Quantity</th>
+                                    <th>Price Unit</th>
+                                    <th>Price Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody class="project_tbody">
+                                <t t-foreach="o.work_package_ids" t-as="work_pkg">
+                                    <tr>
+                                        <td>
+                                            <span t-field="work_pkg.project_id"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="work_pkg.uom_id"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="work_pkg.qty"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="work_pkg.price_unit"/>
+                                            <br/>
+                                        </td>
+                                        <td>
+                                            <span t-field="work_pkg.price_subtotal"/>
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_project_project">
+            <t t-call="web.html_container">
+                <t t-foreach="doc_ids" t-as="o">
+                    <t t-call="construction_management.report_project_project_custom"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
+

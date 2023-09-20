@@ -1,0 +1,15 @@
+=> 15.0.0.1 : dt. 28th jan. 2022 Fixed + Improvements
+    - Fixed and Improved import invoice flow and sample files
+    - Improved Sample files of picking, product pricelist,purchase
+    - Removed Commented Code
+    - Fixed M2x import  issue for v15, improved py code in all files
+    - Improved code and added company_id from env context on picking obj.
+=> 15.0.0.2 : dt. 10th Feb. 2022 Fixed + Improvements
+    - Fixed The bank statement line issue [imported wrong column / null memo column data]
+    - Fixed issue for product qty create while uploading
+    - Improved code Purchase,Invoice, Sale order line data issue [first column data in all records only for '_x'
+      related fields]
+
+15.0.0.3 ==>added missing functionality of inventory import wizard.
+
+15.0.0.4 ==>Fixed code for updating product's quantity while updating the product.

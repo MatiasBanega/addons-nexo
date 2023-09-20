@@ -1,0 +1,167 @@
+<odoo>
+    <data noupdate="0">
+        <record model="performance.rating.custom" id="performance_rating_1_custom">
+            <field name="name">1</field>
+            <field name="sequence">1</field>
+        </record>
+        <record model="performance.rating.custom" id="performance_rating_2_custom">
+            <field name="name">2</field>
+            <field name="sequence">2</field>
+        </record>
+        <record model="performance.rating.custom" id="performance_rating_3_custom">
+            <field name="name">3</field>
+            <field name="sequence">3</field>
+        </record>
+        <record model="performance.rating.custom" id="performance_rating_4_custom">
+            <field name="name">4</field>
+            <field name="sequence">4</field>
+        </record>
+        <record model="performance.rating.custom" id="performance_rating_5_custom">
+            <field name="name">5</field>
+            <field name="sequence">5</field>
+        </record>
+        <record model="performance.rating.custom" id="performance_rating_6_custom">
+            <field name="name">6</field>
+            <field name="sequence">6</field>
+        </record>
+        <record model="performance.rating.custom" id="performance_rating_7_custom">
+            <field name="name">7</field>
+            <field name="sequence">7</field>
+        </record>
+        <record model="performance.rating.custom" id="performance_rating_8_custom">
+            <field name="name">8</field>
+            <field name="sequence">8</field>
+        </record>
+        <record model="performance.rating.custom" id="performance_rating_9_custom">
+            <field name="name">9</field>
+            <field name="sequence">9</field>
+        </record>
+        <record model="performance.rating.custom" id="performance_rating_10_custom">
+            <field name="name">10</field>
+            <field name="sequence">10</field>
+        </record>
+        
+        <record model="competencies.objectives" id="competencies_objectives_1_custom">
+            <field name="type">competencies</field>
+            <field name="name"><![CDATA[Planning has the capacity to prepare, analyse, keep on track and use time effectively.]]></field>
+        </record>
+        
+        <record model="competencies.objectives" id="competencies_objectives_2_custom">
+            <field name="type">competencies</field>
+            <field name="name"><![CDATA[Productivity and efficiency very accurately scope out the work, create efficient workflows and processes, and assign resources properly.]]></field>
+        </record>
+        
+        <record model="competencies.objectives" id="competencies_objectives_3_custom">
+            <field name="type">competencies</field>
+            <field name="name"><![CDATA[Accepts responsibility for actions and consequences for company growth.]]></field>
+        </record>
+        
+        <record model="competencies.objectives" id="competencies_objectives_4_custom">
+            <field name="type">competencies</field>
+            <field name="name"><![CDATA[Disincline, Punctuality and attendance are rarely absent; they arrive punctually and work the required hours.]]></field>
+        </record>
+        
+        <record model="competencies.objectives" id="competencies_objectives_5_custom">
+            <field name="type">competencies</field>
+            <field name="name"><![CDATA[Shows initiative, optimism, and politeness on company level.]]></field>
+        </record>
+        
+        <record model="competencies.objectives" id="competencies_objectives_6_custom">
+            <field name="type">competencies</field>
+            <field name="name"><![CDATA[Accepts feedback and comments from the manager and has the ability to learn from suggestions and change behavior.]]></field>
+        </record>
+
+        <record model="competencies.objectives" id="competencies_objectives_7_custom">
+            <field name="type">competencies</field>
+            <field name="name"><![CDATA[Capacity to respond to changing situations and expectations.]]></field>
+        </record>
+
+        <record model="competencies.objectives" id="competencies_objectives_8_custom">
+            <field name="type">competencies</field>
+            <field name="name"><![CDATA[User follow organisation's policies and procedures.]]></field>
+        </record>
+        
+        <record model="competencies.objectives" id="competencies_objectives_9_custom">
+            <field name="type">competencies</field>
+            <field name="name"><![CDATA[Completion of assignments successfully completes tasks and meets all deadlines for projects.]]></field>
+        </record>
+        
+        <record model="competencies.objectives" id="competencies_objectives_10_custom">
+            <field name="type">competencies</field>
+            <field name="name"><![CDATA[Client meeting onsite and online.]]></field>
+        </record>
+        
+        <record model="competencies.objectives" id="competencies_objectives_11_custom">
+            <field name="type">competencies</field>
+            <field name="name"><![CDATA[Develop new skills. desires to take on challenges and learn new technologies.]]></field>
+        </record>
+        
+        <record model="competencies.objectives" id="competencies_objectives_12_custom">
+            <field name="type">competencies</field>
+            <field name="name"><![CDATA[Communication skills of employee.]]></field>
+        </record>
+        
+        <record model="competencies.objectives" id="competencies_objectives_13_custom">
+            <field name="type">competencies</field>
+            <field name="name"><![CDATA[Management of conflict resolution.]]></field>
+        </record>
+
+<!--                                                objectives                                             -->
+
+        <record model="competencies.objectives" id="competencies_objectives_14_custom">
+            <field name="type">objectives</field>
+            <field name="name"><![CDATA[Hours of consumption to show support to customer on the project.]]></field>
+        </record>
+        
+        <record model="competencies.objectives" id="competencies_objectives_15_custom">
+            <field name="type">objectives</field>
+            <field name="name"><![CDATA[Deadline meet expectation on client projects.]]></field>
+        </record>
+        
+        <record model="competencies.objectives" id="competencies_objectives_16_custom">
+            <field name="type">objectives</field>
+            <field name="name"><![CDATA[Reports delivered to clients, audits delivered to clients or filing completed without errors.]]></field>
+        </record>
+         <record model="competencies.objectives" id="competencies_objectives_17_custom">
+            <field name="type">objectives</field>
+            <field name="name"><![CDATA[New product ideas, developments, concepts, and improvements.]]></field>
+        </record>
+         <record model="competencies.objectives" id="competencies_objectives_18_custom">
+            <field name="type">objectives</field>
+            <field name="name"><![CDATA[Improving the quality of work to satisfy client needs.]]></field>
+        </record>
+         <record model="competencies.objectives" id="competencies_objectives_19_custom">
+            <field name="type">objectives</field>
+            <field name="name"><![CDATA[Marketing skills during a demo of the product.]]></field>
+        </record>
+         <record model="competencies.objectives" id="competencies_objectives_20_custom">
+            <field name="type">objectives</field>
+            <field name="name"><![CDATA[Delivery skills for production code in the project.]]></field>
+        </record> 
+        <record model="competencies.objectives" id="competencies_objectives_21_custom">
+            <field name="type">objectives</field>
+            <field name="name"><![CDATA[Budget management skills to track project budget.]]></field>
+        </record> 
+        <record model="competencies.objectives" id="competencies_objectives_22_custom">
+            <field name="type">objectives</field>
+            <field name="name"><![CDATA[Boost customer confidence in the project.]]></field>
+        </record>
+        <record model="competencies.objectives" id="competencies_objectives_23_custom">
+            <field name="type">objectives</field>
+            <field name="name"><![CDATA[Project workload acceptance.]]></field>
+        </record>
+        <record model="competencies.objectives" id="competencies_objectives_24_custom">
+            <field name="type">objectives</field>
+            <field name="name"><![CDATA[Project life cycle management with different cycles.]]></field>
+        </record>
+
+        <record id="seq_evaluation_performance1_custom" model="ir.sequence">
+            <field name="name">Evaluation Form</field>
+            <field name="code">hr.evalution.performance</field>
+            <field name="prefix">EVALUATION/FORM/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

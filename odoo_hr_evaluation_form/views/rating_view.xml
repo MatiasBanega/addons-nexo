@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_performance_rating_form">
+            <field name="name">performance.rating.form</field>
+            <field name="model">performance.rating.custom</field>
+            <field name="arch" type="xml">
+                <form string="Evaluation Form Ratings Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="sequence"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_performance_rating_tree">
+            <field name="name">performance.rating.tree</field>
+            <field name="model">performance.rating.custom</field>
+            <field name="arch" type="xml">
+                <tree string="Evaluation Form Ratings List" editable="bottom">
+                    <field name="sequence"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_performance_rating_search">
+            <field name="name">performance.rating.search</field>
+            <field name="model">performance.rating.custom</field>
+            <field name="arch" type="xml">
+                <search string="Evaluation Form Ratings">
+                   <field name="name"/>
+               </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_performance_rating">
+            <field name="name">Evaluation Form Ratings</field>
+            <field name="res_model">performance.rating.custom</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem  id="menu_performance_rating" parent="odoo_hr_evaluation_form.menu_human_resources_configuration_hr_evaluation" action="action_performance_rating"/>
+
+
+    </data>
+</odoo>
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+    <record id="evaluation_performance_send_confirm_by_empl_mail_tmpl" model="mail.template">
+            <field name="name">Evaluation form confirm template</field>
+            <field name="email_from">{{object.evalution_officer_id.email}}</field>
+            <field name="subject">{{object.employee_id.name}} evaluation form confirmed - submit request</field>
+            <field name="email_to">{{object.reviewer_id.user_id.email}}</field>
+            <field name="model_id" ref="odoo_hr_evaluation_form.model_hr_evalution_performance"/>
+            <field name="body_html"><![CDATA[
+            <p>Dear <t t-out="object.reviewer_id.user_id.name or ''"/>,
+               <div> 
+                     <p><t t-out="object.employee_id.name or object.employee_id.user_id.name"/>'s  evaluation form has been confirmed. Please review the evaluation form and submit it.</p>   
+               
+               <p>Thank you,</p>
+        </div> 
+         ]]></field>
+    </record>
+    <record id="evaluation_performance_send_approve_by_reviewer_mail_tmpl" model="mail.template">
+            <field name="name">Evaluation form submit template</field>
+            <field name="email_from">{{object.reviewer_id.user_id.email}}</field>
+            <field name="subject">Evaluation form of {{object.employee_id.name}} submited by  {{object.reviewer_id.user_id.name}}</field>
+            <field name="email_to">{{object.evalution_appraisal_id.evaluation_officer_id.email}}</field>
+            <field name="model_id" ref="odoo_hr_evaluation_form.model_hr_evalution_performance"/>
+            <field name="body_html"><![CDATA[
+                <div>
+                    <p>Dear <t t-out="object.evalution_appraisal_id.evaluation_officer_id.name">,</p>
+                    <p><t t-out="object.employee_id.name or object.employee_id.user_id.name"/>'s evaluation form has been submitted.
+                     </p>
+                     
+                    <p>Thank you,</p>
+                </div>
+             ]]></field>
+        </record>
+    </data>
+</odoo>

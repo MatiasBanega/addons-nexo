@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record id="project_team_create_user" model="ir.model.access">
+            <field name="name">Project team create User</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="group_id" ref="project.group_project_user"/>
+            <field name="perm_read" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+         <record id="project_team__user" model="ir.model.access">
+            <field name="name">Project team create User</field>
+            <field name="model_id" ref="sales_team.model_crm_team"/>
+            <field name="group_id" ref="project.group_project_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+    </data>
+</odoo>
+

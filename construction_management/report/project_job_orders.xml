@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_project_job_order_custom">
+            <t t-call="web.external_layout">
+                <br/><br/>
+                <div class="page">
+                    <t t-foreach="docs" t-as="o">
+                        <div class="row">
+                            <h2>Project Initiation</h2>
+                            <br/>
+                        </div>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Project</th>
+                                    <th>Customer</th>
+                                    <th>Assigned To</th>
+                                    <th>Assigned Date</th>
+                                    <th>Deadline</th>
+                                </tr>
+                            </thead>
+                            <tbody class="project_tbody">
+                                <tr>
+                                    <td>
+                                        <span t-field="o.project_id"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.project_id.partner_id"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.user_ids.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.date_deadline"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.date_deadline"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h2>Timesheet</h2>
+                        <br/>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>User</th>
+                                    <th>Description</th>
+                                    <th>Analytic Account</th>
+                                    <th>Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody class="project_tbody">
+                                <t t-foreach="o.timesheet_ids" t-as="timesheet">
+                                    <tr>
+
+                                        <td>
+                                            <span t-field="timesheet.date"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="timesheet.user_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="timesheet.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="timesheet.account_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="timesheet.unit_amount"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <h2>SubTask</h2>
+                        <br/>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Task Title</th>
+                                    <th>Project</th>
+                                    <th>Assigned To</th>
+                                    <th>Initially Planned Hours</th>
+                                    <th>Stage</th>
+                                </tr>
+                            </thead>
+                            <tbody class="project_tbody">
+                                <t t-foreach="o.subtask_ids" t-as="subtask">
+                                    <tr>
+
+                                        <td>
+                                            <span t-field="subtask.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="subtask.project_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="subtask.user_ids"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="subtask.planned_hours"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="subtask.stage_id"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <h2>Material Plannings</h2>
+                        <br/>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Description</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Of Measurement</th>
+                                </tr>
+                            </thead>
+                            <tbody class="project_tbody">
+                                <t t-foreach="o.prod_material_ids" t-as="material">
+                                    <tr>
+
+                                        <td>
+                                            <span t-field="material.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="material.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="material.product_qty"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="material.uom_id"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <h2>Consumed Material</h2>
+                        <br/>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Description</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Of Measurement</th>
+                                </tr>
+                            </thead>
+                            <tbody class="project_tbody">
+                                <t t-foreach="o.consume_material_ids" t-as="con_material">
+                                    <tr>
+
+                                        <td>
+                                            <span t-field="con_material.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="con_material.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="con_material.product_qty"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="con_material.uom_id"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <h2>Material Requistions</h2>
+                        <br/>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Destination Location Zone</th>
+                                    <th>Partner</th>
+                                    <th>Scheduled Date</th>
+                                    <th>Source Document</th>
+                                    <th>Back Order Of</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="project_tbody">
+                                <t t-foreach="o.material_req_stock_ids" t-as="con_material">
+                                    <tr>
+
+                                        <td>
+                                            <span t-field="con_material.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="con_material.location_dest_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="con_material.partner_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="con_material.date"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="con_material.origin"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="con_material.backorder_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="con_material.state"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_project_job_order">
+            <t t-call="web.html_container">
+                <t t-foreach="doc_ids" t-as="o">
+                    <t t-call="construction_management.report_project_job_order_custom"/>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>
+

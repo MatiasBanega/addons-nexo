@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hr_contract_view_form" model="ir.ui.view">
+            <field name="name">hr.contract.libracycle</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[last()]" position="before">
+                    <page string="Other Deductions" name="deductions">
+                        <group>
+                            <field name="loan_deduction" />
+                            <field name="other_deduction" />
+                            <field name="cooperative" />
+                            <field name="advance_deduction" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <openerp> -->
+<odoo>
+    <data>
+        
+        <record id="employee_advance_salary_form_view" model="ir.ui.view">
+            <field name="name">employee.advance.salary.form.view</field>
+            <field name="model">employee.advance.salary</field>
+            <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Submit" name="get_confirm" states="draft" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button string="Approve by Department Manager" name="get_apprv_dept_manager" states="confirm" type="object" groups="employee_advance_salary.group_department_manager_for_salary_id" class="oe_highlight"/>
+                    <button string="Approve by HR Manager" name="get_apprv_hr_manager" states="approved_dept_manager" type="object" groups="hr.group_hr_user" class="oe_highlight"/>
+                    <button string="Approve by Director" name="get_apprv_director" states="approved_hr_manager" type="object" groups="employee_advance_salary.group_director_manager_for_salary_id" class="oe_highlight"/>
+                    <button string="Pay" name="get_apprv_account" states="approved_director" type="object" groups="account.group_account_user" class="oe_highlight"/>
+                    <button string="Done" class="oe_highlight" name="get_done" states="paid" type="object" groups="hr.group_hr_user"/>
+                    <!-- <button string="Reject" name="get_reject" states="confirm,approved_dept_manager,approved_hr_manager" type="object" groups="hr.group_hr_user,base.group_hr_manager,employee_advance_salary.group_department_manager_for_salary_id,employee_advance_salary.group_director_manager_for_salary_id"/> -->
+                    <button string="Reject" name="get_reject" states="confirm,approved_dept_manager,approved_hr_manager" type="object" groups="hr.group_hr_user,hr.group_hr_manager,employee_advance_salary.group_department_manager_for_salary_id,employee_advance_salary.group_director_manager_for_salary_id"/> <!-- odoo13 -->
+                    <button string="Cancel" name="exit_cancel" states="draft" type="object"/>
+                    <button string="Set To Draft" name="request_set" states="reject" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,approved_dept_manager,approved_hr_manager,approved_director,paid,done" colspan="2"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                            <h2>
+                             <group>
+                                <group>
+                                    <field name="employee_id" />
+                                </group>
+                                <group/>
+                             </group>
+                            </h2>
+                     </div>
+                    <group>
+                        <group>
+                            <field name="request_date"/>
+                            <field name="request_amount" />
+                            <field name="currency_id" />
+                        </group>
+                        <group>
+                            <field name="department_id" />
+                            <field name="job_id" />
+                            <field name="manager_id" />
+                            <field name="user_id" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="confirm_date" />
+                            <field name="dept_approved_date" />
+                            <field name="hr_validate_date" />
+                            <field name="director_validate_date" />
+                            <field name="account_validate_date" />
+                        </group>
+                        <group>
+                            <field name="confirm_by_id" />
+                            <field name="dept_manager_by_id" />
+                            <field name="hr_manager_by_id" />
+                            <field name="director_by_id" />
+                            <field name="account_by_id" />
+                            <field name="company_id" />
+                        </group>
+                     </group>
+                    
+                    <notebook>
+                        <page name="general" string="General Information">
+                            <group string="Reason for Advance">
+                                    <field name="reason_for_advance" nolabel="1" placeholder="Reason for Advance............."/>
+                            </group>
+                            <group string="Comment">
+                                 <field name="comment" attrs="{'readonly': [('state', '=', 'done')]}" nolabel="1" placeholder="Comment"/>
+                            </group>
+                        </page>
+                        <page name="accounting" string="Accounting Information" groups="account.group_account_user">
+                            <group>
+                                <group>
+                                     <field name="partner_id" attrs="{'readonly': ['|', ('state', '=', 'done'), ('state', '=', 'paid')]}" groups="account.group_account_user"/>
+                                     <field name="journal_id"  attrs="{'readonly': ['|', ('state', '=', 'done'), ('state', '=', 'paid')]}" groups="account.group_account_user"/>
+                                     <field name="payment_id" groups="account.group_account_user"/>
+                                     <field name="paid_amount"  groups="account.group_account_user"/>
+                                </group>
+                                <group/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+            </field>
+        </record>
+       
+        <record id="employee_advance_salary_tree_view" model="ir.ui.view">
+            <field name="name">employee.advance.salary.tree.view</field>
+            <field name="model">employee.advance.salary</field>
+            <field name="arch" type="xml">
+                 <tree>
+                        <field name="employee_id" />
+                        <field name="request_amount" />
+                        <field name="request_date" />
+                        <field name="department_id" />
+                        <field name="job_id" />
+                        <field name="state" />
+                 </tree>
+            </field>
+        </record>
+        
+        <record id="employee_advance_salary_search_view" model="ir.ui.view">
+            <field name="name">employee.advance.salary.tree.view</field>
+            <field name="model">employee.advance.salary</field>
+            <field name="arch" type="xml">
+                <search string="Employee Advance Salary" >
+                    <field name="employee_id"/>
+                    <field name="department_id" />
+                    <field name="job_id" />
+                    <field name="state" />
+                    <group expand="0" string="Group By">
+                        <filter name="Employee" domain="[]" context="{'group_by':'employee_id'}"/>
+                        <filter name="Department" domain="[]" context="{'group_by':'department_id'}"/>
+                        <filter name="Job" domain="[]" context="{'group_by':'job_id'}"/>
+                        <filter name="Request Date" domain="[]" context="{'group_by':'request_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_employee_advance_salary">
+            <field name="name">Employee Advance Salary</field>
+            <field name="res_model">employee.advance.salary</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="view_type">form</field> --> <!-- odoo13 -->
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_employee_advance_salary_account">
+            <field name="name">Advance Salary Payment</field>
+            <field name="res_model">employee.advance.salary</field>
+            <field name="domain">[('state', 'in', ['done', 'paid', 'approved_director'])]</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="view_type">form</field> --> <!-- odoo13 -->
+        </record> 
+        
+        <record model="ir.actions.act_window" id="action_department_approval">
+            <field name="name">Department Approval</field>
+            <field name="res_model">employee.advance.salary</field>
+            <field name="domain">[('state', 'in', ['confirm'])]</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="view_type">form</field> --> <!-- odoo13 -->
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_hr_approval">
+            <field name="name">HR Approval</field>
+            <field name="res_model">employee.advance.salary</field>
+            <field name="domain">[('state', 'in', ['approved_dept_manager'])]</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="view_type">form</field> --> <!-- odoo13 -->
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_director_approval">
+            <field name="name">Director Approval</field>
+            <field name="res_model">employee.advance.salary</field>
+            <field name="domain">[('state', 'in', ['approved_hr_manager'])]</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="view_type">form</field> --> <!-- odoo13 -->
+        </record>
+        
+        <menuitem name="Salary Advance" parent="hr.menu_hr_root" id="menu_advance_salary" sequence="90" />
+        <menuitem name="Salary Advance Requests" id="menu_advance_salary_request" action="action_employee_advance_salary" parent="menu_advance_salary" sequence="12" />
+        <menuitem name="Department Approvals" id="menu_department_approval" groups="employee_advance_salary.group_department_manager_for_salary_id" action="action_department_approval" parent="menu_advance_salary" sequence="13" />
+        <menuitem name="HR Approvals" id="menu_hr_approval" action="action_hr_approval" groups="hr.group_hr_user" parent="menu_advance_salary" sequence="14" />
+        <menuitem name="Director Approvals" id="menu_director_approval" action="action_director_approval" groups="employee_advance_salary.group_director_manager_for_salary_id" parent="menu_advance_salary" sequence="15" />
+        <menuitem name="Advance Salary Requests" id="menu_advance_salary_request_account" action="action_employee_advance_salary_account" parent="account.menu_finance_payables" sequence="96" />
+    </data>
+
+<!-- </openerp> -->
+</odoo>

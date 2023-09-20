@@ -1,0 +1,7 @@
+PRODUCT,QUANTITY,UOM,DESCRIPTION,PRICE,TAX,x_partner_id@name,x_partner_ids@name,x_color,x_bool
+Basic Computer,1,Units,Basic Computer,10000,Tax 15.00%,Addison Olson,"Douglas Fletcher,Lorraine Douglas",red,TRUE
+Little Server,2,Units,Little Server,50000,Tax 15.00%,Douglas Fletcher,"Addison Olson,Lorraine Douglas",blue,FALSE
+Computer Case,1,Units,Computer Case,2000,,Douglas Fletcher,"Addison Olson,Lorraine Douglas",purple,1
+Server,3,Units,Server,100000,Tax 15.00%,Addison Olson,"Douglas Fletcher,Lorraine Douglas",white,0
+iMac,1,Units,iMac,10000,,Douglas Fletcher,"Addison Olson,Lorraine Douglas",dark black,1
+iPad,2,Units,iPad,50000,Tax 15.00%,Douglas Fletcher,"Addison Olson,Lorraine Douglas",dark black,1

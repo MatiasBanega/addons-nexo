@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="lbc_employee_advance_salary" model="mail.template">
+            <field name="name">Employee Salary Advance</field>
+            <field name="email_from">{{ ctx.get('email_from') }}</field>
+            <field name="subject">Salary Advance Request</field>
+            <field name="email_to">{{ ctx.get('recipient') }}</field>
+            <field name="model_id" ref="employee_advance_salary.model_employee_advance_salary" />
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Hi!
+                        <div>
+                            Salary advance request has submitted for your attention, kindy check and attend to the document accordingly. </div>
+                        <div><a t-att-href="ctx.get('url')">Please follow the link</a></div>
+                        <br />
+                        <div>Regards,</div>
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

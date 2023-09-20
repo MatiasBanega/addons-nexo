@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_order_form_project_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.project.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="priority" eval="70" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[1]" position="after">
+                    <!-- <page string="Job items" name="jobs_items" attrs="{'invisible': [('project_project_id', '=', False)]}"> -->
+                    <page string="Job items" name="jobs_items">
+                        <field name="project_items_ids" readonly="1" force_save="1" />
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

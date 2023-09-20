@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="create_appraisal_date_form_view">
+            <field name="name">create.appraisal.date</field>
+            <field name="model">create.appraisal.date</field>
+                <field name="arch" type="xml">
+                    <form string="Next Appraisal Date">
+    	               <group>
+                            <group>
+                                <field name="evaluation_date" required="True"/>
+                            </group>
+                        </group>
+                    <footer>
+                        <button name="action_next_appraisal_date" type="object" string="Confirm" class="btn-primary"/>
+                        or
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                	</form>
+                </field>
+        </record>
+        
+        <record id="action_create_next_appraisal_date" model="ir.actions.act_window">
+            <field name="name">Next Appraisal Date</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">create.appraisal.date</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="create_appraisal_date_form_view"/>
+            <field name="target">new</field>
+        </record>
+        
+   </data>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="ng_ir_internal_requisition_seq" model="ir.sequence">
+            <field name="name">Internal Requisition</field>
+            <field name="code">ng.ir.request</field>
+            <field name="prefix">IR/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

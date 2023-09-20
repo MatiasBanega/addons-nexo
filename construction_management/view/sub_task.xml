@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_create_subtask_wizard_form" model="ir.ui.view">
+            <field name="name">view.create.subtask.wizard.form</field>
+            <field name="model">subtask.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Subtask Create">
+                    <group>
+                        <field name="subtask_lines" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="user_ids"/>
+                                <field name="des"/>
+                                <field name="planned_hours"/>
+
+                            </tree>
+
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="create_subtask" string="Create" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_create_subtask_wizard" model="ir.actions.act_window">
+            <field name="name">Create Subtask</field>
+            <field name="res_model">subtask.wizard</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_create_subtask_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+
+        <record id="project_task_inherit_bi_form_view" model="ir.ui.view">
+            <field name="name">project_task_inherit_bi_form_view</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="user_ids" position="after">
+                    <field name="task_parent_id"/>
+                </field>
+                <header>
+                    <button name="%(action_create_subtask_wizard)d"
+                            string="Create SubTask"
+                            type="action"
+                            class="oe_highlight"
+                            style="float:left;"/>
+                </header>
+                <notebook position='inside'>
+                    <page string="Subtask">
+                        <group>
+                            <field name="subtask_ids" nolabel="1" readonly="1">
+                                <tree>
+                                    <field name="name" string="Task Title"/>
+                                    <field name="user_ids" string="Assign To"/>
+                                    <field name="stage_id"/>
+                                </tree>
+
+                            </field>
+                        </group>
+
+                    </page>
+                </notebook>
+
+            </field>
+        </record>
+    </data>
+</odoo>

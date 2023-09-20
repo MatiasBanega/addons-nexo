@@ -1,0 +1,6 @@
+NAME,INTERNAL REFERANCE,CATEGORY,TYPE,BARCODE,UOM,PURCHASE UOM,SALE PRICE,COST PRICE,WEIGHT,VOLUME,CUSTOMER TAXES,VENDOR TAXES,TRACKING,ATTRIBUTES,x_message_partner_ids@name
+LCD TV SU1,LTV0011,Internal,Consumable,1120345661,Units,Units,250,200,103,44,,,,"Size:32inch,38inch#Resolution:720p,1080p",Gemini Furniture
+LED TV SU13,LCD0011,Internal,Storable Product,11234506781,Units,Units,235,240,146,32,,,By Unique Serial Number,"Size:36inch,42inch#Resolution:1080p,4K",Azure Interior
+SET UP BOX3,ST001,Expenses,Consumable,A4453566,Units,Units,248,123,532,32,,,,,
+SET UP BO2X1,ST0011,Consumable,Consumable,A44535643,Units,Units,246,123,532,32,,,,,The Jackson Group
+SMART PH3ONE,PH001,Software,Storable Product,S10040001,Units,Units,490,250,50,22,,,By Lots,"Color:Red,Grey",

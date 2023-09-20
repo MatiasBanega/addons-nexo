@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <menuitem id="menu_hr_evaluation"
+	    name="Evaluation"
+	    web_icon="odoo_hr_evaluation_form,static/description/eval_icon.png"
+	    groups="base.group_user"/>
+
+  <menuitem name="Appraisal"
+	    parent="odoo_hr_evaluation_form.menu_hr_evaluation"
+	    id="menu_eval_hr"
+	    sequence="1"/>
+
+  <menuitem name="Appraisals"
+	    parent="menu_eval_hr"
+	    id="menu_open_view_hr_evaluation_tree"
+	    action="open_view_hr_evaluation_tree"
+	    groups="odoo_hr_evaluation_form.grp_evalution_user"/>
+
+  <menuitem id="menu_human_resources_configuration_hr_evaluation"
+            name="Configuration"
+            parent="menu_hr_evaluation"
+            groups="odoo_hr_evaluation_form.grp_evalution_manager"
+            sequence="10"/>
+
+  <menuitem parent="odoo_hr_evaluation_form.menu_human_resources_configuration_hr_evaluation" id="menu_open_view_hr_evaluation_plan_tree"
+            action="open_view_hr_evaluation_plan_tree"/>
+
+  <record id="generate_evaluation_action" model="ir.actions.server">
+    <field name="name">Generate Evaluation</field>
+    <field name="model_id" ref="odoo_hr_evaluation_form.model_hr_employee"/>
+    <field name="binding_model_id" ref="odoo_hr_evaluation_form.model_hr_employee"/>
+    <field name="binding_view_types">list</field>
+    <field name="state">code</field>
+    <field name="code">
+      action = model.register_evaluation()
+    </field>
+  </record>
+
+  <record id="atart_appraisal_action" model="ir.actions.server">
+    <field name="name">Start Appraisal</field>
+    <field name="model_id"
+	   ref="odoo_hr_evaluation_form.model_hr_evaluation_evaluation"/>
+    <field name="binding_model_id"
+	   ref="odoo_hr_evaluation_form.model_hr_evaluation_evaluation"/>
+    <field name="binding_view_types">list</field>
+    <field name="state">code</field>
+    <field name="code">
+      action = model.massive_start_appraisal()
+    </field>
+  </record>
+</odoo>

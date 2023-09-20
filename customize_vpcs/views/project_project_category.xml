@@ -1,0 +1,143 @@
+<odoo>
+    <data>
+        <record id="project_project_category_edit_form" model="ir.ui.view">
+            <field name="name">project.project.category.form.inherit</field>
+            <field name="model">project.project.category</field>
+            <field name="inherit_id" ref="project_project_category.view_base_project_category_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//field[@name="description"]' position='after'>
+                    <field name="document_bool"/>
+                </xpath>
+                <xpath expr="//field[@name='project_type_id']" position="after">
+                    <field name="has_field_visibility"/>
+                    <field name="field_visibility" invisible="1"/>
+                </xpath>
+                <xpath expr='//field[@name="has_rotation_number"]' position='attributes'>
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr='//field[@name="has_job_tdo"]' position='attributes'>
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr='//notebook/page[2]/group' position="after">
+                    <group colspan="4" col="4">
+                        <group string="PRE-ALERT" colspan="4" col="4">
+                            <field name="has_job_refs" string="Job Refs" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_client_name" string="Client Name" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_regulatory_field" string="Regulatory Field" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_pre_alert_date" string="Pre-alert Date" widget="radio" options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', 'in', ('1','2'))]}"/>
+<!--                            <field name="has_project_team" string="Project Team" widget="radio" options="{'horizontal': true}" />-->
+                            <field name="has_account_officer" string="Account Officer" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_item_description" string="Item Description" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_form_m_mf" string="Form M(MF)" widget="radio" options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_mode_shipment" string="Mode Shipment" widget="radio" options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}" />
+                        </group>
+                        <group string='AWAITING ARRIVAL' colspan="4" col="4">
+                            <field name='has_barge_operator' string='Barge Name/Operator' widget='radio' options="{'horizontal':true}"/>
+                            <field name="has_bol_awb_ref" string="BOL/AWB" widget="radio" options="{'horizontal': true}"/>
+                            <field name="has_shipping_line" string="SHIPPING LINE/AIR LINE" widget="radio" options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', 'in', ('1','2'))]}"/>
+                            <field name="has_vessel_name" string="VESSEL /FLIGHT NAME" widget="radio" options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', 'in', ('1','2'))]}"/>
+                            <field name="has_destination_port" string="DESTINATION PORT (SEA/AIR)" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_rotation_number" string="Rotation Number" widget="radio" options="{'horizontal': true}"/>
+                            <field name="has_terminal" string="TERMINAL" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_country_of_loading" string="COUNTRY OF LOADING" widget="radio" options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', 'in', ('1','2'))]}" />
+                            <field name="has_port_of_loading" string="PORT OF LOADING" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_rotation_received" string="Rotation No Received Date" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_free_days" string="No of Free days" widget="radio" options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', 'in', ('1','2'))]}"/>
+                            <field name="has_etd" string="ETD" widget="radio" options="{'horizontal': true}"/>
+                            <field name="has_eta" string="ETA" widget="radio" options="{'horizontal': true}"/>
+                        </group>
+                        <group string='IN CLEARING'  colspan="4" col="4">
+                            <field name="has_paar_request" string="PAAR REQUEST" widget='radio' options="{'horizontal': true}"/>
+                            <field name="has_paar_received" string="PAAR RECEIVED" widget='radio' options="{'horizontal': true}"/>
+                            <field name="has_ata" string="ATA" widget="radio" options="{'horizontal': true}"/>
+                            <field name="has_agent_name" string="Agent Name" widget="radio" options="{'horizontal': true}"/>
+                            <field name="has_duty_assesment" string="Duty Assessment" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_duty_received" string="Duty Received" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_nafdac_paid" string="NAFDAC paid" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_nafdac_1_stamp_date" string="NAFDAC 1st Stamp" widget="radio" options="{'horizontal': true}"/>
+                            <field name="has_nafdac_2_stamp_date" string="NAFDAC 2nd Stamp" widget="radio" options="{'horizontal': true}"/>
+                            <field name="has_son_invoice" string="SON invoice" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_son_paid" string="SON paid" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_quarantine_payment" string="Quarantine payment" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_docs_copy_received" string="Complete copy docs received" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_original_copy_received" string="Complete original Docs received" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_complete_docs_uploaded" string="Complete Docs uploaded" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_1st_shipping_invoice" string="1st Shipping Invoice" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_1st_shipping_paid" string="1st Shipping paid" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_2nd_shipping_dn_paid" string="2nd Shipping DN paid" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_3rd_shipping_dn_paid" string="3rd Shipping DN paid" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_1st_terminal_invoice" string="1st Terminal invoice" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_1st_terminal_paid" string="1st Terminal Paid" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_1st_additional_storage_paid" string="1st Additional Storage paid" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_2nd_additional_storage_paid" string="2nd Additional Storage paid" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_examination_booked" string="Examination Booked" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_examination_start" string="Examination Start" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_examination_done" string="Examination Done" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_shipping_released" string="SHIPPING RELEASE(DO)" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_custom_release_date" string="Custom Release Date" widget="radio" options="{'horizontal': true}"/>
+                            <field name="has_fou_approved" string="FOU Approved" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_nepza_released" string="NEPZA Received" widget='radio' options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                        </group>
+                        <group string='DELIVERY START(TRUCK/BARGE)' colspan='4' col='4'>
+                            <field name="has_date_delivery_start" string="Date Delivery Start" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_barge_date" string="Barge Date" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_date_delivery_complete" string="Date Delivery Complete" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_delivery_waybill_from_client" string="Delivery Waybill from Client" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_empty_container_returned" string="EMPTY CONAINER RETURN" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_job_tdo" string="TDO" widget="radio" options="{'horizontal': true}"/>
+
+                        </group>
+                        <group string='POST DELIVERY' colspan='4' col='4'>
+                            <field name="has_fecd_rec_date" string="FECD REC DATE" widget="radio" options="{'horizontal': true}" />
+                            <field name="has_fecd_custom_ack" string="FECD: customs ACK" widget="radio" options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}"/>
+                            <field name="has_fecd_client_ack" string="FECD: To Client ACK" widget="radio" options="{'horizontal': true}" attrs="{'invisible': [('has_field_visibility', '=', '1')]}" />
+                            <field name="has_nafdac_final_release" string="NAFDAC Final Release" widget="radio" options="{'horizontal': true}"/>
+                        </group>
+                    </group>
+                </xpath>
+                <!-- <xpath expr='//field[@name="has_free_days"]' position='attributes'>
+                    <attribute name="attrs">
+                        {'invisible': [
+                            ('has_field_visibility', 'in', ('1','2')),
+                        ]}
+                    </attribute>
+                </xpath> -->
+                <xpath expr='//field[@name="has_job_ba_number"]' position='attributes'>
+                    <attribute name="attrs">
+                        {'invisible': [
+                            ('has_field_visibility', 'in', '1'),
+                        ]}
+                    </attribute>
+                </xpath>
+                <xpath expr='//field[@name="has_nafdac_1_stamp_date"]' position='attributes'>
+                    <attribute name="attrs">
+                        {'invisible': [
+                            ('has_field_visibility', '=', '1'),
+                        ]}
+                    </attribute>
+                </xpath>
+                <xpath expr='//field[@name="has_nafdac_2_stamp_date"]' position='attributes'>
+                    <attribute name="attrs">
+                        {'invisible': [
+                            ('has_field_visibility', '=', '1'),
+                        ]}
+                    </attribute>
+                </xpath>
+                <xpath expr='//field[@name="has_custom_release_date"]' position='attributes'>
+                    <attribute name="attrs">
+                        {'invisible': [
+                            ('has_field_visibility', '=', '1'),
+                        ]}
+                    </attribute>
+                </xpath>
+                <xpath expr='//field[@name="has_job_tdo"]' position='attributes'>
+                    <attribute name="attrs">
+                        {'invisible': [
+                            ('has_field_visibility', '=', '1'),
+                        ]}
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+libracycle_process_workflow.access_res_bank_account,access_res_bank_account,libracycle_process_workflow.model_res_bank_account,base.group_user,1,1,1,1

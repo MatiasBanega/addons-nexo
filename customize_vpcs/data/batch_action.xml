@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="in_transit_action" model="ir.actions.server">
+            <field name="name">To In Transit</field>
+            <field name="model_id" ref="customize_vpcs.model_project_schedule_items"/>
+            <field name="binding_model_id" ref="customize_vpcs.model_project_schedule_items"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                records.action_in_transit()
+            </field>
+        </record>
+
+        <record id="in_barged_out_action" model="ir.actions.server">
+            <field name="name">To Barged Out</field>
+            <field name="model_id" ref="customize_vpcs.model_project_schedule_items"/>
+            <field name="binding_model_id" ref="customize_vpcs.model_project_schedule_items"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                records.action_barged_out()
+            </field>
+        </record>
+
+        <record id="in_port_action" model="ir.actions.server">
+            <field name="name">To Delivered/Shipped</field>
+            <field name="model_id" ref="customize_vpcs.model_project_schedule_items"/>
+            <field name="binding_model_id" ref="customize_vpcs.model_project_schedule_items"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                records.action_in_transit()
+            </field>
+        </record>
+
+        <record id="in_return_action" model="ir.actions.server">
+            <field name="name">To Return Item</field>
+            <field name="model_id" ref="customize_vpcs.model_project_schedule_items"/>
+            <field name="binding_model_id" ref="customize_vpcs.model_project_schedule_items"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                records.action_return_item()
+            </field>
+        </record>
+
+    </data>
+</odoo>

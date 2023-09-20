@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="libra_payment_process_flow" model="ir.module.category">
+            <field name="name">LBC</field>
+            <field name="description">Libracycle process workflow</field>
+            <field name="sequence">21</field>
+        </record>
+        <record id="group_admin" model="res.groups">
+            <field name="name">Admin</field>
+            <field name="category_id" ref="libra_payment_process_flow" />
+        </record>
+        <record id="group_officer" model="res.groups">
+            <field name="name">Approving Officer</field>
+            <field name="category_id" ref="libra_payment_process_flow" />
+        </record>
+        <record id="group_qac" model="res.groups">
+            <field name="name">QAC</field>
+            <field name="category_id" ref="libra_payment_process_flow" />
+        </record>
+
+        <record id="group_hr_expense_hod_approver" model="res.groups">
+            <field name="name">HOD Approver</field>
+            <field name="category_id" ref="base.module_category_human_resources_expenses" />
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+        </record>
+        <record id="group_hr_expense_final_approver" model="res.groups">
+            <field name="name">Final Approver</field>
+            <field name="category_id" ref="base.module_category_human_resources_expenses" />
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+        </record>
+        <record id="ir_rule_hr_expense_hod_approver" model="ir.rule">
+            <field name="name">HOD Approver Expense Sheet</field>
+            <field name="model_id" ref="hr_expense.model_hr_expense_sheet" />
+            <field name="domain_force">[
+                ('employee_id.department_id.manager_id.user_id', '=', user.id)]
+            </field>
+            <field name="groups" eval="[(4, ref('libracycle_process_workflow.group_hr_expense_hod_approver'))]" />
+        </record>
+        <record id="ir_rule_hr_expense_final_approver" model="ir.rule">
+            <field name="name">Final Approver Expense Sheet</field>
+            <field name="model_id" ref="hr_expense.model_hr_expense_sheet" />
+            <field name="domain_force">[('1', '=', '1')]</field>
+            <field name="groups" eval="[(4, ref('libracycle_process_workflow.group_hr_expense_final_approver'))]" />
+        </record>
+    </data>
+</odoo>

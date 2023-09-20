@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_template_from_ext" model="ir.ui.view">
+        <field name="name">view.product.template.from.ext</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="account.product_template_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='invoicing']" position="inside">
+                <separator string="Sweep"/>
+                <group>
+                    <group>
+<!--                        <label for="is_sweep_product"/>-->
+                        <field name="is_sweep_product"/>
+                    </group>
+                    <group>
+<!--                        <label for="sweep_account_id"/>-->
+                        <field name="sweep_account_id" string="Sweep Account"/>
+                    </group>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_account_move_from_ext" model="ir.ui.view">
+        <field name="name">view.account.move.from.ext</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="is_a_sweep_je" readonly="1" string="Sweep Entry" attrs="{'invisible': [('move_type', '!=', 'entry')]}"/>
+                <field name="ref_line_id" invisible="0"/>
+<!--                <field name="voucher_line_id" invisible="1"/>-->
+            </xpath>
+
+            <xpath expr="//page[@id='aml_tab']//field[@name='partner_id']" position="after">
+                <field name="project_id_hi" string="Project"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_account_move_line_from_ext" model="ir.ui.view">
+        <field name="name">view.account.move.line.from.ext</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="swept"/>
+                <field name="invoice_line_id"/>
+            </xpath>
+
+            <xpath expr="//field[@name='analytic_account_id']" position="after">
+                <field name="project_id_hi" string="Project"/>
+            </xpath>
+
+        </field>
+    </record>
+
+<!--    <record id="view_account_move_line_from_ext" model="ir.ui.view">-->
+<!--        <field name="name">view.account.move.line.from.ext</field>-->
+<!--        <field name="model">account.move.line</field>-->
+<!--        <field name="inherit_id" ref="account.view_invoice_line_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='price_unit']" position="after">-->
+<!--                <field name="line_type" invisible="1"/>-->
+<!--                <field name="swept" attrs="{'invisible': [('line_type', '=', 'out_invoice')]}"/>-->
+<!--                <field name="invoice_line_id"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="view_hr_expense_from_ext" model="ir.ui.view">-->
+<!--        <field name="name">view.hr.expense.from.ext</field>-->
+<!--        <field name="model">hr.expense</field>-->
+<!--        <field name="inherit_id" ref="hr_expense.hr_expense_form_view"/>-->
+<!--        <field name="arch" type="xml">-->
+
+<!--            <xpath expr="//field[@name='tax_ids']" position="after">-->
+<!--                <field name="swept"/>-->
+<!--                <field name="invoice_line_id"/>-->
+<!--            </xpath>-->
+
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="view_account_voucher_line_from_ext" model="ir.ui.view">-->
+<!--        <field name="name">view.account.voucher.line.from.ext</field>-->
+<!--        <field name="model">account.voucher.line</field>-->
+<!--        <field name="inherit_id" ref="account_voucher.view_voucher_line_form"/>-->
+<!--        <field name="arch" type="xml">-->
+
+<!--            <xpath expr="//field[@name='account_analytic_id']" position="after">-->
+<!--                <field name="swept"/>-->
+<!--                <field name="invoice_line_id"/>-->
+<!--            </xpath>-->
+
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="sweep_journal_form_view" model="ir.ui.view">
+        <field name="name">sweep.journal.form.view</field>
+        <field name="model">sweep.journal</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Sweep Journal">
+                        <group>
+                            <field name="journal_id" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sweep_journal_tree_view" model="ir.ui.view">
+        <field name="name">sweep.journal.tree.view</field>
+        <field name="model">sweep.journal</field>
+        <field name="arch" type="xml">
+            <tree string="Sweep Journal">
+                <field name="journal_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sweep_journal_action" model="ir.actions.act_window">
+           <field name="name">Sweep Journal</field>
+           <field name="res_model">sweep.journal</field>
+<!--           <field name="view_type">form</field>-->
+           <field name="view_mode">tree,form</field>
+           <field name="context">{}</field>
+           <field name="domain">[]</field>
+       </record>
+
+    <menuitem id="menu_open_view_sweep_journal" name="Sweep Journal" action="sweep_journal_action"
+              parent="account.menu_finance_configuration" sequence="1"/>
+
+</odoo>

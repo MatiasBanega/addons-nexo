@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+employee_advance_salary,employee.advance.salary,model_employee_advance_salary,base.group_user,1,1,1,1
+employee_hr_job,hr.job,hr.model_hr_job,base.group_user,1,0,0,0

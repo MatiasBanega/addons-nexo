@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_project_note_custom">
+            <t t-call="web.external_layout">
+                <br/><br/>
+                <div class="page">
+                    <t t-foreach="docs" t-as="o">
+                        <!-- <div class="row"> -->
+                        <div>
+                            <h2 style="text-align:center;">Project Note</h2>
+                            <br/>
+                        </div>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Project</th>
+                                    <th>Task</th>
+                                    <th>Responsible User</th>
+                                </tr>
+                            </thead>
+                            <tbody class="project_tbody">
+                                <tr>
+                                    <td>
+                                        <span t-field="o.construction_proj_id"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.task_id"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.responsible_user"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr/>
+                        <span>
+                            <span t-field="o.memo"/>
+                        </span>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_project_note">
+            <t t-call="web.html_container">
+                <t t-foreach="doc_ids" t-as="o">
+                    <t t-call="construction_management.report_project_note_custom"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</openerp>
+

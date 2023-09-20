@@ -1,0 +1,12 @@
+.o_view_controller > .o_content > .o_list_view > .table-responsive {
+    overflow: visible;
+    border-spacing: 0 15px;
+    padding: 7px;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    padding: 12px;
+}

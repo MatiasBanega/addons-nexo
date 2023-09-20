@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- <openerp> -->
+<odoo>
+    <data>
+        
+        <!-- <report
+            id="employee_advance_salary_report"
+            model="employee.advance.salary"
+            menu="True"
+            report_type="qweb-pdf"
+            string="Print Advance Salary"
+            name="employee_advance_salary.employee_advance_salary_id"
+            file="employee_advance_salary.employee_advance_salary_id"
+           /> -->
+        <record id="employee_advance_salary_report" model="ir.actions.report">
+            <field name="name">Print Advance Salary</field>
+            <field name="model">employee.advance.salary</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">employee_advance_salary.employee_advance_salary_id</field>
+            <field name="report_file">employee_advance_salary.employee_advance_salary_id</field>
+            <field name="binding_model_id" ref="model_employee_advance_salary"/>
+            <field name="binding_type">report</field>
+        </record>
+        
+        <template id="employee_advance_salary_id">
+               <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.internal_layout">
+                      <t t-call="web.html_container">
+                         <div class="page">
+                             <div class="text-center">
+                                 <h3>
+                                     Advance Salary
+                                 </h3>
+                             </div>
+                             <div class="text-left">
+                                 <h3>
+                                     <span t-field="doc.employee_id.name"/> - <span t-field="doc.state"/>
+                                 </h3>
+                             </div>
+                             <h3>General Information</h3>
+                            <table class="table col-md-12">
+                               <tr style="border: 2px solid black;">
+                                   <td><strong>Request Date</strong> </td><td> <span t-field="doc.request_date"/></td>
+                                   <td><strong>Department</strong></td><td> <span t-field="doc.department_id.name"/></td>
+                               </tr>
+                               <tr style="border: 2px solid black;">
+                                   <td><strong>Department Manager</strong> </td><td> <span t-field="doc.manager_id.name"/></td>
+                                   <td><strong>Job Title</strong></td><td> <span t-field="doc.job_id.name"/></td>
+                               </tr>
+                               <tr style="border: 2px solid black;">
+                                   <td><strong>Request User</strong> </td><td> <span t-field="doc.user_id.name"/></td>
+                                   <td><strong>Request Amount</strong></td><td> <span t-field="doc.request_amount" t-field-options='{"widget": "monetary", "display_currency": "doc.company_id.currency_id"}'/></td>
+                               </tr>
+                            </table>
+                           
+                            <h3>Dates</h3>
+                            <table class="table col-md-12">
+                               <tr style="border: 2px solid black;">
+                                   <td><strong>Confirm Date(Employee)</strong> </td><td> <span t-field="doc.confirm_date"/></td>
+                                   <td><strong>Confirm By</strong></td><td> <span t-field="doc.confirm_by_id.name"/></td>
+                               </tr>
+                               <tr style="border: 2px solid black;">
+                                   <td><strong>Approved Date(Department)</strong> </td><td> <span t-field="doc.dept_approved_date"/></td>
+                                   <td><strong>Department Manager</strong></td><td> <span t-field="doc.dept_manager_by_id.name"/></td>
+                               </tr>
+                               <tr style="border: 2px solid black;">
+                                   <td><strong>Approved Date(HR Manager)</strong> </td><td> <span t-field="doc.hr_validate_date"/></td>
+                                   <td><strong>HR Manager </strong></td><td> <span t-field="doc.hr_manager_by_id.name"/></td>
+                               </tr>
+                               <tr style="border: 2px solid black;">
+                                   <td><strong>Approved Date(Director)</strong> </td><td> <span t-field="doc.director_validate_date"/></td>
+                                   <td><strong>Director </strong></td><td> <span t-field="doc.director_by_id.name"/></td>
+                               </tr>
+                               <tr style="border: 2px solid black;">
+                                   <td><strong>Paid Date</strong> </td><td> <span t-field="doc.account_validate_date"/></td>
+                                   <td><strong>Paid By </strong></td><td> <span t-field="doc.account_by_id.name"/></td>
+                               </tr>
+                            </table>
+                             
+                            <h3>Accounting Information</h3>
+                            <table class="table col-md-12">
+                               <tr style="border: 2px solid black;">
+                                   <td><strong>Employee Account</strong> </td><td> <span t-field="doc.partner_id.name"/></td>
+                                   <td><strong>Payment Method</strong></td><td> <span t-field="doc.journal_id.name"/></td>
+                               </tr>
+                               <tr style="border: 2px solid black;">
+                                   <td><strong>Payment</strong> </td><td> <span t-field="doc.payment_id.name"/></td>
+                                   <td><strong>Paid Amount</strong></td><td><span t-field="doc.paid_amount" t-field-options='{"widget": "monetary", "display_currency": "doc.company_id.currency_id"}'/></td>
+                               </tr>
+                            </table>
+                            
+                            <div>
+                                 <strong>Reason For Advance :</strong><br/><span t-field="doc.reason_for_advance"/>
+                            </div>
+                            <div>
+                                 <strong>Comment :</strong><br/><span t-field="doc.comment"/>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div class="row">
+                             <div class="col-xs-6 text-left">
+                                <strong>Employee Signature:____________________</strong>
+                             </div>
+                             <div class="col-xs-6 text-right">
+                                <strong>Authorised Signature:____________________</strong>
+                             </div>
+                         </div>
+                        </div>
+                    </t>
+                  </t>
+               </t>
+        </template>
+        
+    </data>
+<!-- </openerp> -->
+</odoo>

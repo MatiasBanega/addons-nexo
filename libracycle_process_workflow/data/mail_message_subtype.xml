@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="project_created" model="mail.message.subtype">
+            <field name="name">A NEW PROJECT CREATED</field>
+            <field name="res_model">project.project</field>
+            <field name="default" eval="False" />
+            <field name="description">A NEW PROJECT CREATED</field>
+        </record>
+    </data>
+</odoo>

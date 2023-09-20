@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_payroll_report_view_form">
+        <field name="name">payroll.report.wiz.form</field>
+        <field name="model">payroll.report.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Report">
+                <group colspan="4" col="4">
+                    <field name="from_date"/>
+                    <field name="date_end"/>
+                    <field name="report" widget="selection"/>
+                    <field name="show_logo"/>
+                </group>
+                <group>
+                    <field name="filter" widget="radio"/>
+                    <field name="employee_id"  attrs="{'invisible':[('filter','!=','employee')],'required':[('filter','=','employee')]}"/>
+                    <field name="department_id" attrs="{'invisible':[('filter','!=','department')],'required':[('filter','=','department')]}"/>
+                    <field name="company_id" attrs="{'invisible':[('filter','!=','company')],'required':[('filter','=','company')]}"/>
+                </group>
+              <footer>
+                    <button name="get_item_data" type="object" string="Export Excel" class="oe_highlight"/>
+                    Or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_payroll_excel">
+        <field name="name">view.payrol.report.excel</field>
+        <field name="model">payroll.report.excel</field>
+        <field name="arch" type="xml">
+            <form string="Download Your Payroll Here">
+                <field name="name" invisible="1"/>
+                <field name="file_download" filename="name"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_payroll_reporting_excel" model="ir.actions.act_window">
+        <field name="name">Payroll Report</field>
+        <field name="res_model">payroll.report.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_payroll_excel_report" name="Payroll Excel Report" action="action_payroll_reporting_excel" sequence="71"
+              parent="hr_payroll.menu_hr_payroll_report" groups="hr_payroll.group_hr_payroll_user"/>
+</odoo>

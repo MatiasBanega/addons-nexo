@@ -1,0 +1,7 @@
+PURCHASE ID,SUPPLIER,CURRENCY,PRODUCT,QUANTITY,UOM,DESCRIPTION,PRICE,TAX,Date,x_partner_id@name,x_notes
+PO000010,Agrolait,USD,Basic Computer,1,Units,Basic Computer,10000,,2017-01-21,Agrolait,red
+PO000010,Agrolait,USD,Little Server,2,Units,Little Server,50000,,2017-01-21,Agrolait,blue
+PO000010,Agrolait,USD,Computer Case,1,Units,Computer Case,2000,,2017-01-21,Camptocamp,purple
+PO000012,ASUSTeK,EUR,Server,3,Units,Server,100000,,2016-11-12,Agrolait,white
+PO000013,Axeloer,USD,Basic Computer,1,Units,Basic Computer,10000,,2015-08-18,Axeloer,dark black
+PO000015,Camptocamp,EUR,Little Server,2,Units,Little Server,50000,,2017-06-07,Axeloer,dark black

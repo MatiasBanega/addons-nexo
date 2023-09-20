@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_base_project_category_form" model="ir.ui.view">
+            <field name="name">project.project.category.form</field>
+            <field name="model">project.project.category</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                         <div class="oe_button_box" name="button_box" groups="base.group_user">
+<!--                            <button  class="oe_stat_button" name="attachment_tree_view" type="object" icon="fa-files-o">-->
+<!--                                <field string="Documents" name="doc_count" widget="statinfo"/>-->
+<!--                            </button>-->
+                            <button class="oe_stat_button" type="action" name="%(act_project_category_main_project_default_task_all)d"
+                                    icon="fa-tasks" context="{'default_project_categ_id': active_id, 'default_is_category_task': True}">
+                                <field string="Default Tasks" name="default_task_count" widget="statinfo" options="{'label_field': 'label_tasks'}"/>
+                            </button>
+
+                             <button class="oe_stat_button" type="action" name="%(act_project_category_main_project_task_all)d" icon="fa-tasks" context="{'default_project_categ_id': active_id, 'default_is_category_task': False}">
+                                <field string="All category Tasks" name="task_count" widget="statinfo" options="{'label_field': 'label_tasks'}"/>
+                            </button>
+
+                            <button name="toggle_active" type="object"
+                                    confirm="(Un)archiving a project automatically (un)archives its tasks and issues. Do you want to proceed?"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="project_type_id"/>
+                            </group>
+                            <group>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Project Stages">
+                                <field name="default_stage_ids"/>
+                            </page>
+                            <page string="Project Fields">
+                                <group colspan="4" col="4">
+                                    <field name="has_job_form_m" string="Form M" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_job_form_m_date" string="Form M Date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_bol_awb_ref" string="BOL/AWB" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_arrival_date" string="Arrival Date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_job_son" string="SON" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_job_liner" string="LINER" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_job_ba_number" string="BA Number" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_job_cbm" string="CBM" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_bill_of_lading" string="Bill of lading date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_shipping_doc" string="Shipping Doc." widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_job_paar" string="PAAR" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_job_assessment" string="Assessment" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_job_shipping_co" string="Shipping Co." widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_job_terminal_payment" string="Terminal Payment" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_custom_release_date" string="Custom Release Date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_job_tdo" string="TDO" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_job_plant_delivery_date" string="Plant Delivery Date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_exchange_control_returned" string="Exchange Control Returned" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_shipping_rating_till" string="Shipping rating till" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_terminal_rating_till" string="Terminal rating till" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_cleared_date" string="Cleared Date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_loading_date" string="Loading Date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_delivery_date" string="Delivery Date" widget="radio" options="{'horizontal': true}"/>
+
+                                    <field name="has_etd" string="ETD" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_eta" string="ETA" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_ata" string="ATA" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_discharge_date" string="Discharge Date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_doc_to_agent" string="Doc. to Agent" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_rotation_number" string="Rotation Number" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_nafdac_1_stamp_date" string="NAFDAC 1st Stamp" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_nafdac_2_stamp_date" string="NAFDAC 2nd Stamp" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_son_date" string="SON Date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_pod" string="POD" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_free_days" string="No of Free days" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_custom_exam_date" string="Custom Exams Booking Date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_custom_date" string="Custom Exams Date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_fou_release_date" string="FOU release Date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_gate_release_date" string="Gate release Date" widget="radio" options="{'horizontal': true}"/>
+
+                                    <field name="has_container_return_date" string="Container Return Date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_total_cycle" string="Total Cycle" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_job_do" string="DO" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_ecd_date" string="ECD Date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_refund_demurrage" string="Refund/Demurrage" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_cdr" string="CDR" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_etr" string="ETR" widget="radio" options="{'horizontal': true}"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_base_project_category_search_form" model="ir.ui.view">
+            <field name="name">project.project.category.form</field>
+            <field name="model">project.project.category</field>
+            <field name="arch" type="xml">
+                <search string="Project category">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Category" context="{'group_by': 'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_type_base_category_project" model="ir.actions.act_window">
+            <field name="name">Project category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.project.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_category_project"
+            name="Job Dynamics"
+            sequence="20"
+            parent="project.menu_project_config"
+            action="action_type_base_category_project"/>
+
+    </data>
+</odoo>

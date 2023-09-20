@@ -1,0 +1,27 @@
+<odoo>
+  <record id="form_evaluation_generator" model="ir.ui.view">
+    <field name="name">form.evaluation.generator</field>
+    <field name="model">evaluation.generator</field>
+    <field name="arch" type="xml">
+      <form>
+        <div>
+          <separator string="Evaluation Generator"/>
+          <group>
+            <field name="evaluation_plan_id" string="Evaluation Plan" readonly="0"/>
+            <field name="evaluation_date" string="Planified Date" readonly="0"/>
+	  </group>
+	  <group>
+            <field name="evaluator_id" string="Evaluator Officer" readonly="0"/>
+            <field name="employees_ids" string="Employees" widget="many2many_tags"
+		   readonly="0"/>
+          </group>
+        </div>
+        <footer>
+          <button string='Generate Evaluations' name="generate_evaluations"
+                  type="object" class="btn-primary"/>
+          <button string="Cancel" class="oe_link" special="cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+</odoo>

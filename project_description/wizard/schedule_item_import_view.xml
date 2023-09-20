@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="project_schedule_item_download_view" model="ir.ui.view">
+            <field name="name">Download Schedule Item CSV</field>
+            <field name="model">project.schedule.items.download</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <form string="Download Schedule Items">
+                    <h1>Prepare and download default template. NOTE: Ensure you select item related to the project.\n otherwise the import process will fail</h1>
+                    <group name="Template Default">
+                        <field name="project_type_id" invisible="1"/>
+                        <field name="product_id" widget="selection"/>
+                        <field name="product_uom_id"/>
+                    </group>
+
+                    <footer>
+                        <button name="download_file" string="_download" type="object" class="btn-primary" />
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="project_schedule_item_import_view" model="ir.ui.view">
+            <field name="name">Import Schedule Item</field>
+            <field name="model">project.schedule.items.import</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <form string="Import Schedule Items">
+                    <h2>Select a schedule item file to import</h2>
+                    <p>Supported formats is .csv:</p>
+                    <ul id="statement_format">
+
+                    </ul>
+                    <field name="data_file" filename="filename" placeholder="Choose a file to import..."/>
+                    <field name="filename" invisible="1"/>
+                    <footer>
+                        <button name="import_file" string="_Import" type="object" class="btn-primary" />
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_project_schedule_item_import" model="ir.actions.act_window">
+            <field name="name">Import</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.schedule.items.import</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="project_schedule_item_import_view"/>
+        </record>
+
+
+        <record id="action_project_schedule_item_download" model="ir.actions.act_window">
+            <field name="name">Import</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.schedule.items.download</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="project_schedule_item_download_view"/>
+        </record>
+
+    </data>
+</odoo>

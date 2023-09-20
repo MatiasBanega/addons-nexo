@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="project_categ_task_form" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="hide_action_buttons" invisible="True" />
+                <button name="create_job_quotation" type="object" string="Generate job quotation" attrs="{'invisible': [('enable_sales_order_gen', '=', False)]}" class="oe_highlight" groups="account.group_account_invoice" />
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <field name="user_id" position="before">
+                <field name="department_id" widget="selection" />
+                <!-- <field name="task_assign_id" widget="selection" domain="[('department_id','=', department_id)]"/> -->
+            </field>
+            <field name="tag_ids" position="before">
+                <field name="project_categ_id" readonly="1" force_save="1" context="{'default_task_ok': True}" />
+            </field>
+            <!-- <field name="user_id" position="after">
+                <field name="require_user_action_flg" attrs="{'invisible': [('is_category_task', '=', False)]}" />
+                <field name="project_fields" attrs="{'invisible': [('require_user_action_flg', '=', False)], 'readonly': [('is_category_task', '=', False)], 'force_save': [('is_category_task', '=', False)]}" />
+                <field name="project_fields_type" attrs="{'invisible': [('require_user_action_flg', '=', False)],'readonly': [('is_category_task', '=', False)], 'force_save': [('is_category_task', '=', False)]}" />
+                <field name="project_field_string" attrs="{'invisible': ['|',('is_category_task', '!=', False), ('project_fields_type', 'not in', ['char', 'selection'])]}" />
+                <field name="project_field_date" attrs="{'invisible': ['|',('is_category_task', '!=', False), ('project_fields_type', 'not in', ['date', 'datetime'])]}" />
+                <field name="project_field_float" attrs="{'invisible': ['|',('is_category_task', '!=', False), ('project_fields_type', 'not in', ['float', 'integer'])]}" />
+            </field> -->
+            <xpath expr="//field[@name='date_deadline']" position="after">
+                <field name="task_duration_days" attrs="{'invisible': [('is_category_task', '=', False)]}" />
+                <field name="task_escalation_days" attrs="{'invisible': [('is_category_task', '=', False)]}" />
+                <field name="task_escalation_trigger" attrs="{'invisible': [('is_category_task', '!=', False)], 'force_save':'1', 'readonly': [('is_category_task', '!=', False)]}" />
+            </xpath>
+            <div name="button_box" position="inside">
+                <field name="is_category_task" invisible="1" />
+                <button name="toggle_enable_quote_gen" type="object" groups="base.group_user" class="oe_stat_button" icon="fa-archive" attrs="{'invisible': [('is_category_task', '=', False)]}">
+                    <field name="enable_sales_order_gen" widget="boolean_button" options='{"terminology": {
+                                    "string_true": "Quote Active",
+                                    "hover_true": "Disable Quote",
+                                    "string_false": "Quote Disabled",
+                                    "hover_false": "Enable Quote"}}' />
+                </button>
+            </div>
+        </field>
+    </record>
+    <record id="phlema_task_type_edit_inherit" model="ir.ui.view">
+        <field name="name">project.task.type.form.inherit</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_edit" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="project_flow" />
+            </field>
+        </field>
+    </record>
+    <record id="phlema_task_type_tree_inherit" model="ir.ui.view">
+        <field name="name">project.task.type.tree.inherit</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_tree" />
+        <field name="arch" type="xml">
+            <field name="fold" position="after">
+                <field name="project_flow" />
+            </field>
+        </field>
+    </record>
+    <record id="project_categ_task_search" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="project_categ_id" string="Project Category" />
+            </field>
+            <group expand="0">
+                <filter string="Project Category" name="project_categ_id" help="Project Category" context="{'group_by':'project_categ_id'}" />
+            </group>
+        </field>
+    </record>
+    <record id="act_project_category_main_project_default_task_all" model="ir.actions.act_window">
+        <field name="name">Tasks Default</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
+        <field name="domain">[('is_category_task', '=', True), ('project_categ_id', '=', active_id)]</field>
+        <field name="context">{
+            'group_by': 'project_categ_id',
+            'search_project_categ_id': [active_id],
+            'default_project_categ_id': active_id,
+            'default_is_category_task': True,
+            'default_message_needaction': False,
+            }</field>
+        <field name="search_view_id" ref="project.view_task_search_form" />
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Here, you can create new default tasks
+            </p>
+            <p>
+                You can now manage your default tasks in order to get things done efficiently. Track progress, discuss,
+                attach documents, etc.
+            </p>
+        </field>
+    </record>
+    <record id="act_project_category_main_project_task_all" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
+        <field name="domain">[('is_category_task', '=', False), ('project_categ_id', '=', active_id)]</field>
+        <field name="context">{
+            'search_project_categ_id': [active_id],
+            'default_project_categ_id': active_id,
+            'default_is_category_task': False,
+            'default_message_needaction': False,
+            }</field>
+        <field name="search_view_id" ref="project.view_task_search_form" />
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Here, you can create new default tasks
+            </p>
+            <p>
+                You can now manage your default tasks in order to get things done efficiently. Track progress, discuss,
+                attach documents, etc.
+            </p>
+        </field>
+    </record>
+    <record id="project.action_view_task" model="ir.actions.act_window">
+        <field name="domain">[('is_category_task', '=', False)]</field>
+    </record>
+    <!-- Inherit Form View to Modify it -->
+    <record id="view_task_kanban_ingerit" model="ir.ui.view">
+        <field name="name">project.task.kanban.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban" />
+        <field name="arch" type="xml">
+            <field name="legend_done" position="after">
+                <field name="hide_action_buttons" />
+            </field>
+            <xpath expr="//div[hasclass('dropdown-menu')]" position="replace">
+                <div t-if="record.hide_action_buttons.raw_value == false" class="dropdown-menu" role="menu">
+                    <a t-if="widget.editable" role="menuitem" type="set_cover" class="dropdown-item" data-field="displayed_image_id">Set Cover Image</a>
+                    <a name="%(portal.portal_share_action)d" role="menuitem" type="action" class="dropdown-item">Share</a>
+                    <a t-if="widget.editable" role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                    <div role="separator" class="dropdown-divider"></div>
+                    <ul class="oe_kanban_colorpicker" data-field="color" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

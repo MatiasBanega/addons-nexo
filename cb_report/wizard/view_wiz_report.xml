@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sample_data_form_view">
+            <field name="name">report.report_cb_report.form</field>
+            <field name="model">report.report_cb_report</field>
+            <field name="arch" type="xml">
+                <form string="Sample Data">
+                    <group colspan="4" col="4">
+                        <field name='select_all_rec' string="Select All"/>
+                        <field name='deselect_all_rec' string="Deselect All"/>
+                    </group>
+                    <field name='project_ids'>
+                        <tree editable="1">
+                            <field name="project_product_duty"/>
+                            <field name="project_shipping_charge"/>
+                            <field name="report_wizard_bool"/>
+                            <field name="project_categ_id"/>
+                            <field name='type_id'/>
+                            <field name='name'/>
+                            <field name='job_allocation_date'/>
+                            <field name='partner_id'/>
+                            <field name='arrival_date'/>
+                            <field name='job_ba_number'/>
+                            <field name='items_total_weight'/>
+                            <field name='schedule_item_count'/>
+                            <field name='items_total_size'/>
+                            <field name='bill_of_lading'/>
+                            <field name='job_paar'/>
+                            <field name='job_form_m'/>
+                            <field name='job_form_m_date'/>
+                            <field name='job_carrier_id'/>
+                            <field name='vessel_det'/>
+                            <field name='discharge_port_id'/>
+                            <field name='discharge_terminal_id'/>
+                            <field name='origin_country_id'/>
+                            <field name='country_of_destination'/>
+                            <field name='company_id'/>
+                            <field name='date_start'/>
+                            <field name='date'/>
+                            <field name='user_id'/>
+                            <field name='last_update_status'/>
+                            <field name='stage_id'/>
+                        </tree>
+                    </field>
+
+                    <footer>
+                        <button name="generate_xlsx_report" type="object" string="Print C &amp; B Report"
+                                class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="act_cb_report" model="ir.actions.act_window">
+            <field name="name">C &amp; B Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.report_cb_report</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'model': 'report.report_cb_report'}</field>
+            <field name="view_id" ref="sample_data_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <!--        <menuitem id="custom_cb_report" name="C &amp; B Report"-->
+        <!--            groups="cb_report.group_cb_report_visibility"-->
+        <!--            action="act_cb_report"-->
+        <!--            parent="project.menu_main_pm" sequence="22"/>-->
+
+        <record id="phl_project_base_tree_ext" model="ir.ui.view">
+            <field name="name">Job List</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project_description.phl_project_base_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree string="Jobs">
+                        <field name="name"/>
+                        <field name="job_refs"/>
+                        <field name="type_id"/>
+                        <field name="feet_forty"/>
+                        <field name="feet_twenty"/>
+                        <field name="cbm"/>
+                        <field name="kg"/>
+                        <field name="description"/>
+                        <field name="shipping_line"/>
+                        <field name="terminal"/>
+                        <field name="ata"/>
+                        <field name="job_tdo"/>
+                        <field name="date_delivery_complete"/>
+                        <field name="project_shipping_charge"/>
+                        <field name="dest_port"/>
+                        <field name="docs_copy_received"/>
+                        <field name="project_product_duty"/>
+                        <field name="project_categ_id"/>
+                        <field name='job_allocation_date'/>
+                        <field name='partner_id'/>
+                        <field name='arrival_date'/>
+                        <field name='job_ba_number'/>
+                        <field name='items_total_weight'/>
+                        <field name='schedule_item_count'/>
+                        <field name='items_total_size'/>
+                        <field name='bill_of_lading'/>
+                        <field name='job_paar'/>
+                        <field name='job_form_m'/>
+                        <field name='job_form_m_date'/>
+                        <field name='job_carrier_id'/>
+                        <field name='vessel_det'/>
+                        <field name='discharge_port_id'/>
+                        <field name='discharge_terminal_id'/>
+                        <field name='origin_country_id'/>
+                        <field name='country_of_destination'/>
+                        <field name='company_id'/>
+                        <field name='date_start'/>
+                        <field name='date'/>
+                        <field name='user_id'/>
+                        <field name='last_update_status'/>
+                        <field name='stage_id'/>
+                        <field name="wht"/>
+                        <field name='total_cost'/>
+                        <field name='total_income'/>
+                        <field name='total_profit'/>
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+
+        <menuitem id="custom_cb_report" name="C &amp; B Report"
+                  action="project_description.open_view_project_report_all"
+                  parent="sale.sale_menu_root" sequence="4"/>
+    </data>
+</odoo>

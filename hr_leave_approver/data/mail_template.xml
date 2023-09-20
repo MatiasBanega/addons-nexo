@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="mail_template_leave" model="mail.template">
+            <field name="name">Leave Request Approval</field>
+            <field name="email_from">{{ ctx.get('email_from') }}</field>
+            <field name="subject">Approval Request {{ ctx.get('title') }}</field>
+            <field name="email_to">{{ ctx.get('recipient') }}</field>
+            <field name="model_id" ref="account.model_account_move" />
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Hi!
+                        <div>This <a t-att-href="ctx.get('url')">leave request </a> has been submitted for your approval or review </div>
+                        <br />
+                        <div>Regards,</div>
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

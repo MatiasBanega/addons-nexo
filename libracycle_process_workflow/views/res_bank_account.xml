@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_bank_account" model="ir.actions.act_window">
+        <field name="name">Bank Account</field>
+        <field name="res_model">res.bank.account</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first bank account</p>
+        </field>
+    </record>
+    <record id="view_partner_bank_form" model="ir.ui.view">
+        <field name="name">res.bank.account.form</field>
+        <field name="model">res.bank.account</field>
+        <field name="priority">15</field>
+        <field name="arch" type="xml">
+            <form string="Bank account">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}" />
+                    <group>
+                        <group>
+                            <field name="sequence" invisible="1" />
+                            <field name="acc_type" invisible="1" />
+                            <field name="acc_number" />
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" />
+                            <field name="acc_holder_name" />
+                            <field name="description" />
+                        </group>
+                        <group>
+                            <field name="bank_id" />
+                            <field name="currency_id" groups="base.group_multi_currency" options="{'no_create': True}" />
+                            <field name="sortcode" />
+                            <field name="active" invisible="1" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_partner_bank_tree" model="ir.ui.view">
+        <field name="name">res.bank.account.tree</field>
+        <field name="model">res.bank.account</field>
+        <field name="arch" type="xml">
+            <tree string="Bank Accounts">
+                <field name="sequence" widget="handle" />
+                <field name="acc_number" />
+                <field name="bank_name" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="partner_id" />
+                <field name="acc_holder_name" invisible="1" />
+                <field name="sortcode" />
+            </tree>
+        </field>
+    </record>
+    <menuitem id="custom_banks_menu" action="res_bank_account" parent="account.account_banks_menu" />
+</odoo>

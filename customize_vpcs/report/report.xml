@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo> 
+    <record id="report_waybill_xlsx" model="ir.actions.report">
+        <field name="name">Waybill XLS Report</field>
+        <field name="model">project.schedule.items</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">customize_vpcs.report_waybill_xlsx</field>
+        <field name="report_file">customize_vpcs.report_waybill_xlsx</field>
+        <field name="binding_model_id" ref="model_project_schedule_items"/>
+        <field name="binding_type">report</field>
+    </record>
+    <record id="report_barged_xlsx" model="ir.actions.report">
+        <field name="name">Barged XLS Report</field>
+        <field name="model">project.schedule.items</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">customize_vpcs.report_barged_xlsx</field>
+        <field name="report_file">customize_vpcs.report_barged_xlsx</field>
+        <field name="binding_model_id" ref="model_project_schedule_items"/>
+        <field name="binding_type">report</field>
+    </record>
+    <record id="report_operation_report" model="ir.actions.report">
+        <field name="name">Operation Report</field>
+        <field name="model">project.project</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">customize_vpcs.report_operation_report</field>
+        <field name="report_file">customize_vpcs.report_operation_report</field>
+        <field name="binding_model_id" ref="model_project_project"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_project_schedule_items_user,project.Schedule Items,model_project_schedule_items,project.group_project_user,1,1,1,0
+access_project_project_schedule_items,project.Schedule Items,model_project_schedule_items,project.group_project_manager,1,1,1,1
+access_project_project,project.User,model_project_project,project.group_project_user,1,1,1,0
+access_project_port,project.project.port,model_project_port,project.group_project_user,1,1,1,1

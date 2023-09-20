@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+
+		<record id="project_stage_inheriteds" model="ir.ui.view">
+            <field name="name">project.task.type.form.data</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_edit"/>
+            <field name="arch" type="xml">
+            	<xpath expr='//form/sheet/group/group/field[@name="name"]' position="after">
+            		<field name="project_check"/>
+            	</xpath>
+            </field>
+        </record>
+
+		<record id="project_project_inherites" model="ir.ui.view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+
+            	<!-- <xpath expr="//field[@name='stage_id']" position="replace">
+            		<field name="stage_id" widget="statusbar" domain="[('project_check','=',True)]" groups="project.group_project_stages"/>
+            	</xpath> -->
+
+            	<xpath expr="//header" position="inside">
+	            		<button string="Set as Template" type="object" name="set_template" 
+	            		class="oe_highlight"  attrs="{'invisible':[('sequence_state','!=',2)]}"/>
+	            		<button string="Set to In Progress" type="object" name="set_progress" 
+	            		class="oe_highlight"  attrs="{'invisible':[('sequence_state','!=',1)]}"/>
+	            		<button string="New Project Based On Template" type="object" name="new_project" class="oe_highlight" attrs="{'invisible':[('sequence_state','!=',3)]}"/>
+	            		<button string="Reset as Project" type="object" name="reset_project" 
+	            		class="oe_highlight" attrs="{'invisible':[('sequence_state','!=',3)]}" />
+	            </xpath>
+
+	            <sheet position="inside">
+	            	<xpath expr='//div[@name="options_active"]/div/field[@name="use_tasks"]' position="before">
+	            		<group>
+	            			<field name="sequence_state" invisible="1"/>
+	            		</group>
+	            	</xpath>
+	            </sheet>
+            </field>
+        </record>
+
+        <menuitem action="project.open_view_project_all_config" id="menu_project_template" 
+        	name="Templates Of Projects" parent="project.menu_project_config" sequence="11"/>
+
+	</data>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ng_ir_request_approve,access_ng_ir_request_approve,model_ng_ir_request_approve,ng_internal_requisition_user,1,1,1,0
+access_ng_ir_request,access_ng_ir_request,model_ng_ir_request,ng_internal_requisition_user,1,1,1,0
+access_ng_hr_employee,access_ng_hr_employee,hr.model_hr_employee,ng_internal_requisition_user,1,1,0,0
+access_ir_request_wizard,access_ir_request_wizard,model_ir_request_wizard,base.group_user,1,1,1,1

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="project_product_category_main" model="product.category">
+            <field name="parent_id" ref="product.product_category_all"/>
+            <field name="name">Deliverable Items</field>
+        </record>
+
+        <record id="project_product_item_01" model="product.product">
+            <field name="name">Container</field>
+            <field name="categ_id" ref="project_product_category_main"/>
+            <field name="standard_price">1</field>
+            <field name="list_price">1</field>
+            <field name="sale_ok">False</field>
+            <field name="purchase_ok">False</field>
+            <field name="type">product</field>
+            <field name="uom_id" ref="product.product_uom_foot"/>
+            <field name="uom_po_id" ref="product.product_uom_foot"/>
+            <field name="description">Container products</field>
+            <field name="default_code">CONTAINER_DILV</field>
+            <field name="is_project_item">True</field>
+        </record>
+
+        <record id="project_product_item_02" model="product.product">
+            <field name="name">Parcel(s)</field>
+            <field name="categ_id" ref="project_product_category_main"/>
+            <field name="standard_price">1</field>
+            <field name="list_price">1</field>
+            <field name="type">product</field>
+            <field name="uom_id" ref="product.product_uom_kgm"/>
+            <field name="uom_po_id" ref="product.product_uom_kgm"/>
+            <field name="description">Parcel(s) products</field>
+            <field name="default_code">PARCEL_DILV</field>
+            <field name="is_project_item">True</field>
+        </record>
+
+        
+
+    </data>
+</odoo>

@@ -1,0 +1,83 @@
+<odoo>
+    <data>
+        <record id="project_extra" model="ir.ui.view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_title')]" position="before">
+                    <div class="oe_right oe_button_box" name="button_box">
+                        <group cols='12' style="text-align:left;">
+                            <button class="oe_stat_button" type="object" name="get_duty_invoice_lines" icon="fa-tasks"
+                                    context="{'button':'duty'}">
+                                <field string="Duty" name="duty_count" style="margin-left:10px;" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="get_shipping_invoice_lines"
+                                    icon="fa-tasks" context="{'button':'shipping'}">
+                                <field string="Shipping" name="shipping_count" style="margin-left:10px;"
+                                       widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="get_terminal_invoice_lines"
+                                    style="margin-left:-0.25rem;" icon="fa-tasks" context="{'button':'terminal'}">
+                                <field string="Terminal" name="terminal_count" style="margin-left:10px;"
+                                       widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="get_nafdac_invoice_lines" icon="fa-tasks"
+                                    context="{'button':'nafdac'}">
+                                <field string="nafdac" name="nafdac_count" style="margin-left:10px;" widget="statinfo"/>
+                            </button>
+                        </group>
+                        <group cols='12' style="text-align:left;">
+                            <button class="oe_stat_button" type="object" name="get_son_invoice_lines" icon="fa-tasks"
+                                    context="{'button':'son'}">
+                                <field string="Son" name="son_count" style="margin-left:10px;" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="get_agency_invoice_lines" icon="fa-tasks"
+                                    context="{'button':'agency'}">
+                                <field string="Agency" name="agency_count" style="margin-left:10px;" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" type="object" style="margin-left:-0.75rem;"
+                                    name="get_transportation_invoice_lines" icon="fa-tasks"
+                                    context="{'button':'transportation'}">
+                                <field string="Transportation" name="transportation_count"
+                                       style="margin-left:10px;padding-left:-0.75rem;" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="get_others_invoice_lines" icon="fa-tasks"
+                                    context="{'button':'others'}">
+                                <field string="Others" name="others_count" style="margin-left:10px;" widget="statinfo"/>
+                            </button>
+                        </group>
+                    </div>
+                </xpath>
+
+                <xpath expr='//field[@name="team_id"]' position="after">
+                    <field name="project_product_duty" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="project_shipping_charge" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="project_terminal_charge" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="project_nafdac" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="project_son" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="project_agency" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="project_transportation" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="project_others" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="wht" groups="cb_report.group_cb_finance"/>
+                    <field name="customer_duty" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="customer_shipping_charge" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="customer_terminal_charge" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="customer_nafdac" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="customer_son" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="customer_agency" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="customer_transportation" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="customer_others" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="customer_untaxed_value" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="customer_vat" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="customer_total_invoice_value" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="customer_invoice_paid" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="customer_invoice_unpaid" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="total_cost" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="total_income" readonly='1' groups="cb_report.group_cb_finance"/>
+                    <field name="total_profit" readonly='1' groups="cb_report.group_cb_finance"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

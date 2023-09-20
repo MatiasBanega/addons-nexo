@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sweep_report_xls" model="ir.actions.report">
+        <field name="name">Sweep Report</field>
+        <field name="model">sweep.report</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">sweep_report.sweep_report_xls</field>
+        <field name="report_file">sweep_report.sweep_report_xls</field>
+        <field name="binding_type">report</field>
+    </record>
+<!--        <report id="report_sweep_xlsx"-->
+<!--                model="account.move"-->
+<!--                string="Sweep Report"-->
+<!--                report_type="xlsx"-->
+<!--                name="sweep_report.report_sweep_report"-->
+<!--                file="sweep_report.report_sweep_report"-->
+<!--                attachment_use="False"/>-->
+
+</odoo>

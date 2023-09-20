@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bill_quantity,access_bill_quantity,model_bill_quantity,,1,1,1,1
+access_material_line,access_material_line,model_material_line,,1,1,1,1
+access_bill_quantity_line,access_bill_quantity_line,model_bill_quantity_line,,1,1,1,1
+access_cost_code,access_cost_code,model_cost_code,,1,1,1,1
+access_project_deliverables,access_project_deliverables,model_project_deliverables,,1,1,1,1
+access_cost_header,access_cost_header,model_cost_header,,1,1,1,1
+access_work_package,access_work_package,model_work_package,,1,1,1,1
+access_subtask_wizard,subtask.wizard,model_subtask_wizard,,1,1,1,1
+access_product_product_extension,product.product.extension,model_product_product_extension,,1,1,1,1
+access_work_package_extension,access.work.package.extension,model_work_package_extension,,1,1,1,1
+access_purchase_order_wizard,access.purchase.order.wizard,model_purchase_order_wizard,,1,1,1,1
+access_product_purchase_order,access.product.purchase.order,model_product_purchase_order,,1,1,1,1
+access_material_details,access.material.details,model_material_details,,1,1,1,1
+access_material_consume,access.material.consume,model_material_consume,,1,1,1,1

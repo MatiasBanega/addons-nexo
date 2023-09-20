@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="project_port_view" model="ir.ui.view">
+            <field name="name">project.port.form</field>
+            <field name="model">project.port</field>
+            <field name="arch" type="xml">
+                <form string="ModelTitle">
+                    <sheet>
+                        <h1>
+                            <field name="name" placeholder="Port Name" />
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="address" />
+                            </group>
+                            <group>
+                                <field name="port_country_id" />
+                                <field name="port_state_id" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="project_port_tree_view" model="ir.ui.view">
+            <field name="name">project.port.tree</field>
+            <field name="model">project.port</field>
+            <field name="arch" type="xml">
+                <tree string="Project Port">
+                    <field name="name" />
+                    <field name="address" />
+                    <field name="port_state_id" />
+                    <field name="port_country_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="project_port_search_view" model="ir.ui.view">
+            <field name="name">project.port.search</field>
+            <field name="model">project.port</field>
+            <field name="arch" type="xml">
+                <search string="Port filters">
+                    <group expand="1" string="Group By">
+                        <filter string="Country" name="port_country_id" domain="[]" context="{'group_by':'port_country_id'}" />
+                        <filter string="State" name="port_state_id" domain="[]" context="{'group_by':'port_state_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="project_port_act_window" model="ir.actions.act_window">
+            <field name="name">Project Port</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.port</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no port, click here to add new Project Port.
+                </p>
+            </field>
+        </record>
+        <menuitem name="Port Management" id="project_port_menu" parent="project.menu_project_config" action="project_port_act_window"/>
+    </data>
+</odoo>

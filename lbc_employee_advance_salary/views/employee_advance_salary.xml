@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="employee_advance_salary_form_view" model="ir.ui.view">
+        <field name="name">employee.advance.salary.form.view.lbc.form</field>
+        <field name="model">employee.advance.salary</field>
+        <field name='inherit_id' ref="employee_advance_salary.employee_advance_salary_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,admin,officer,qac,director_1,director_2,account,paid,done" />
+            </xpath>
+            <xpath expr="//button[@name='exit_cancel']" position="replace">
+                <button string="Reject" name="get_reject" states="admin,officer,qac,director_1,director_2" type="object" />
+            </xpath>
+            <xpath expr="//button[@name='get_reject']" position="before">
+                <button string="Approve" name="admin_approval" states="admin" type="object" class="oe_highlight" groups="libracycle_process_workflow.group_admin" />
+                <button string="Approve" name="officer_approval" states="officer" type="object" class="oe_highlight" groups="libracycle_process_workflow.group_officer" />
+                <button string="Review" name="qac_approval" states="qac" type="object" class="oe_highlight" groups="libracycle_process_workflow.group_qac" />
+                <button string="Approve" name="director_1_approval" states="director_1" type="object" class="oe_highlight" />
+                <button string="Approve" name="director_2_approval" states="director_2" type="object" class="oe_highlight" groups="libracycle_process_workflow.group_director_2" />
+                <button string="Pay" name="get_apprv_account" states="account" type="object" class="oe_highlight" groups="account.group_account_user,account.group_account_manager" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
