@@ -96,10 +96,10 @@ class LinkedinSocial(http.Controller):
 
         li_suit_credent = {}
         li_suit_credent['access_token'] = access_token
-        member_url = 'https://api.linkedin.com/v2/me'
+        member_url = 'https://api.linkedin.com/v2/userinfo'
         response = recruitment.get_urn('GET', member_url, li_suit_credent['access_token'])
         urn_response_text = response.json()
-        li_credential['profile_urn'] = urn_response_text['id']
+        li_credential['profile_urn'] = urn_response_text['sub']
         li_suit_credent['li_credential'] = li_credential
         payload = json.dumps({
             "author": "urn:li:person:" + li_credential['profile_urn'],

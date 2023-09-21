@@ -3,6 +3,8 @@ Please ensure that listed packaged has installed in your system:
 
 * python-linkedin (sudo python-linkedin)
 * mechanize (sudo pip install mechanize)
+* python-linkedin-v2
+
 
 
 

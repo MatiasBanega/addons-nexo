@@ -57,9 +57,7 @@ class HrJobShare(models.Model):
                 'client_id': linkedin_client_id,
                 'redirect_uri': self._get_linkedin_post_redirect_uri(),
                 'state': self.id,
-                'scope': 'r_liteprofile r_emailaddress w_member_social r_1st_connections_size r_ads r_ads_reporting '
-                         'r_basicprofile r_organization_admin r_organization_social rw_ads rw_organization_admin '
-                         'w_member_social w_organization_social',
+                'scope': 'openid profile w_member_social email',
             }
         else:
             raise ValidationError(_('LinkedIn Access Credentials are empty.!\n'
