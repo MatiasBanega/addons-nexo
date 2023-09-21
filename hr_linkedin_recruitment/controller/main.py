@@ -94,8 +94,7 @@ class LinkedinSocial(http.Controller):
 
         url = 'https://api.linkedin.com/v2/ugcPosts'
 
-        li_suit_credent = {}
-        li_suit_credent['access_token'] = access_token
+        li_suit_credent = {'access_token': access_token}
         member_url = 'https://api.linkedin.com/v2/userinfo'
         response = recruitment.get_urn('GET', member_url, li_suit_credent['access_token'])
         urn_response_text = response.json()
@@ -151,8 +150,7 @@ class LinkedinSocial(http.Controller):
                                                return_uri,
                                                li_permissions)
 
-        li_suit_credent = {}
-        li_suit_credent['access_token'] = access_token
+        li_suit_credent = {'access_token': access_token}
         page_share_url = 'https://api.linkedin.com/v2/ugcPosts'
 
         response = recruitment.get_urn('GET', page_share_url, li_suit_credent['access_token'])
