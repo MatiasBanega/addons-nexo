@@ -94,7 +94,7 @@ class HrJobShare(models.Model):
     def likes_comments(self):
         """retrieving total count of likes and comments"""
         self.like_comment = True
-        print(self.access_token)
+        _logger.info('Access Token: a %s', self.access_token)
         urn = self.access_token.split('+')[1]
         url = "https://api.linkedin.com/rest/socialActions/" + urn
         payload = {}
