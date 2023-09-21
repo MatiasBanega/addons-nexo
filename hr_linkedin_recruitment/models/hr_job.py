@@ -36,8 +36,8 @@ class HrJobShare(models.Model):
 
     update_key = fields.Char(string='Update Key', readonly=True)
     access_token = fields.Char(string='Access Token', help='Access token for your linkedin app')
-    comments = fields.Boolean(default=False,string='Likes Comments',help='Which is used to visible the like comment retrieving button')
-    like_comment = fields.Boolean(default=False,string='Likes comment',help='Which is used to visible the smart buttons of likes and comments')
+    comments = fields.Boolean(default=False, string='Likes Comments', help='Which is used to visible the like comment retrieving button')
+    like_comment = fields.Boolean(default=False, string='Likes comment', help='Which is used to visible the smart buttons of likes and comments')
     post_likes = fields.Integer(string='Likes Count', help="Total Number of likes in the shared post")
     post_commands = fields.Integer(string='Comments Count', help="Total Number of Comments in the shared post")
 
@@ -94,7 +94,7 @@ class HrJobShare(models.Model):
     def likes_comments(self):
         """retrieving total count of likes and comments"""
         self.like_comment = True
-        #print(access_token)
+        print(self.access_token)
         urn = self.access_token.split('+')[1]
         url = "https://api.linkedin.com/rest/socialActions/" + urn
         payload = {}
