@@ -1,0 +1,3 @@
+[submodule "logos_invoice"]
+	path = logos_invoice
+	url = https://github.com/wsf/logos_invoice.git
