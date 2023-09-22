@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="inherit_for_custom_logo" inherit_id="web.external_layout_standard">
+    <template id="inherit_for_custom_logo" inherit_id="web.external_layout_bold">
         <xpath expr="//div[1]/div[1]/div[1]" position="replace">
-            <div class="mb4">
+            <div class="col-6">
                     <img t-if="doc.team_id.logo" t-att-src="image_data_uri(doc.team_id.logo)" width="50" height="50"  margin-top="0px" />
             </div>
         </xpath>
