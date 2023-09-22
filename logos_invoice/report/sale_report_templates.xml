@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="inherit_for_custom_logo" inherit_id="web.external_layout_standard">
+        <xpath expr="//div[hasclass('col-3')]" position="replace">
+            <div class="mb4">
+                    <img t-if="doc.team_id.logo" t-att-src="image_data_uri(doc.team_id.logo)" width="50" height="50"  margin-top="0px" />
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_saleorder_document_logo" inherit_id="sale.report_saleorder_document">
+
+    </template>
+
+</odoo>

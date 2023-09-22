@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="crm_team_salesteams_view_form_logo" model="ir.ui.view">
+            <field name="name">crm.team.form_logo</field>
+            <field name="model">crm.team</field>
+            <field name="priority">9</field>
+            <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='options_active']" position="inside">
+                    <div class="o_row" style="display:inherit">
+                        <div>
+                            <p>Logo para los documentos:</p>
+                            <field name="logo" string = "Logo para los documentos:" widget="image" class="oe_left oe_avatar" options="{'image_preview': 'image_128'}"/>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+</odoo>

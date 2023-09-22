@@ -1,0 +1,11 @@
+<template id="inherit_for_custom_logo" inherit_id="web.external_layout_standard">
+    <xpath expr="//div[hasclass('col-3')]" position="replace">
+            <div class="mb4">
+                <img t-if="company.logo"
+                     t-att-src="image_data_uri(company.logo)"
+                     class="mx-auto d-flex justify-content-center"
+                     style="max-height: 45px;"
+                     alt="Logo"/>
+            </div>
+    </xpath>
+</template>

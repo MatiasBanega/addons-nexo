@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <template id="external_layout_header_invoice_logo" inherit_id="web.external_layout_standard">
+    external_layout_striped
+    external_layout_standard
+    external_layout_bold
+        <xpath expr="//div[1]" position="replace">
+
+
+        < xpath expr ="//div[@t-attf-class='header o_company_#{company.id}_layout']/div/div/div/ img"
+           position ="replace" >
+
+t-att-src='image_data_uri(company.logo)'
+        <xpath expr ="//div/div/div/img[@t-att-src='image_data_uri(company.logo)']"
+mb4mb4
+
+        <template id="external_layout_header_invoice_logo" inherit_id="web.external_layout_standard">
+t-attf-class='header o_company_#{company.id}_layout'
+
+<t t-set="company.logo" t-value=""></t>
+                <t t-raw="company.logo" ></t>
+
+
+
+    <template id="external_layout_header_invoice_logo" inherit_id="web.external_layout_bold">
+        <xpath expr="//div[1]" position="replace">
+                <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)" style="max-height: 45px;" alt="Logo2"/>
+        </xpath>
+   </template>
+-->
+
+        <template id="external_layout_header_invoice_logo" inherit_id="web.external_layout_standard">
+        <xpath expr="//div[1]" position="replace">
+            <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)" style="max-height: 45px;" alt="Logo"/>
+        </xpath>
+
+    </template>
+
+
+</odoo>

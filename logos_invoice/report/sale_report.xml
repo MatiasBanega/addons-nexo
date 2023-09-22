@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_saleorder_logo" model="ir.actions.report">
+            <field name="name">Logo Ale</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">logos_invoice.report_saleorder_document2</field>
+            <field name="report_file">logos_invoice.sale_report_templates2</field>
+            <field name="print_report_name">'Documento Logo'</field>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>
