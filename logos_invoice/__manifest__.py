@@ -1,12 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     "name": "Logos_Invoice",
     "version": "1.0",
-    "author": "ADHOC SA - wsf",
+    "author": "DEVMAN",
     'category': 'Accounting/Localizations',
     "summary": "LATAM Document Types",
     'description': """
-Mósudo para Logos 
+Módulo para Logos en presupuestos y facturas de acuerdo al equipo de ventas y el diario de facturación 
 
 """,
     "depends": [
