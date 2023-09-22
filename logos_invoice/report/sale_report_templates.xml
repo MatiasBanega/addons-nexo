@@ -2,7 +2,7 @@
 <odoo>
 
     <template id="inherit_for_custom_logo" inherit_id="web.external_layout_standard">
-        <xpath expr="//div[hasclass('col-3')]" position="replace">
+        <xpath expr="//div[1]/div[1]/div[1]" position="replace">
             <div class="mb4">
                     <img t-if="doc.team_id.logo" t-att-src="image_data_uri(doc.team_id.logo)" width="50" height="50"  margin-top="0px" />
             </div>
