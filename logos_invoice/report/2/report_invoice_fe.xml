@@ -22,7 +22,7 @@
                 <!--COMPANY LOGO-->
                 <div class="col-3 text-left">
                     <!--<img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="display: block !important; float: left !important; position: absolute !important; margin-top: 0px !important; margin-bottom: 0px !important; top: 10px !important; left: 10px !important; bottom: auto !important; max-height: 95px;"/>-->
-             <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)" style="max-height: 200px; max-width: 200px; margin-top=20px" alt="Logo"/>
+                    <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)" style="max-height: 200px; max-width: 200px; margin-top=20px" alt="Logo"/>
 
                 </div><!--END COMPANY LOGO-->
                 <!--FE-->
@@ -40,7 +40,7 @@
                 <!--TIPO,NRO Y FECHA FACTURA-->
                 <div class="col-5 text-left" name="company_address" style="padding-left: 80px !important;">
                   <h6>
-			  <span t-field="o.l10n_latam_document_type_id.report_name"></span>
+			        <span t-field="o.l10n_latam_document_type_id.report_name"></span>
                   </h6>
                   <span t-if="o.state == 'posted' or o.state == 'draft'">
                           Fecha: <span t-field="o.invoice_date"/><br/>
