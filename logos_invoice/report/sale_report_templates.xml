@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <div class="o_clean_header" t-if="doc.journal_id.logo">
+            <!--<div class="o_clean_header" t-if="doc.journal_id.logo">
                 <div class="row">
                     <div class="col-6">
                             <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)" width="100" height="100"  margin-top="20px" alt="Logo" />
@@ -42,7 +42,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </xpath>
     </template>
 
