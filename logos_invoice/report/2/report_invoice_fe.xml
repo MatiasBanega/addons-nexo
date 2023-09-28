@@ -23,14 +23,14 @@
                             <div class="row m-0">
                                 <!--<img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="display: block !important; float: left !important; position: absolute !important; margin-top: 0px !important; margin-bottom: 0px !important; top: 10px !important; left: 10px !important; bottom: auto !important; max-height: 95px;"/>-->
                                 <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)"
-                                     style="max-height: 45px;" alt="Logo"/>
+                                     style="max-height: 200px; max-width: 200px; margin-top=20px" alt="Logo"/>
                             </div>
                         </div><!--END COMPANY LOGO-->
                         <!--FE-->
-                        <div class="col-2 text-center" style="margin-top: 42px;">
-                            <span style="font-size: 11px;">Comprobante<br/>electrónico - ORIGINAL
-                            </span>
-                        </div>
+<!--                        <div class="col-2 text-center" style="margin-top: 42px;">-->
+<!--                            <span style="font-size: 11px;">Comprobante<br/>electrónico - ORIGINAL-->
+<!--                            </span>-->
+<!--                        </div>-->
                         <!--END FE-->
                         <!--DOCUMENT LETTER-->
                         <div class="col-2 text-center">
@@ -56,10 +56,10 @@
 <!--                            <span t-if="o.state == 'posted' or o.state == 'draft'">-->
 <!--                                <span t-field="o.display_name"/>-->
 <!--                            </span>-->
-                            <p style="font-size: 8px;">
-                                Tipo de Documento
-                                <span t-field="o.l10n_latam_document_type_id.name"/>
-                            </p>
+<!--                            <p style="font-size: 8px;">-->
+<!--                                Tipo de Documento-->
+<!--                                <span t-field="o.l10n_latam_document_type_id.name"/>-->
+<!--                            </p>-->
                         </div>
                         <!--END DATOS FACTURA-->
                     </div>
@@ -121,17 +121,17 @@
                         <!--END MY COMPANY-->
                     </div>
                     <div class="row m-0" style="margin-top: 2px; margin-bottom: 0px;">
-                        <div class="col-8"
-                             t-if="o.move_type == 'out_invoice' and (o.state == 'posted') and o.l10n_ar_afip_service_start and o.l10n_ar_afip_service_end">
-                            Período facturado desde:
-                            <span t-if="o.l10n_ar_afip_service_start">
-                                <span t-field="o.l10n_ar_afip_service_start" t-options="{'format': 'dd/MM/yyyy'}"/>
-                            </span>
-                            hasta:
-                            <span t-if="o.l10n_ar_afip_service_end">
-                                <span t-field="o.l10n_ar_afip_service_end" t-options="{'format': 'dd/MM/yyyy'}"/>
-                            </span>
-                        </div>
+<!--                        <div class="col-8"-->
+<!--                             t-if="o.move_type == 'out_invoice' and (o.state == 'posted') and o.l10n_ar_afip_service_start and o.l10n_ar_afip_service_end">-->
+<!--                            Período facturado desde:-->
+<!--                            <span t-if="o.l10n_ar_afip_service_start">-->
+<!--                                <span t-field="o.l10n_ar_afip_service_start" t-options="{'format': 'dd/MM/yyyy'}"/>-->
+<!--                            </span>-->
+<!--                            hasta:-->
+<!--                            <span t-if="o.l10n_ar_afip_service_end">-->
+<!--                                <span t-field="o.l10n_ar_afip_service_end" t-options="{'format': 'dd/MM/yyyy'}"/>-->
+<!--                            </span>-->
+<!--                        </div>-->
                         <div class="col-4"
                              t-if="o.move_type == 'out_invoice' and (o.state == 'posted' or o.state == 'paid')">
                             Fecha Vto:
