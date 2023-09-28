@@ -23,22 +23,22 @@
                             <div class="row m-0">
                                 <!--<img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="display: block !important; float: left !important; position: absolute !important; margin-top: 0px !important; margin-bottom: 0px !important; top: 10px !important; left: 10px !important; bottom: auto !important; max-height: 95px;"/>-->
                                 <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)"
-                                     style="max-height: 45px;" alt="Logo"/>
+                                     style="max-height: 170px; max-width: 200px; margin-top=20px" alt="Logo"/>
                             </div>
                         </div><!--END COMPANY LOGO-->
                         <!--FE-->
                         <div class="col-2 text-center" style="margin-top: 42px;">
-                            <span style="font-size: 11px;">Comprobante<br/>electrónico - ORIGINAL
-                            </span>
-                        </div>
+<!--                            <span style="font-size: 11px;">Comprobante<br/>electrónico - ORIGINAL-->
+<!--                            </span>-->
+-                        </div>
                         <!--END FE-->
                         <!--DOCUMENT LETTER-->
-                        <div class="col-2 text-center">
+                        <div class="col-4 text-center">
                             <div class="card" style="margin:0px;">
                                 <div class="card-header" style="font-size: 48px;padding:0px;">
                                     <span t-field="o.l10n_latam_document_type_id.l10n_ar_letter"/>
                                 </div>
-                                <div class="card-body" style="height: 20px;padding:0px;">cod.
+                                <div class="card-body" style="height: 20px;padding:0px;">Cod.
                                     <span t-field="o.l10n_latam_document_type_id.code"/>
                                 </div>
                             </div>
@@ -56,8 +56,8 @@
 <!--                            <span t-if="o.state == 'posted' or o.state == 'draft'">-->
 <!--                                <span t-field="o.display_name"/>-->
 <!--                            </span>-->
-                            <p style="font-size: 8px;">
-                                Tipo de Documento
+                            <p style="font-size: 12px;">
+                                Tipo de Documento:
                                 <span t-field="o.l10n_latam_document_type_id.name"/>
                             </p>
                         </div>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="row m-0">
                         <!--MY COMPANY-->
-                         <div class="col-6">
+                         <div class="col-7">
 
                                 <span t-field="o.company_id.name"/><br/>
 
@@ -123,14 +123,14 @@
                     <div class="row m-0" style="margin-top: 2px; margin-bottom: 0px;">
                         <div class="col-8"
                              t-if="o.move_type == 'out_invoice' and (o.state == 'posted') and o.l10n_ar_afip_service_start and o.l10n_ar_afip_service_end">
-                            Período facturado desde:
+                            <!--Período facturado desde:
                             <span t-if="o.l10n_ar_afip_service_start">
                                 <span t-field="o.l10n_ar_afip_service_start" t-options="{'format': 'dd/MM/yyyy'}"/>
                             </span>
                             hasta:
                             <span t-if="o.l10n_ar_afip_service_end">
                                 <span t-field="o.l10n_ar_afip_service_end" t-options="{'format': 'dd/MM/yyyy'}"/>
-                            </span>
+                            </span>-->
                         </div>
                         <div class="col-4"
                              t-if="o.move_type == 'out_invoice' and (o.state == 'posted' or o.state == 'paid')">
@@ -161,24 +161,24 @@
                         <!--END MY COMPANY-->
                         <!-- CLIENTE  -->
                         <div class="row m-0" style="margin-top:2px;">
-<!--                            <div class="col-6" style="font-size: 18px;">-->
-<!--                                    Cliente: <span t-field="o.partner_id.name"/> <br/>-->
-<!--                                    Cond.IVA: <span t-field="o.partner_id.l10n_ar_afip_responsibility_type_id.name"/><br/>-->
-<!--                                    CUIT: <span t-field="o.partner_id.vat"/>-->
-<!--                            </div>-->
-                            <div name="invoice_address" class="col-6">
-                                    <strong>Cliente:</strong> <span t-field="o.partner_id.name"/>
-                                    <br/>
-                                    <t t-if="o.partner_id.street"><span t-field="o.partner_id.street"/>,
-                                    </t>
-                                    <t t-if="o.partner_id.city"><span t-field="o.partner_id.city"/>,
-                                    </t>
-                                    <t t-if="o.partner_id.state_id"><span t-field="o.partner_id.state_id.name"/>,
-                                    </t>
-                                    <t t-if="o.partner_id.country_id">
-                                        <span t-field="o.partner_id.country_id.name"/>
-                                    </t>
+                            <div class="col-6" style="font-size: 18px;">
+                                    Cliente: <span t-field="o.partner_id.name"/> <br/>
+                                    Cond.IVA: <span t-field="o.partner_id.l10n_ar_afip_responsibility_type_id.name"/><br/>
+                                    CUIT: <span t-field="o.partner_id.vat"/>
                             </div>
+<!--                            <div name="invoice_address" class="col-6">-->
+<!--                                    <strong>Cliente:</strong> <span t-field="o.partner_id.name"/>-->
+<!--                                    <br/>-->
+<!--                                    <t t-if="o.partner_id.street"><span t-field="o.partner_id.street"/>,-->
+<!--                                    </t>-->
+<!--                                    <t t-if="o.partner_id.city"><span t-field="o.partner_id.city"/>,-->
+<!--                                    </t>-->
+<!--                                    <t t-if="o.partner_id.state_id"><span t-field="o.partner_id.state_id.name"/>,-->
+<!--                                    </t>-->
+<!--                                    <t t-if="o.partner_id.country_id">-->
+<!--                                        <span t-field="o.partner_id.country_id.name"/>-->
+<!--                                    </t>-->
+<!--                            </div>-->
                             <div name="invoice_address" class="col-6">
                                 <strong>CUIT: </strong>
                                 <span t-field="o.partner_id.vat"/>
@@ -191,15 +191,15 @@
                         <!-- END CLIENTE  -->
                         <!-- ENCABEZADO FACTURA -->
                         <div class="row m-0" style="margin-top:2px;">
-                            <div class="col-2" t-if="o.currency_id">
-                              <strong>Moneda: </strong>
-                              <p class="m-0" t-field="o.currency_id.name"/>
-                            </div>
-                            <div class="col-2" t-if="o.currency_id.id != o.company_id.currency_id.id">
-                              <strong>Cotiz: </strong>
-                              <p class="m-0" t-field="o.l10n_ar_currency_rate"/>
-                            </div>
-                            <div class="col-2" t-if="o.invoice_origin">
+<!--                            <div class="col-2" t-if="o.currency_id">-->
+<!--                              <strong>Moneda: </strong>-->
+<!--                              <p class="m-0" t-field="o.currency_id.name"/>-->
+<!--                            </div>-->
+<!--                            <div class="col-2" t-if="o.currency_id.id != o.company_id.currency_id.id">-->
+<!--                              <strong>Cotiz: </strong>-->
+<!--                              <p class="m-0" t-field="o.l10n_ar_currency_rate"/>-->
+<!--                            </div>-->
+                            <div class="col-6" t-if="o.invoice_origin">
                               <strong>Origen: </strong>
                               <p class="m-0" t-field="o.invoice_origin"/>
                             </div>
