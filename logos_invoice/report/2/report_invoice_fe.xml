@@ -33,7 +33,7 @@
 <!--                        </div>-->
                         <!--END FE-->
                         <!--DOCUMENT LETTER-->
-                        <div class="col-2 text-center">
+                        <div class="col-4 text-center">
                             <div class="card" style="margin:0px;">
                                 <div class="card-header" style="font-size: 48px;padding:0px;">
                                     <span t-field="o.l10n_latam_document_type_id.l10n_ar_letter"/>
@@ -56,10 +56,10 @@
 <!--                            <span t-if="o.state == 'posted' or o.state == 'draft'">-->
 <!--                                <span t-field="o.display_name"/>-->
 <!--                            </span>-->
-<!--                            <p style="font-size: 8px;">-->
-<!--                                Tipo de Documento-->
-<!--                                <span t-field="o.l10n_latam_document_type_id.name"/>-->
-<!--                            </p>-->
+                            <p style="font-size: 8px;">
+                                Tipo de Documento
+                                <span t-field="o.l10n_latam_document_type_id.name"/>
+                            </p>
                         </div>
                         <!--END DATOS FACTURA-->
                     </div>
@@ -121,17 +121,17 @@
                         <!--END MY COMPANY-->
                     </div>
                     <div class="row m-0" style="margin-top: 2px; margin-bottom: 0px;">
-<!--                        <div class="col-8"-->
-<!--                             t-if="o.move_type == 'out_invoice' and (o.state == 'posted') and o.l10n_ar_afip_service_start and o.l10n_ar_afip_service_end">-->
-<!--                            Período facturado desde:-->
-<!--                            <span t-if="o.l10n_ar_afip_service_start">-->
-<!--                                <span t-field="o.l10n_ar_afip_service_start" t-options="{'format': 'dd/MM/yyyy'}"/>-->
-<!--                            </span>-->
-<!--                            hasta:-->
-<!--                            <span t-if="o.l10n_ar_afip_service_end">-->
-<!--                                <span t-field="o.l10n_ar_afip_service_end" t-options="{'format': 'dd/MM/yyyy'}"/>-->
-<!--                            </span>-->
-<!--                        </div>-->
+                        <div class="col-8"
+                             t-if="o.move_type == 'out_invoice' and (o.state == 'posted') and o.l10n_ar_afip_service_start and o.l10n_ar_afip_service_end">
+                            <!--Período facturado desde:
+                            <span t-if="o.l10n_ar_afip_service_start">
+                                <span t-field="o.l10n_ar_afip_service_start" t-options="{'format': 'dd/MM/yyyy'}"/>
+                            </span>
+                            hasta:
+                            <span t-if="o.l10n_ar_afip_service_end">
+                                <span t-field="o.l10n_ar_afip_service_end" t-options="{'format': 'dd/MM/yyyy'}"/>
+                            </span>-->
+                        </div>
                         <div class="col-4"
                              t-if="o.move_type == 'out_invoice' and (o.state == 'posted' or o.state == 'paid')">
                             Fecha Vto:
