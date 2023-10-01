@@ -19,23 +19,23 @@
                 <div class="header" style="margin-bottom: 0px;">
                     <div class="row m-0" style="margin-bottom: 0px;">
                         <!--COMPANY LOGO-->
-                        <div class="col-3 text-left">
+                        <div class="col-4 text-left">
                             <div class="row m-0">
                                 <!--<img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="display: block !important; float: left !important; position: absolute !important; margin-top: 0px !important; margin-bottom: 0px !important; top: 10px !important; left: 10px !important; bottom: auto !important; max-height: 95px;"/>-->
                                 <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)"
-                                     style="max-height: 45px;" alt="Logo"/>
+                                     style="max-height: 70px; max-width: 70px; margin-top=20px" alt="Logo"/>
                             </div>
                         </div><!--END COMPANY LOGO-->
                         <!--FE-->
-                        <div class="col-2 text-center" style="margin-top: 42px;">
-                            <span style="font-size: 11px;">Comprobante<br/>electrónico - ORIGINAL
-                            </span>
-                        </div>
+<!--                        <div class="col-2 text-center" style="margin-top: 42px;">-->
+<!--                            <span style="font-size: 11px;">Comprobante<br/>electrónico - ORIGINAL-->
+<!--                            </span>-->
+<!--                        </div>-->
                         <!--END FE-->
                         <!--DOCUMENT LETTER-->
-                        <div class="col-2 text-center">
+                        <div class="col-4 text-center">
                             <div class="card" style="margin:0px;">
-                                <div class="card-header" style="font-size: 48px;padding:0px;">
+                                <div style="font-size: 36px;">
                                     <span t-field="o.l10n_latam_document_type_id.l10n_ar_letter"/>
                                 </div>
                                 <div class="card-body" style="height: 20px;padding:0px;">cod.
@@ -44,7 +44,7 @@
                             </div>
                         </div><!--END DOCUMENT LETTER-->
                         <!--TIPO,NRO Y FECHA FACTURA-->
-                        <div class="col-5 text-right" style="margin-left:20px;" name="company_address">
+                        <div class="col-4 text-right" style="margin-left:20px;" name="company_address">
                             <h4>
                                 <span t-field="o.l10n_latam_document_type_id.report_name"/>
                             </h4>
@@ -86,10 +86,10 @@
                                     <span t-field="o.company_id.partner_id.phone"/>
                                 </t><br/>
                                 <t t-if="o.company_id.partner_id.website">
-                                    <span t-field="o.company_id.partner_id.website"/> -
+                                    <span t-field="o.company_id.partner_id.website" style="color:#808080;"/> -
                                 </t>
                                 <t t-if="o.company_id.partner_id.email">
-                                    <span t-field="o.company_id.partner_id.email"/>
+                                    <span t-field="o.company_id.partner_id.email" style="color:#808080;"/>
                                 </t>
                          </div>
                          <div class="col-6 text-right" style="margin-left:30px;">
@@ -120,38 +120,40 @@
                          </div>
                         <!--END MY COMPANY-->
                     </div>
-                    <div class="row m-0" style="margin-top: 2px; margin-bottom: 0px;">
-                        <div class="col-8"
-                             t-if="o.move_type == 'out_invoice' and (o.state == 'posted') and o.l10n_ar_afip_service_start and o.l10n_ar_afip_service_end">
-                            Período facturado desde:
-                            <span t-if="o.l10n_ar_afip_service_start">
-                                <span t-field="o.l10n_ar_afip_service_start" t-options="{'format': 'dd/MM/yyyy'}"/>
-                            </span>
-                            hasta:
-                            <span t-if="o.l10n_ar_afip_service_end">
-                                <span t-field="o.l10n_ar_afip_service_end" t-options="{'format': 'dd/MM/yyyy'}"/>
-                            </span>
-                        </div>
-                        <div class="col-4"
-                             t-if="o.move_type == 'out_invoice' and (o.state == 'posted' or o.state == 'paid')">
-                            Fecha Vto:
-                            <span t-if="o.invoice_date_due">
-                                <span t-field="o.invoice_date_due"/>
-                            </span>
-                            <span t-if="not o.invoice_date_due">
-                                <span t-field="o.invoice_date"/>
-                            </span>
-                        </div>
-                    </div>
-                </div><!--END HEADER-->
+<!--                    <div class="row m-0" style="margin-top: 2px; margin-bottom: 0px;">-->
+<!--                        <div class="col-8"-->
+<!--                             t-if="o.move_type == 'out_invoice' and (o.state == 'posted') and o.l10n_ar_afip_service_start and o.l10n_ar_afip_service_end">-->
+<!--                            Período facturado desde:-->
+<!--                            <span t-if="o.l10n_ar_afip_service_start">-->
+<!--                                <span t-field="o.l10n_ar_afip_service_start" t-options="{'format': 'dd/MM/yyyy'}"/>-->
+<!--                            </span>-->
+<!--                            hasta:-->
+<!--                            <span t-if="o.l10n_ar_afip_service_end">-->
+<!--                                <span t-field="o.l10n_ar_afip_service_end" t-options="{'format': 'dd/MM/yyyy'}"/>-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                        <div class="col-4"-->
+<!--                             t-if="o.move_type == 'out_invoice' and (o.state == 'posted' or o.state == 'paid')">-->
+<!--                            Fecha Vto:-->
+<!--                            <span t-if="o.invoice_date_due">-->
+<!--                                <span t-field="o.invoice_date_due"/>-->
+<!--                            </span>-->
+<!--                            <span t-if="not o.invoice_date_due">-->
+<!--                                <span t-field="o.invoice_date"/>-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+                <!--END HEADER-->
+                <br/>
+                <br/>
                 <!--PAGE-->
                 <div class="page" style="position:relative;">
                     <img src="/logos_invoice/static/src/img/bg_background_template.jpg" style="position: absolute; left:0; top:0; transform: translate(-50%,-50%); z-index:-1; width: 100%; height: 100%;"/>
 
-                    <div style="margin-top:0px;">
                         <!--MY COMPANY-->
                         <div class="row m-0">
-                            <div class="col-6" style="margin-top: 100px;">
+                            <div class="col-6" style="margin-top: 30px;">
 
                             </div>
                             <div class="col-6">
@@ -161,14 +163,9 @@
                         <!--END MY COMPANY-->
                         <!-- CLIENTE  -->
                         <div class="row m-0" style="margin-top:2px;">
-<!--                            <div class="col-6" style="font-size: 18px;">-->
-<!--                                    Cliente: <span t-field="o.partner_id.name"/> <br/>-->
-<!--                                    Cond.IVA: <span t-field="o.partner_id.l10n_ar_afip_responsibility_type_id.name"/><br/>-->
-<!--                                    CUIT: <span t-field="o.partner_id.vat"/>-->
-<!--                            </div>-->
-                            <div name="invoice_address" class="col-6">
-                                    <strong>Cliente:</strong> <span t-field="o.partner_id.name"/>
-                                    <br/>
+                            <div class="col-6" style="font-size: 18px;">
+                                <strong>Cliente:</strong> <span t-field="o.partner_id.name"/> <br/>
+                                <small>
                                     <t t-if="o.partner_id.street"><span t-field="o.partner_id.street"/>,
                                     </t>
                                     <t t-if="o.partner_id.city"><span t-field="o.partner_id.city"/>,
@@ -178,50 +175,83 @@
                                     <t t-if="o.partner_id.country_id">
                                         <span t-field="o.partner_id.country_id.name"/>
                                     </t>
+                                </small><br/>
+                                <strong>Cond.IVA:</strong> <span t-field="o.partner_id.l10n_ar_afip_responsibility_type_id.name"/><br/>
+                                <strong>CUIT:</strong> <span t-field="o.partner_id.vat"/>
                             </div>
-                            <div name="invoice_address" class="col-6">
-                                <strong>CUIT: </strong>
-                                <span t-field="o.partner_id.vat"/>
-                                <p>
-                                    <strong>Cond.IVA: </strong>
-                                    <span t-field="o.partner_id.l10n_ar_afip_responsibility_type_id.name"/>
-                                </p>
+<!--                            <div name="invoice_address" class="col-6">-->
+<!--                                    <strong>Cliente:</strong> <span t-field="o.partner_id.name"/>-->
+<!--                                    <br/>-->
+<!--                                    <t t-if="o.partner_id.street"><span t-field="o.partner_id.street"/>,-->
+<!--                                    </t>-->
+<!--                                    <t t-if="o.partner_id.city"><span t-field="o.partner_id.city"/>,-->
+<!--                                    </t>-->
+<!--                                    <t t-if="o.partner_id.state_id"><span t-field="o.partner_id.state_id.name"/>,-->
+<!--                                    </t>-->
+<!--                                    <t t-if="o.partner_id.country_id">-->
+<!--                                        <span t-field="o.partner_id.country_id.name"/>-->
+<!--                                    </t>-->
+<!--                            </div>-->
+                            <div name="invoice_address" class="col-6" style="font-size: 18px;">
+                                <div class="row"
+                                     t-if="o.move_type == 'out_invoice' and (o.state == 'posted' or o.state == 'paid')">
+                                    <strong>Fecha Vencimiento:</strong>
+                                    <span t-if="o.invoice_date_due">
+                                        <span t-field="o.invoice_date_due"/>
+                                    </span>
+                                    <span t-if="not o.invoice_date_due">
+                                        <span t-field="o.invoice_date"/>
+                                    </span>
+                                </div>
+                                <div class="row">
+                                    <p t-if="o.invoice_payment_term_id" class="mt-2">
+                                        <strong>Plazo de Pago:</strong>
+                                        <span t-field="o.invoice_payment_term_id"/>
+                                    </p>
+
+                                </div>
+<!--                                <strong>CUIT: </strong>-->
+<!--                                <span t-field="o.partner_id.vat"/>-->
+<!--                                <p>-->
+<!--                                    <strong>Cond.IVA: </strong>-->
+<!--                                    <span t-field="o.partner_id.l10n_ar_afip_responsibility_type_id.name"/>-->
+<!--                                </p>-->
                             </div>
                         </div>
                         <!-- END CLIENTE  -->
                         <!-- ENCABEZADO FACTURA -->
-                        <div class="row m-0" style="margin-top:2px;">
-                            <div class="col-2" t-if="o.currency_id">
-                              <strong>Moneda: </strong>
-                              <p class="m-0" t-field="o.currency_id.name"/>
-                            </div>
-                            <div class="col-2" t-if="o.currency_id.id != o.company_id.currency_id.id">
-                              <strong>Cotiz: </strong>
-                              <p class="m-0" t-field="o.l10n_ar_currency_rate"/>
-                            </div>
-                            <div class="col-2" t-if="o.invoice_origin">
-                              <strong>Origen: </strong>
-                              <p class="m-0" t-field="o.invoice_origin"/>
-                            </div>
-                            <div class="col-2" t-if="o.partner_id.ref">
-                              <strong>Cod. Cliente: </strong>
-                              <p class="m-0" t-field="o.partner_id.ref"/>
-                            </div>
-                            <!-- div name="reference" class="col-2" t-if="o.reference">
-                              <strong>Remito:</strong>
-                              <p t-field="o.reference"/>
-                            </div -->
-                        </div>
+<!--                        <div class="row m-0" style="margin-top:2px;">-->
+<!--                            <div class="col-2" t-if="o.currency_id">-->
+<!--                              <strong>Moneda: </strong>-->
+<!--                              <p class="m-0" t-field="o.currency_id.name"/>-->
+<!--                            </div>-->
+<!--                            <div class="col-2" t-if="o.currency_id.id != o.company_id.currency_id.id">-->
+<!--                              <strong>Cotiz: </strong>-->
+<!--                              <p class="m-0" t-field="o.l10n_ar_currency_rate"/>-->
+<!--                            </div>-->
+<!--                            <div class="col-2" t-if="o.invoice_origin">-->
+<!--                              <strong>Origen: </strong>-->
+<!--                              <p class="m-0" t-field="o.invoice_origin"/>-->
+<!--                            </div>-->
+<!--                            <div class="col-2" t-if="o.partner_id.ref">-->
+<!--                              <strong>Cod. Cliente: </strong>-->
+<!--                              <p class="m-0" t-field="o.partner_id.ref"/>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; div name="reference" class="col-2" t-if="o.reference">-->
+<!--                              <strong>Remito:</strong>-->
+<!--                              <p t-field="o.reference"/>-->
+<!--                            </div &ndash;&gt;-->
+<!--                        </div>-->
                         <!-- END ENCABEZADO FACTURA -->
                         <!-- Is there a discount on at least one line? -->
                         <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
                         <!-- TABLA ITEMS -->
-                        <table class="table" style="margin-top:2px;">
+                        <table class="table" style="margin-top:5px; margin-left:10px;">
                             <thead>
                                 <tr>
-                                    <th style="padding: 8px;">Código</th>
+<!--                                    <th style="padding: 8px;">Código</th>-->
                                     <th style="padding: 8px;">Producto / Servicio</th>
-                                    <th class="hidden" style="padding: 8px;">Origen</th>
+<!--                                    <th class="hidden" style="padding: 8px;">Origen</th>-->
                                     <th class="text-right" style="padding: 8px;">Cantidad</th>
                                     <!--<div t-if="o.journal_document_type_id.document_type_id.document.l10n_ar_letter_id.name != 'B'">-->
                                     <th style="padding: 8px;" class="text-right">Precio Unit.</th>
@@ -236,9 +266,9 @@
                             <tbody>
                                 <tr t-foreach="o.invoice_line_ids" t-as="l">
                                     <t t-if="not l.display_type">
-                                        <td style="padding: 5px;"><span t-field="l.product_id.default_code" /></td>
+<!--                                        <td style="padding: 5px;"><span t-field="l.product_id.default_code" /></td>-->
                                         <td style="padding: 5px;"><span t-field="l.product_id.name" style="padding: 5px; font-weight: lighter;"/></td>
-                                        <td style="padding: 5px;" class="hidden"><span t-field="l.move_id.invoice_origin"/></td>
+<!--                                        <td style="padding: 5px;" class="hidden"><span t-field="l.move_id.invoice_origin"/></td>-->
                                         <td style="padding: 5px;" class="text-right">
                                             <span t-esc="'{0:,.2f}'.format(l.quantity)"/>
                                             <span t-field="l.uom_id" groups="product.group_uom"/>
@@ -294,7 +324,7 @@
                         <div class="row m-0">
                             <div class="col-7 m-9" />
                             <div class="col-5 m-0">
-                                  <table class="table table-condensed" style="border: 0 solid transparent;border-style: none;">
+                                  <table class="table table-condensed" style="border: 0 solid transparent;border-style: none; margin-left:25px;">
                                       <tr style="border: 0 solid transparent;border-style: none;" t-if="o.l10n_latam_document_type_id.l10n_ar_letter != 'B'">
                                           <td style="border: 0 solid transparent;border-style: none;"><strong>Subtotal</strong></td>
                                           <td style="border: 0 solid transparent;border-style: none;" class="text-right">
@@ -387,9 +417,8 @@
                             Régimen de Sostenimiento e Inclusión Fiscal para Pequeños Contribuyentes de la Ley Nro. 27.168
                         </p>
                         <br/>
-
-                    </div><!--END PAGE-->
                 </div>
+                    <!--END PAGE-->
                 <!-- CAE -->
                 <div class="footer">
                     <div class="row m-0">
