@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 
 class HrEmployeePublicError(models.Model):
-    _inherit = 'hr.employee.public'
+    _inherit = 'hr.employee'
 
     other = fields.Char()
     device_id = fields.Char()
