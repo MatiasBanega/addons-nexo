@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id='notification_nexo_action' model='ir.actions.act_window'>
+        <field name="name">Condición</field>
+        <field name="res_model">notification.nexo</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Notification" id="nexo_notification_menu" action="notification_nexo_action"/>
+
+    <!-- Form View --><!-- Form View -->
+    <record id="notification_nexo_form" model="ir.ui.view">
+        <field name="name">Formulario</field>
+        <field name="model">notification.nexo</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <button name="action_notification" type="object" string="CLICK ME!"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- end form -->
+
+</odoo>
