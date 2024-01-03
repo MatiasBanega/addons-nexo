@@ -78,7 +78,7 @@ odoo.define("notification.Notify", function (require) {
             type: "danger",
             title: "Registrar marcación de salida",
             message: "Recordá registrar tu marcación de salida",
-            sticky: false,
+            sticky: true,
           });
 
           executed = true;
@@ -118,7 +118,7 @@ odoo.define("notification.Notify", function (require) {
             type: "danger",
             title: "Registrar marcación de salida",
             message: "Recordá registrar tu marcación de salida",
-            sticky: false,
+            sticky: true,
           });
 
           executed = true;
