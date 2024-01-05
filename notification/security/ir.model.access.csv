@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+notification_nexo,nexo_notification_model,model_notification_nexo,,1,1,1,1

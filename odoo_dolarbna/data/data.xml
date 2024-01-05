@@ -1,0 +1,8 @@
+<odoo>
+  <data noupdate="0">
+    <record id="auth_password_minlength" model="ir.config_parameter">
+      <field name="key">dolar_bna</field>
+      <field name="value">https://www.bna.com.ar/Personas</field>
+    </record>
+  </data>
+</odoo>
