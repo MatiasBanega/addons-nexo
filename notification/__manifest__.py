@@ -2,9 +2,9 @@
 {
     'name': 'Nexo Notification',
     'version': '1',
-    'summary': 'Nexo Notification',
+    'summary': 'Nexo Notification - https://youtu.be/J-0MFaTZQCc',
     'sequence': -103,
-    'description': """Nexo Notification""",
+    'description': """Nexo Notification - https://youtu.be/J-0MFaTZQCc""",
     'license': 'AGPL-3',
     'depends': ['base'],
     'data': [
