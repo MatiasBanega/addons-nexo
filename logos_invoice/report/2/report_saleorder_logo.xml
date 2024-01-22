@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <template id="report_fe_invoice_document2">
+        <template id="report_saleorder_logo_temp">
             <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
             <!-- Multicompany -->
             <t t-if="not o and doc">
@@ -21,8 +21,9 @@
                         <!--COMPANY LOGO-->
                         <div class="col-4 text-left">
                             <div class="row m-0">
-                                <!--<img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="display: block !important; float: left !important; position: absolute !important; margin-top: 0px !important; margin-bottom: 0px !important; top: 10px !important; left: 10px !important; bottom: auto !important; max-height: 95px;"/>-->
-                                <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)"
+                                <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="display: block !important; float: left !important; position: absolute !important; margin-top: 0px !important; margin-bottom: 0px !important; top: 10px !important; left: 10px !important; bottom: auto !important; max-height: 95px;"/>
+                               <!-- <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)" -->
+                                <img t-if="o.team_id.logo" t-att-src="image_data_uri(o.team_id.logo)"
                                      style="max-height: 70px; max-width: 70px; margin-top=20px" alt="Logo"/>
                             </div>
                         </div><!--END COMPANY LOGO-->
@@ -67,45 +68,18 @@
                         <!--MY COMPANY-->
                          <div class="col-6">
 
-                             <t t-if="not o.journal_id.logo">
-                                    <span t-field="o.company_id.name"/><br/>
-
-                                    <t t-if="o.company_id.partner_id.street"><span
-                                        t-field="o.company_id.partner_id.street"/> -
-                                    </t>
-                                    <t t-if="o.company_id.partner_id.city"><span t-field="o.company_id.partner_id.city"/> -
-                                    </t>
-                                    <t t-if="o.company_id.partner_id.state_id"><span
-                                            t-field="o.company_id.partner_id.state_id.name"/> -
-                                    </t>
-                                    <t t-if="o.company_id.partner_id.country_id">
-                                        <span t-field="o.company_id.partner_id.country_id.name"/> -
-                                    </t>
-                                    <br/>
-                                    <t t-if="o.company_id.partner_id.phone">
-                                        Tel:
-                                        <span t-field="o.company_id.partner_id.phone"/>
-                                    </t><br/>
-                                    <t t-if="o.company_id.partner_id.website">
-                                        <span t-field="o.company_id.partner_id.website" style="color:#808080;"/> -
-                                    </t>
-                                    <t t-if="o.company_id.partner_id.email">
-                                        <span t-field="o.company_id.partner_id.email" style="color:#808080;"/>
-                                    </t>
-                             </t>
-                             <t t-else="">
                                 <span t-field="o.company_id.name"/><br/>
 
-                                <t t-if="o.journal_id.street"><span
-                                        t-field="o.journal_id.street"/> -
+                                <t t-if="o.company_id.partner_id.street"><span
+                                        t-field="o.company_id.partner_id.street"/> -
                                 </t>
-                                <t t-if="o.journal_id.city"><span t-field="o.journal_id.city"/> -
+                                <t t-if="o.company_id.partner_id.city"><span t-field="o.company_id.partner_id.city"/> -
                                 </t>
-                                <t t-if="o.journal_id.state_id"><span
-                                        t-field="o.journal_id.state_id.name"/> -
+                                <t t-if="o.company_id.partner_id.state_id"><span
+                                        t-field="o.company_id.partner_id.state_id.name"/> -
                                 </t>
-                                <t t-if="o.journal_id.country_id">
-                                    <span t-field="o.journal_id.country_id.name"/> -
+                                <t t-if="o.company_id.partner_id.country_id">
+                                    <span t-field="o.company_id.partner_id.country_id.name"/> -
                                 </t>
                                 <br/>
                                 <t t-if="o.company_id.partner_id.phone">
@@ -118,7 +92,6 @@
                                 <t t-if="o.company_id.partner_id.email">
                                     <span t-field="o.company_id.partner_id.email" style="color:#808080;"/>
                                 </t>
-                             </t>
                          </div>
                          <div class="col-6 text-right" style="margin-left:30px;">
                              <p class="m-0">
@@ -460,25 +433,25 @@
             </div><!--END ARTICLE-->
         </template>
 
-        <template id="report_invoice_fe2">
+        <template id="report_saleorder_logo_template">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="logos_invoice.report_fe_invoice_document2" t-lang="o.partner_id.lang"/>
+                    <t t-call="logos_invoice.report_saleorder_logo_temp" t-lang="o.partner_id.lang"/>
                 </t>
             </t>
         </template>
 
         <!-- QWeb Reports -->
-        <report
-                id="account_fe_invoices2"
-                model="account.move"
-                string="Facturas Electronicas Logo"
-                print_report_name="((object.name or 'Facturas Electrónicas'))"
-                report_type="qweb-pdf"
-                name="logos_invoice.report_invoice_fe2"
-                file="logos_invoice.report_invoice_fe2"
-                attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
-        />
-
+        <record id="action_report_saleorder_logo2" model="ir.actions.report">
+            <field name="name">Logo Ale creando documento</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">logos_invoice.report_saleorder_logo_template</field>
+            <field name="report_file">logos_invoice.report_saleorder_logo</field>
+            <field name="print_report_name">'Documento Logo'</field>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
     </data>
 </odoo>

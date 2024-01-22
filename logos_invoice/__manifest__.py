@@ -16,10 +16,10 @@ Módulo para Logos en presupuestos y facturas de acuerdo al equipo de ventas y e
         'views/crm_team_views.xml',
         'report/report_invoice.xml',
         'report/sale_report_templates.xml',
-        # 'report/sale_report_templates2.xml',
-        # 'report/sale_report.xml',
+        #'report/sale_report_templates2.xml',
+        'report/sale_report.xml',
         'report/2/report_invoice_fe.xml',
-
+        'report/2/report_inherit_sale_order_document.xml',
         #'security/ir.model.access.csv',
     ],
     'installable': True,

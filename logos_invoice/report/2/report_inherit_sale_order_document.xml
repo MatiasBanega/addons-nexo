@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="inherit_for_custom_logo_sale_order" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//t[1]/t[3]" position="after">
+            <t t-if="doc.team_id.logo">
+                <t t-set="address">
+                    <div t-field="doc.partner_id.name"/>
+                    <div>
+                        <span t-field="doc.team_id.street"/><br/>
+                        <span t-field="doc.team_id.city"/> <span t-field="doc.team_id.state_id"/> <span t-field="doc.team_id.zip"/><br/>
+                        <span t-field="doc.team_id.country_id"/>
+                    </div>
+                    <p t-if="doc.partner_id.vat"><t t-esc="doc.company_id.account_fiscal_country_id.vat_label or 'Tax ID'"/>: <span t-field="doc.partner_id.vat"/></p>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>
