@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="report_sale_order">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="o">
+
+        <style>
+
+          * {
+          font-family: sans-serif;
+          font-size: 14px;
+          }
+
+          .container-info {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          }
+
+          .custom-table td{
+          padding: 4px;
+          }
+          .custom-table th{
+          padding: 4px;
+          }
+
+        </style>
+        <!-- Header -->
+        <div class="logo">
+          <img t-if="o.team_id.logo" t-att-src="image_data_uri(o.team_id.logo)" width="100"
+            height="100" margin-top="20px" alt="Logo" />
+        </div>
+
+        <!-- Container info -->
+        <div class="container-info">
+          <!-- Info del cliente -->
+          <div style="margin-top: 40px;">
+            <t t-if="o.partner_id">
+              <strong>
+                <span t-field="o.partner_id.name" />
+              </strong>
+              <br />
+              <span t-field="o.partner_id.country_id.name" />
+              <br />
+              <span t-field="o.partner_id.state_id.name" />
+              <br />
+              <span t-field="o.partner_id.city" />
+              <br />
+              <span t-field="o.partner_id.street" />
+              <br />
+              <t t-if="o.partner_id.street2">
+                <span t-field="o.partner_id.street2" />
+                <br />
+              </t>
+              <span t-field="o.partner_id.zip" />
+              <br />
+              Tel: <span t-field="o.partner_id.phone" t-options='{"phone_icons": True}' />
+            </t>
+            <p style="color: #555555; font-size: 16px; margin-bottom: 0;">Orden # <span
+                t-field="o.name" /></p>
+            <div style="display: flex; flex-direction: row; margin-top: 0;">
+              <div style="margin-right: 50px">
+                <p style="font-weight: bold; margin-bottom: 0;">Order Date:</p>
+                <span t-field="o.date_order" style="margin-top: 0;"/>
+              </div>
+              <div>
+                <p style="font-weight: bold; margin-bottom: 0;">Salesperson:</p>
+                <span t-field="o.user_id" style="margin-top: 0;"/>
+              </div>
+            </div>
+          </div>
+          <!-- Info del equipo de ventas -->
+          <div>
+            <t t-if="o.team_id">
+              <strong>
+                <span t-field="o.team_id.name" />
+              </strong>
+              <br />
+              <span t-field="o.team_id.country_id.name" />
+              <br />
+              <span t-field="o.team_id.state_id.name" />
+              <br />
+              <span t-field="o.team_id.city" />
+              <br />
+              <span t-field="o.team_id.street" />
+              <br />
+              <span t-field="o.team_id.zip" />
+            </t>
+          </div>
+        </div>
+        <br />
+        <!-- Table -->
+        <table style="width: 100%; text-align: left; border-collapse: collapse;"
+          class="custom-table">
+          <thead>
+            <tr>
+              <th scope="col" style="border-bottom: 1px solid #dee2e6">
+                Descripción
+              </th>
+              <th scope="col" style="border-bottom: 1px solid #dee2e6">
+                Cantidad
+              </th>
+              <th scope="col" style="border-bottom: 1px solid #dee2e6">
+                Precio Unitario
+              </th>
+              <th scope="col" style="border-bottom: 1px solid #dee2e6">
+                Impuestos
+              </th>
+              <th scope="col" style="border-bottom: 1px solid #dee2e6">
+                Subtotal
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <t t-foreach="o.order_line" t-as="order">
+              <tr>
+                <td style="border-bottom: 1px solid #dee2e6">
+                  <p>
+                    <span t-field="order.name" />
+                  </p>
+                </td>
+                <td style="border-bottom: 1px solid #dee2e6">
+                  <span t-field="order.product_uom_qty" /> Unidades </td>
+                <td style="border-bottom: 1px solid #dee2e6">
+                  <span t-field="order.price_unit" />
+                </td>
+                <td style="border-bottom: 1px solid #dee2e6">
+                  <span t-field="order.tax_id" />
+                </td>
+                <td style="border-bottom: 1px solid #dee2e6">
+                  <span t-field="order.price_subtotal" />
+                </td>
+              </tr>
+            </t>
+          </tbody>
+        </table>
+        <!-- Total -->
+        <hr
+          style="margin-bottom: 0; padding-bottom: 0; width: 350px; float: right; margin-top: 15px; color: black;" />
+        <br />
+        <div
+          style="display: flex; flex-direction: row; float: right; justify-content: space-between; width: 300px; margin-right:25px; text-align: center; margin-top: -10px; padding-top: 0;">
+          <p>
+            <strong>Total: </strong>
+          </p>
+          <p>
+            <span t-field="o.amount_total" />
+          </p>
+        </div>
+      </t>
+    </t>
+  </template>
+</odoo>

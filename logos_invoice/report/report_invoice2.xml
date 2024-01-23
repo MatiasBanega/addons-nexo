@@ -6,7 +6,7 @@
         <div>
             <div class="row">
                 <div name="left-upper-side" class="col-5" t-if="not pre_printed_report">
-<!--                    <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)" style="max-height: 45px;" alt="Logo"/>-->
+                    <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)" style="max-height: 45px;" alt="Logo"/>
                 </div>
 
                 <div name="center-upper" class="col-2 text-center" t-att-style="'color: %s;' % o.company_id.primary_color">

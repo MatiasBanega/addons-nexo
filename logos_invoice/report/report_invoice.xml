@@ -31,8 +31,7 @@ t-attf-class='header o_company_#{company.id}_layout'
 
     <template id="external_layout_header_invoice_logo" inherit_id="web.external_layout_standard">
         <xpath expr="//div[1]" position="replace">
-        <!-- Este es el modificado -->
-<!--            <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)" style="max-height: 45px;" alt="Logo"/>-->
+            <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)" style="max-height: 45px;" alt="Logo"/>
         </xpath>
 
     </template>

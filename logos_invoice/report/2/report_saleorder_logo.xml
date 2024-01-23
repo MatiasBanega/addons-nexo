@@ -21,8 +21,8 @@
                         <!--COMPANY LOGO-->
                         <div class="col-4 text-left">
                             <div class="row m-0">
-                                <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="display: block !important; float: left !important; position: absolute !important; margin-top: 0px !important; margin-bottom: 0px !important; top: 10px !important; left: 10px !important; bottom: auto !important; max-height: 95px;"/>
-                               <!-- <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)" -->
+                                <!--<img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="display: block !important; float: left !important; position: absolute !important; margin-top: 0px !important; margin-bottom: 0px !important; top: 10px !important; left: 10px !important; bottom: auto !important; max-height: 95px;"/>-->
+<!--                                <img t-if="o.journal_id.logo" t-att-src="image_data_uri(o.journal_id.logo)"-->
                                 <img t-if="o.team_id.logo" t-att-src="image_data_uri(o.team_id.logo)"
                                      style="max-height: 70px; max-width: 70px; margin-top=20px" alt="Logo"/>
                             </div>

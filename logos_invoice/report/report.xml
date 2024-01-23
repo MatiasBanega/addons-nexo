@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- PAPER FORMAT -->
+        <record id="paperformat_sale_order" model="report.paperformat">
+            <field name="name">Format - Sale Order</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">7</field>
+            <field name="margin_bottom">7</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!-- REPORT -->
+        <record id="action_report_saleorder_logo" model="ir.actions.report">
+            <field name="name">Presupuesto / Pedido Logo</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">logos_invoice.report_sale_order</field>
+            <field name="report_file">logos_invoice.report_sale_order</field>
+            <field name="print_report_name">'Documento Logo'</field>
+            <field name="binding_model_id" ref="sale.model_sale_order" />
+            <field name="model_id" ref="sale.model_sale_order" />
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_sale_order" />
+        </record>
+
+
+    </data>
+</odoo>
