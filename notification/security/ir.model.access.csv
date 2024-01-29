@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 notification_nexo,nexo_notification_model,model_notification_nexo,,1,1,1,1
+notification_access_to_ir_config_parameter,nexo_notification_access,model_ir_config_parameter,base.group_user,1,0,0,0

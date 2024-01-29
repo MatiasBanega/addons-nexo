@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-  <template id="report_sale_order2">
+  <template id="report_sale_order_custom_nexo">
     <t t-call="web.html_container">
       <t t-foreach="docs" t-as="o">
         <t t-call="web.external_layout">
@@ -12,7 +12,7 @@
           </style>
 
           <!-- HEADER -->
-          <table width="100%" style="margin-top: -40px;">
+          <table width="100%">
             <thead>
               <tr>
                 <th style="width: 33%;max-width: 33%;text-align:left;">
@@ -39,73 +39,76 @@
           </table>
 
           <!-- Info equipo de ventas -->
-          <div style="display:flex; justify-content: space-between; font-size: 18px;">
-            <div>
-              <p>
-                <t t-esc="o.team_id.name" />
-              </p>
-              <p><t t-esc="o.team_id.street" />, <t t-esc="o.team_id.city" />
-              </p>
-              <p>
-                <t
-                  t-esc="o.team_id.state_id.name" />, <t t-esc="o.team_id.country_id.name" />
-              </p>
-            </div>
-            <div>
-              <p>
-                <strong>Nro:</strong>
-                <t t-esc="o.name" />
-              </p>
-              <p>
-                <strong>Fecha:</strong>
-                <t t-esc="o.date_order"
-                  t-options='{"widget": "datetime", "format": "dd/MM/yyyy"}' />
-              </p>
-
-            </div>
-          </div>
+          <table style="width: 100%; font-size: 18px;">
+            <tbody>
+              <tr>
+                <td style="float: left;">
+                  <p>
+                    <t t-esc="o.team_id.name" />
+                  </p>
+                  <p><t t-esc="o.team_id.street" />, <t t-esc="o.team_id.city" />
+                  </p>
+                  <p>
+                    <t
+                      t-esc="o.team_id.state_id.name" />, <t t-esc="o.team_id.country_id.name" />
+                  </p>
+                </td>
+                <td style="float: right;">
+                  <p>
+                    <strong>Nro:</strong>
+                    <t t-esc="o.name" />
+                  </p>
+                  <p>
+                    <strong>Fecha:</strong>
+                    <t t-esc="o.date_order"
+                      t-options='{"widget": "datetime", "format": "dd/MM/yyyy"}' />
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
           <hr />
           <!-- Datos del cliente  -->
-          <div
-            style="display: flex; justify-content: space-between: align-items: center; font-size: 18px;">
-            <div style="margin-right: 70px;">
-              <p>
-                <strong>Cliente:</strong>
-                <t t-esc="o.partner_id.name" />
-              </p>
-              <p>
-                <t t-esc="o.partner_id.street" />
-              </p>
-              <t t-if="o.partner_id.street2">
+          <table
+            style="width: 100%; font-size: 18px;">
+            <tr>
+              <td>
                 <p>
-                  <t t-esc="o.partner_id.street2" />
+                  <strong>Cliente:</strong>
+                  <t t-esc="o.partner_id.name" />
                 </p>
-              </t>
-              <p>
-                <t t-esc="o.partner_id.city" />
-                <t t-esc="o.partner_id.zip" />
-              </p>
-              <p>
-                <strong>Cond. IVA:</strong>
-                <t t-esc="o.partner_id.l10n_ar_afip_responsibility_type_id.name" />
-              </p>
-              <p>
-                <strong>CUIT:</strong>
-                <t t-esc="o.partner_id.vat" />
-              </p>
-              <br />
-              <p>
-                <strong>Importe</strong>
-              </p>
-            </div>
-            <div style="margin-left: 70px;">
-              <p>
-                <strong>Comercial:</strong>
-                <t t-esc="o.user_id.name" />
-              </p>
-            </div>
-          </div>
-
+                <p>
+                  <t t-esc="o.partner_id.street" />
+                </p>
+                <t t-if="o.partner_id.street2">
+                  <p>
+                    <t t-esc="o.partner_id.street2" />
+                  </p>
+                </t>
+                <p>
+                  <t t-esc="o.partner_id.city" />
+                  <t t-esc="o.partner_id.zip" />
+                </p>
+                <p>
+                  <strong>Cond. IVA:</strong>
+                  <t t-esc="o.partner_id.l10n_ar_afip_responsibility_type_id.name" />
+                </p>
+                <p>
+                  <strong>CUIT:</strong>
+                  <t t-esc="o.partner_id.vat" />
+                </p>
+              </td>
+              <td style="margin-left: 70px;">
+                <p>
+                  <strong>Comercial:</strong>
+                  <t t-esc="o.user_id.name" />
+                </p>
+              </td>
+            </tr>
+          </table>
+          <h5>
+            <strong>Importe</strong>
+          </h5>
           <table class="table" width="100%" style="font-size: 18px;">
             <thead>
               <tr>
@@ -119,18 +122,45 @@
             <tbody>
               <t t-foreach="o.order_line" t-as="order">
                 <tr>
-                  <td>
-                    <t t-esc="order.name" />
-                  </td>
-                  <td><t t-esc="order.product_uom_qty" /> Unidades</td>
-                  <td>
-                    <t t-esc="order.price_unit" />
-                  </td>
-                  <td>
-                    <t t-esc="order.tax_id.name" />
-                  </td>
-                  <td style="text-align: right;"> $ <t t-esc="order.price_subtotal" />
-                  </td>
+                  <t t-if="not order.display_type">
+                    <td>
+                      <t t-esc="order.name" />
+                    </td>
+                    <td>
+                      <t t-esc="order.product_uom_qty" /> Unidades </td>
+                    <td>
+                      <t t-esc="order.price_unit" />
+                    </td>
+                    <td>
+                      <t t-esc="order.tax_id.name" />
+                    </td>
+                    <td style="text-align: right;"> $ <t t-esc="order.price_subtotal" />
+                    </td>
+                  </t>
+                  <t t-else="">
+                    <t t-if="order.display_type == 'line_section'">
+                      <td>
+                        <strong>
+                          <t t-esc="order.name" />
+                        </strong>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </t>
+                    <t t-if="order.display_type == 'line_note'">
+                      <td>
+                        <i>
+                          <t t-esc="order.name" />
+                        </i>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </t>
+                  </t>
                 </tr>
               </t>
             </tbody>
