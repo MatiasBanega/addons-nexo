@@ -1,206 +1,208 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <template id="report_sale_order_custom_nexo">
     <t t-call="web.html_container">
-      <t t-foreach="docs" t-as="o">
-        <t t-call="web.external_layout">
-          <style>
-            * {
-            margin: 0;
-            padding: 0;
-            }
-          </style>
-
-          <!-- HEADER -->
-          <table width="100%">
-            <thead>
-              <tr>
-                <th style="width: 33%;max-width: 33%;text-align:left;">
-                  <img t-if="o.team_id.logo" t-att-src="image_data_uri(o.team_id.logo)"
-                    width="200" />
-                  <!-- <p>Foto</p> -->
-                </th>
-                <th style="width: 33%;max-width: 33%; text-align: center;">
-                  <span style="font-size: 42px; color: #96af77;">X</span>
-                  <br />
-                  <p style="font-size: 14px; margin-top: -5px; color: #96af77;"> Doc.no valido como<br />
-                    factura </p>
-                </th>
-                <th style="width: 33%;max-width: 33%; text-align: right;">
-                  <t t-if="o.state == 'sale'">
-                    <p style="color: #96af77; font-size: 24px;">Pedido</p>
-                  </t>
-                  <t t-if="o.state == 'draft'">
-                    <p style="color: #96af77; font-size: 24px;">Presupuesto</p>
-                  </t>
-                </th>
-              </tr>
-            </thead>
-          </table>
-
-          <!-- Info equipo de ventas -->
-          <table style="width: 100%; font-size: 18px;">
-            <tbody>
-              <tr>
-                <td style="float: left;">
-                  <p>
-                    <t t-esc="o.team_id.name" />
-                  </p>
-                  <p><t t-esc="o.team_id.street" />, <t t-esc="o.team_id.city" />
-                  </p>
-                  <p>
-                    <t
-                      t-esc="o.team_id.state_id.name" />, <t t-esc="o.team_id.country_id.name" />
-                  </p>
-                </td>
-                <td style="float: right;">
-                  <p>
-                    <strong>Nro:</strong>
-                    <t t-esc="o.name" />
-                  </p>
-                  <p>
-                    <strong>Fecha:</strong>
-                    <t t-esc="o.date_order"
-                      t-options='{"widget": "datetime", "format": "dd/MM/yyyy"}' />
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <hr />
-          <!-- Datos del cliente  -->
-          <table
-            style="width: 100%; font-size: 18px;">
-            <tr>
-              <td>
-                <p>
-                  <strong>Cliente:</strong>
-                  <t t-esc="o.partner_id.name" />
-                </p>
-                <p>
-                  <t t-esc="o.partner_id.street" />
-                </p>
-                <t t-if="o.partner_id.street2">
-                  <p>
-                    <t t-esc="o.partner_id.street2" />
-                  </p>
-                </t>
-                <p>
-                  <t t-esc="o.partner_id.city" />
-                  <t t-esc="o.partner_id.zip" />
-                </p>
-                <p>
-                  <strong>Cond. IVA:</strong>
-                  <t t-esc="o.partner_id.l10n_ar_afip_responsibility_type_id.name" />
-                </p>
-                <p>
-                  <strong>CUIT:</strong>
-                  <t t-esc="o.partner_id.vat" />
-                </p>
-              </td>
-              <td style="margin-left: 70px;">
-                <p>
-                  <strong>Comercial:</strong>
-                  <t t-esc="o.user_id.name" />
-                </p>
-              </td>
-            </tr>
-          </table>
-          <h5>
-            <strong>Importe</strong>
-          </h5>
-          <table class="table" width="100%" style="font-size: 18px;">
-            <thead>
-              <tr>
-                <th>Descripción</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-                <th>%IVA</th>
-                <th>SubTotal</th>
-              </tr>
-            </thead>
-            <tbody>
-              <t t-foreach="o.order_line" t-as="order">
+      <t t-call="web.basic_layout">
+        <t t-foreach="docs" t-as="o">
+          <div class="page">
+            <style>
+              * {
+              margin: 0;
+              padding: 0;
+              }
+            </style>
+            <!-- HEADER -->
+            <table width="100%">
+              <thead>
                 <tr>
-                  <t t-if="not order.display_type">
-                    <td>
-                      <t t-esc="order.name" />
-                    </td>
-                    <td>
-                      <t t-esc="order.product_uom_qty" /> Unidades </td>
-                    <td>
-                      <t t-esc="order.price_unit" />
-                    </td>
-                    <td>
-                      <t t-esc="order.tax_id.name" />
-                    </td>
-                    <td style="text-align: right;"> $ <t t-esc="order.price_subtotal" />
-                    </td>
-                  </t>
-                  <t t-else="">
-                    <t t-if="order.display_type == 'line_section'">
-                      <td>
-                        <strong>
-                          <t t-esc="order.name" />
-                        </strong>
-                      </td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                  <th style="width: 33%;max-width: 33%;text-align:left;">
+                    <img t-if="o.team_id.logo" t-att-src="image_data_uri(o.team_id.logo)"
+                      width="200" />
+                    <!-- <p>Foto</p> -->
+                  </th>
+                  <th style="width: 33%;max-width: 33%; text-align: center;">
+                    <span style="font-size: 42px; color: #96af77;">X</span>
+                    <br />
+                    <p style="font-size: 14px; margin-top: -5px; color: #96af77;"> Doc.no valido
+          como<br /> factura </p>
+                  </th>
+                  <th style="width: 33%;max-width: 33%; text-align: right;">
+                    <t t-if="o.state == 'sale'">
+                      <p style="color: #96af77; font-size: 24px;">Pedido</p>
                     </t>
-                    <t t-if="order.display_type == 'line_note'">
-                      <td>
-                        <i>
-                          <t t-esc="order.name" />
-                        </i>
-                      </td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                    <t t-if="o.state == 'draft'">
+                      <p style="color: #96af77; font-size: 24px;">Presupuesto</p>
                     </t>
-                  </t>
+                  </th>
                 </tr>
-              </t>
-            </tbody>
-          </table>
+              </thead>
+            </table>
 
-          <table class="table" style="width: 60%; float: right; font-size: 18px; margin-left: 100%;">
-            <tr>
-              <td>
-                <strong>
-                  <span style="color:#96af77;">Importe libre de impuestos</span>
-                </strong>
-              </td>
-              <td style="text-align: right;"> $ <t t-esc="o.amount_untaxed" />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Impuestos</strong>
-              </td>
-              <td style="text-align: right;"> $ <t t-esc="o.amount_tax" />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>
-                  <span style="color: #96af77;">Total</span>
-                </strong>
-              </td>
-              <td style="text-align: right;">$ <t t-esc="o.amount_total" />
-              </td>
-            </tr>
-          </table>
-          <br />
-          <div style="font-size: 18px;">
-            <strong>OBSERVACIONES:</strong>
-            <t t-esc="o.note" />
+            <!-- Info equipo de ventas -->
+            <table style="width: 100%; font-size: 18px;">
+              <tbody>
+                <tr>
+                  <td style="float: left;">
+                    <p>
+                      <t t-esc="o.team_id.name" />
+                    </p>
+                    <p><t t-esc="o.team_id.street" />, <t t-esc="o.team_id.city" />
+                    </p>
+                    <p>
+                      <t
+                        t-esc="o.team_id.state_id.name" />, <t t-esc="o.team_id.country_id.name" />
+                    </p>
+                  </td>
+                  <td style="float: right;">
+                    <p>
+                      <strong>Nro:</strong>
+                      <t t-esc="o.name" />
+                    </p>
+                    <p>
+                      <strong>Fecha:</strong>
+                      <t t-esc="o.date_order"
+                        t-options='{"widget": "datetime", "format": "dd/MM/yyyy"}' />
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <hr />
+            <!-- Datos del cliente  -->
+            <table
+              style="width: 100%; font-size: 18px;">
+              <tr>
+                <td>
+                  <p>
+                    <strong>Cliente:</strong>
+                    <t t-esc="o.partner_id.name" />
+                  </p>
+                  <p>
+                    <t t-esc="o.partner_id.street" />
+                  </p>
+                  <t t-if="o.partner_id.street2">
+                    <p>
+                      <t t-esc="o.partner_id.street2" />
+                    </p>
+                  </t>
+                  <p>
+                    <t t-esc="o.partner_id.city" />
+                    <t t-esc="o.partner_id.zip" />
+                  </p>
+                  <p>
+                    <strong>Cond. IVA:</strong>
+                    <t t-esc="o.partner_id.l10n_ar_afip_responsibility_type_id.name" />
+                  </p>
+                  <p>
+                    <strong>CUIT:</strong>
+                    <t t-esc="o.partner_id.vat" />
+                  </p>
+                </td>
+                <td style="margin-left: 70px;">
+                  <p>
+                    <strong>Comercial:</strong>
+                    <t t-esc="o.user_id.name" />
+                  </p>
+                </td>
+              </tr>
+            </table>
+            <h5>
+              <strong>Importe</strong>
+            </h5>
+            <table class="table" width="100%" style="font-size: 18px;">
+              <thead>
+                <tr>
+                  <th>Descripción</th>
+                  <th>Cantidad</th>
+                  <th>Precio Unitario</th>
+                  <th>%IVA</th>
+                  <th>SubTotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-foreach="o.order_line" t-as="order">
+                  <tr>
+                    <t t-if="not order.display_type">
+                      <td>
+                        <t t-esc="order.name" />
+                      </td>
+                      <td>
+                        <t t-esc="order.product_uom_qty" /> Unidades </td>
+                      <td>
+                        <t t-esc="order.price_unit" />
+                      </td>
+                      <td>
+                        <t t-esc="order.tax_id.name" />
+                      </td>
+                      <td style="text-align: right;"> $ <t t-esc="order.price_subtotal" />
+                      </td>
+                    </t>
+                    <t t-else="">
+                      <t t-if="order.display_type == 'line_section'">
+                        <td>
+                          <strong>
+                            <t t-esc="order.name" />
+                          </strong>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </t>
+                      <t t-if="order.display_type == 'line_note'">
+                        <td>
+                          <i>
+                            <t t-esc="order.name" />
+                          </i>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </t>
+                    </t>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
+
+            <table class="table"
+              style="width: 60%; float: right; font-size: 18px; margin-left: 100%;">
+              <tr>
+                <td>
+                  <strong>
+                    <span style="color:#96af77;">Importe libre de impuestos</span>
+                  </strong>
+                </td>
+                <td style="text-align: right;"> $ <t t-esc="o.amount_untaxed" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Impuestos</strong>
+                </td>
+                <td style="text-align: right;"> $ <t t-esc="o.amount_tax" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>
+                    <span style="color: #96af77;">Total</span>
+                  </strong>
+                </td>
+                <td style="text-align: right;">$ <t t-esc="o.amount_total" />
+                </td>
+              </tr>
+            </table>
+            <br />
+            <div style="font-size: 18px;">
+              <strong>OBSERVACIONES:</strong>
+              <t t-esc="o.note" />
+            </div>
           </div>
-
         </t>
       </t>
     </t>
   </template>
+
 </odoo>
