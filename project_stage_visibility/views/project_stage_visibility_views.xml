@@ -1,0 +1,53 @@
+<odoo>
+    <record id="view_form_project_stage_visibility" model="ir.ui.view">
+        <field name="name">project.stage.visibility.form</field>
+        <field name="model">project.stage.visibility</field>
+        <field name="arch" type="xml">
+            <form string="Project Stage Visibility" class="oe_form_narrow">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" class="oe_inline"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="user_id" widget="many2many_avatar_user" options="{'no_create': True}"/>
+                            <field name="stage_id" widget="many2many_tags" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="invisible"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tree_project_stage_visibility" model="ir.ui.view">
+        <field name="name">project.stage.visibility.tree</field>
+        <field name="model">project.stage.visibility</field>
+        <field name="arch" type="xml">
+            <tree string="Project Stage Visibility">
+                <field name="name"/>
+                <field name="user_id" widget="many2many_avatar_user"/>
+                <field name="stage_id" widget="many2many_tags"/>
+                <field name="invisible"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_project_stage_visibility" model="ir.actions.act_window">
+        <field name="name">Project Stage Visibility</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.stage.visibility</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_tree_project_stage_visibility"/>
+    </record>
+
+    <menuitem id="menu_project_stage_visibility" 
+        name="Project Stage Visibility" 
+        parent="project.menu_project_config" 
+        action="action_project_stage_visibility" 
+        sequence="30" 
+    />
+</odoo>

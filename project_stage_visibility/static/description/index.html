@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Odoo Module: Project Stage Visibility</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h1, h2, h3 { color: #333; }
+        p { line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <h1>Odoo Module: Project Stage Visibility</h1>
+
+    <h2>Technical Description</h2>
+
+    <p>This module provides the capability to hide or show project stages based on user. It extends the base 'project' module in Odoo and adds a new model 'project.stage.visibility' with fields for users, stages, and a boolean field to determine visibility. It also extends the 'project.project' and 'project.project.stage' models to override the search method and adjust the visible stages based on the rules defined in the 'project.stage.visibility' model.</p>
+
+    <h2>How to Use</h2>
+
+    <h3>1. Installation</h3>
+
+    <p>Install this module as you would any other Odoo module: place it in the addons directory, update the app list in your Odoo instance, and then install it from the app list.</p>
+
+    <h3>2. Configuration</h3>
+
+    <p>After installation, navigate to Project -> Configuration -> Project Stage Visibility. Here, you can define visibility rules.</p>
+
+    <p>Each rule has the following fields:</p>
+
+    <ul>
+        <li><b>Name:</b> Enter the name of the rule for reference.</li>
+        <li><b>Users:</b> Select the users to which this rule applies. The visibility of the selected stages will be modified for these users.</li>
+        <li><b>Stages:</b> Select the stages to which this rule applies. These stages' visibility will be modified for the selected users.</li>
+        <li><b>Hide Stages:</b> Check this if you want the selected stages to be hidden from the selected users. If unchecked, the stages will be visible.</li>
+    </ul>
+
+    <h3>3. Usage</h3>
+
+    <p>Once the visibility rules are configured, the selected users will see the changes when they navigate to their projects. The stages that are set to be hidden will not be visible to them.</p>
+
+</body>
+</html>
