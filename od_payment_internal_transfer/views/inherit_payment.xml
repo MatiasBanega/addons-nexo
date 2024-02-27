@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="payment_account_inherit_view" model="ir.ui.view">
+		<field name="name">account.payment.view.form</field>
+		<field name="model">account.payment</field>
+		<field name="inherit_id" ref="account.view_account_payment_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='payment_type']" position="after">	
+				<field name="internal_transfer_type" attrs="{'invisible':[('is_internal_transfer','=',False)],
+					'required':[('is_internal_transfer','=',True)], 'readonly': [('state', '!=', 'draft')]}"/>
+				
+				<field name="from_account_id" attrs="{
+					'invisible':
+						['|',('is_internal_transfer','=',False),('internal_transfer_type','not in',['a_to_a','a_to_j'])],
+					'required' :
+					 [('is_internal_transfer','=',True), ('internal_transfer_type','in',['a_to_a','a_to_j'])],
+					 'readonly': [('state', '!=', 'draft')]}"/>
+
+				<field name="to_account_id" attrs="{
+					'invisible':
+					['|',('is_internal_transfer','=',False),('internal_transfer_type','not in',['a_to_a','j_to_a'])],
+					'required' : [('is_internal_transfer','=',True),('internal_transfer_type','in',['a_to_a','j_to_a'])],
+					'readonly': [('state', '!=', 'draft')]
+					}"/>
+			</xpath>
+			<xpath expr="//field[@name='partner_id']" position="replace">
+				<field name="partner_id" context="{'default_is_company': True}" string="Customer"
+					   attrs="{'readonly':[('state', '!=', 'draft')], 'invisible':['|', ('partner_type','!=','customer'), ('internal_transfer_type', '=', 'j_to_j')]}"/>
+			</xpath>
+			<xpath expr="//field[@name='destination_journal_id']" position="replace">
+				<field name="destination_journal_id" context="{'default_partner_id': partner_id}"
+					   attrs="{'invisible': ['|',
+					   ('is_internal_transfer', '=', False), ('internal_transfer_type', 'not in', ('j_to_j', 'a_to_j'))],
+					   'readonly': [('state', '!=', 'draft')],
+					   'required': [('is_internal_transfer', '=', True), ('internal_transfer_type', 'in', ('j_to_j', 'a_to_j')), ('state', '=', 'draft')]}"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>
